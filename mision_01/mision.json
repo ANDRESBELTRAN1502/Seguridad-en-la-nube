@@ -1,0 +1,244 @@
+{
+  "orden": 1,
+  "titulo": "La puerta trasera del login",
+  "sector": "Sector 01 · Puerta de Acceso",
+  "tema": "SQL Injection en formularios (POST)",
+  "laboratorio": "Laboratorio SQL Injection — Mutillidae, nivel bajo",
+  "icono": "🔐",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Comprender por qué concatenar la entrada del usuario dentro de una consulta SQL es peligroso.",
+  "colores": {
+    "piso_a": "#123b25",
+    "piso_b": "#0f3320"
+  },
+  "dificultad": {
+    "estrellas": 1,
+    "vida_enemigo": 1,
+    "dano": 10,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 950,
+    "dano_guardian": 15
+  },
+  "xp": {
+    "por_golpe": 12,
+    "final": 100,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "Bienvenido a CyberAgent Academy, cadete. Soy la Profesora Ada.",
+      "Ayer, en el laboratorio aislado, el agente Andrés registró su propio usuario en Mutillidae y revisó el formulario de inicio de sesión con Burp Suite.",
+      "Descubrió que el campo 'username' viajaba directo a la base de datos, sin ningún filtro. Con eso logró entrar sin la contraseña.",
+      "Antes de abrirte la siguiente puerta, necesito saber si entiendes POR QUÉ ocurrió."
+    ]
+  },
+  "pistas": [
+    "El servidor recibe un texto y lo pega dentro de la instrucción SQL tal cual llegó.",
+    "Si no hay separación, el motor de base de datos no sabe qué parte es dato y qué parte es orden.",
+    "La solución del laboratorio fueron las consultas parametrizadas, que separan el código SQL de los datos."
+  ],
+  "terminales": [
+    {
+      "titulo": "Registro del laboratorio",
+      "texto": "Entorno: Mutillidae en una máquina virtual aislada. El agente creó su propio usuario de prueba antes de analizar el login."
+    },
+    {
+      "titulo": "Nota de Burp Suite",
+      "texto": "La petición de login viajaba por POST. Con el proxy se vio que el campo username llegaba sin filtros a la consulta."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Bot Fuerza Bruta",
+      "color": "#ef4444",
+      "sprite": "bot_fuerza_bruta",
+      "frase": "¡Tu login no resistirá mi consulta!"
+    },
+    {
+      "nombre": "Inyector Novato",
+      "color": "#f97316",
+      "sprite": "inyector_novato",
+      "frase": "¿Parametrizar? Eso es para cobardes."
+    },
+    {
+      "nombre": "Script Kiddie",
+      "color": "#eab308",
+      "sprite": "script_kiddie",
+      "frase": "Ningún cadete me detiene."
+    },
+    {
+      "nombre": "Contraseña Débil",
+      "color": "#22d3ee",
+      "sprite": "contrasena_debil",
+      "frase": "¡Tu login no resistirá mi consulta!"
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué es SQL Injection?",
+      "opciones": [
+        "Un virus que borra el disco duro",
+        "Un ataque en el que la entrada del usuario altera una consulta a la base de datos",
+        "Un tipo de cable de red"
+      ],
+      "correcta": 1,
+      "explicacion": "La inyección SQL ocurre cuando el dato del usuario se mezcla con la instrucción SQL."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué herramienta del laboratorio interceptó la petición del login para analizarla?",
+      "opciones": [
+        "Burp Suite",
+        "Microsoft Excel",
+        "El reproductor de música"
+      ],
+      "correcta": 0,
+      "explicacion": "Burp Suite actúa como proxy y permite ver las peticiones HTTP."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Con qué método HTTP viajaba el formulario de login del laboratorio?",
+      "opciones": [
+        "PING",
+        "POST",
+        "DELETE"
+      ],
+      "correcta": 1,
+      "explicacion": "Los formularios de login suelen enviar sus datos por POST, en el cuerpo de la petición."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Cuál es la defensa principal contra SQL Injection?",
+      "opciones": [
+        "Cambiar el color del botón",
+        "Consultas parametrizadas",
+        "Usar contraseñas cortas"
+      ],
+      "correcta": 1,
+      "explicacion": "Los prepared statements separan el código SQL de los datos."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Dónde se debe practicar SQL Injection?",
+      "opciones": [
+        "En la web de cualquier empresa",
+        "En un laboratorio propio y aislado",
+        "En la red de la universidad sin permiso"
+      ],
+      "correcta": 1,
+      "explicacion": "Solo en entornos propios o con autorización explícita."
+    },
+    {
+      "id": "r6",
+      "pregunta": "¿Qué aplicación vulnerable de práctica se usó en el laboratorio del login?",
+      "opciones": [
+        "Mutillidae",
+        "Photoshop",
+        "WhatsApp"
+      ],
+      "correcta": 0,
+      "explicacion": "Mutillidae es una aplicación diseñada a propósito para practicar."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué separa una consulta parametrizada?",
+      "opciones": [
+        "Al usuario del administrador",
+        "El código SQL de los datos del usuario",
+        "La red del servidor"
+      ],
+      "correcta": 1,
+      "explicacion": "El motor recibe la instrucción y los datos por caminos distintos."
+    },
+    {
+      "id": "r8",
+      "pregunta": "Antes de analizar el login en Mutillidae, el agente…",
+      "opciones": [
+        "Creó su propio usuario de prueba en el laboratorio",
+        "Probó la web de la universidad",
+        "Usó la cuenta de un compañero sin permiso"
+      ],
+      "correcta": 0,
+      "explicacion": "Se trabaja con cuentas y sistemas propios."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Por qué un login que arma la consulta SQL pegando directamente lo que escribe el usuario es vulnerable?",
+    "opciones": [
+      "Porque usa demasiados colores en el formulario",
+      "Porque el servidor no distingue entre un dato y una instrucción, y la consulta puede alterarse",
+      "Porque las contraseñas largas saturan la base de datos"
+    ],
+    "correcta": 1,
+    "explicacion": "El usuario puede romper la estructura de la consulta y cambiar su lógica, por ejemplo anulando la validación de la contraseña.",
+    "defensa": "Consultas parametrizadas (prepared statements) y validación con listas blancas en el servidor."
+  },
+  "flag": "CAA{C0NSULTAS_PARAMETRIZADAS}",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM..#U.....U.#N.N.N.N.#RMM.MMR.#",
+    "#........#............kE...#...X....#",
+    "#.D.D.D...E..H........k....#........#",
+    "#...K.............#kkkkkkk.#...G....#",
+    "#........#..g.g...#...E....L........#",
+    "#TS1...T.#U...2.C.#R..k..3.L......R.#",
+    "#........#..E...I.#....I...#.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Reconocimiento",
+    "host": "objetivo",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "Te dieron solo la IP del objetivo: 10.10.10.7. Averigua qué servicios corren y lee el banner de SSH.",
+    "objetivos": [
+      "Escanear puertos y versiones del objetivo",
+      "Leer el banner del servicio SSH"
+    ],
+    "fs": {
+      "notas.txt": "Solo tengo la IP del objetivo: 10.10.10.7\nHay que escanearla con nmap."
+    },
+    "comandos": [
+      {
+        "match": [
+          "nmap -sv 10.10.10.7",
+          "nmap 10.10.10.7",
+          "nmap -sv -p- 10.10.10.7",
+          "nmap -p- 10.10.10.7"
+        ],
+        "salida": "Starting Nmap...\nPORT     STATE SERVICE VERSION\n22/tcp   open  ssh     OpenSSH 8.9p1\n80/tcp   open  http    Apache 2.4.52\n8080/tcp open  http    Werkzeug (portal)\nNmap done.",
+        "objetivo": 0,
+        "pista": "Escanea versiones: nmap -sV 10.10.10.7"
+      },
+      {
+        "match": [
+          "nc 10.10.10.7 22",
+          "ssh 10.10.10.7",
+          "ssh agente@10.10.10.7",
+          "telnet 10.10.10.7 22"
+        ],
+        "salida": "SSH-2.0-OpenSSH_8.9p1\n==== CyberAgent Academy ====\nBanner: CTF{R3C0N_7e42}",
+        "objetivo": 1,
+        "pista": "Conéctate al puerto 22: nc 10.10.10.7 22"
+      }
+    ],
+    "pregunta": {
+      "texto": "¿Qué versión de OpenSSH corre el objetivo? (ej: 8.9)",
+      "acepta": [
+        "8.9",
+        "openssh 8.9",
+        "8.9p1",
+        "openssh 8.9p1"
+      ],
+      "xp": 20
+    },
+    "flag": "CTF{R3C0N_7e42}",
+    "xp": 60
+  }
+}

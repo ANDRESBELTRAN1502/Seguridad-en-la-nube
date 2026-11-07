@@ -1,0 +1,247 @@
+{
+  "orden": 2,
+  "titulo": "Errores que hablan demasiado",
+  "sector": "Sector 02 · Sala de Errores",
+  "tema": "Errores comunes en autenticación",
+  "laboratorio": "Laboratorio SQL Injection — sección 'Errores comunes'",
+  "icono": "⚠️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar buenas prácticas para reducir el impacto de una inyección.",
+  "colores": {
+    "piso_a": "#1d2a44",
+    "piso_b": "#18233a"
+  },
+  "dificultad": {
+    "estrellas": 1,
+    "vida_enemigo": 1,
+    "dano": 12,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 880,
+    "dano_guardian": 18
+  },
+  "xp": {
+    "por_golpe": 14,
+    "final": 100,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Ingeniero Bruno",
+    "color": "#60a5fa",
+    "sprite": "ingeniero_bruno",
+    "historia": [
+      "Hola, agente. Soy Bruno, desarrollador del portal de la academia.",
+      "El informe del laboratorio de SQL Injection señaló cuatro errores en mi formulario: consultas armadas con texto, entradas sin validar, mensajes de error muy detallados y una cuenta de base de datos con demasiados permisos.",
+      "Los mensajes detallados le cuentan al atacante cómo está construido el sistema. Y una cuenta con permisos de administrador multiplica el daño.",
+      "Ayúdame a elegir la práctica correcta para corregirlo."
+    ]
+  },
+  "pistas": [
+    "Un buen mensaje de error ayuda al usuario, pero no revela la consulta ni la estructura de la base de datos.",
+    "La aplicación solo debe tener los permisos que realmente necesita.",
+    "Este principio se llama 'privilegio mínimo'."
+  ],
+  "terminales": [
+    {
+      "titulo": "Bitácora de errores",
+      "texto": "La página mostraba el error SQL completo. Eso revelaba nombres de tablas y columnas."
+    },
+    {
+      "titulo": "Política de cuentas",
+      "texto": "La aplicación usaba la cuenta administradora de la base de datos. Corrección: una cuenta solo con los permisos necesarios."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Error 500",
+      "color": "#ef4444",
+      "sprite": "error_500",
+      "frase": "¡Mis errores lo revelan todo!"
+    },
+    {
+      "nombre": "Admin Descuidado",
+      "color": "#a855f7",
+      "sprite": "admin_descuidado",
+      "frase": "Con permisos de admin soy imparable."
+    },
+    {
+      "nombre": "Log Fugitivo",
+      "color": "#f97316",
+      "sprite": "log_fugitivo",
+      "frase": "¡Te mostraré la tabla entera!"
+    },
+    {
+      "nombre": "Traza Chismosa",
+      "color": "#eab308",
+      "sprite": "traza_chismosa",
+      "frase": "¡Mis errores lo revelan todo!"
+    },
+    {
+      "nombre": "Consulta Abierta",
+      "color": "#ec4899",
+      "sprite": "consulta_abierta",
+      "frase": "Con permisos de admin soy imparable."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Por qué es peligroso mostrar el error SQL completo al usuario?",
+      "opciones": [
+        "Gasta más tinta al imprimir",
+        "Hace la página más lenta",
+        "Revela cómo está construida la base de datos"
+      ],
+      "correcta": 2,
+      "explicacion": "Los errores detallados le dan un mapa del sistema al atacante."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué significa 'privilegio mínimo'?",
+      "opciones": [
+        "Dar permisos de administrador a todos",
+        "No usar contraseñas",
+        "Dar a cada cuenta solo los permisos que necesita"
+      ],
+      "correcta": 2,
+      "explicacion": "Si una cuenta tiene pocos permisos, el daño posible es menor."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Dónde deben quedar registrados los errores detallados?",
+      "opciones": [
+        "En los logs internos del servidor",
+        "En un correo público",
+        "En la pantalla del usuario"
+      ],
+      "correcta": 0,
+      "explicacion": "El detalle es útil para el equipo, no para el visitante."
+    },
+    {
+      "id": "r4",
+      "pregunta": "Validar con 'lista blanca' significa…",
+      "opciones": [
+        "Aceptar solo los formatos permitidos",
+        "Bloquear solo lo que ya conoces como malo",
+        "Aceptar cualquier dato"
+      ],
+      "correcta": 0,
+      "explicacion": "La lista blanca define lo válido; todo lo demás se rechaza."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Si la app usa la cuenta administradora de la BD y sufre una inyección…",
+      "opciones": [
+        "No pasa nada",
+        "El daño puede ser mucho mayor",
+        "La base de datos se protege sola"
+      ],
+      "correcta": 1,
+      "explicacion": "Con privilegios altos, el atacante hereda esos privilegios."
+    },
+    {
+      "id": "r6",
+      "pregunta": "¿Cuál es un buen mensaje de error en un login?",
+      "opciones": [
+        "“Error en la línea 42 de la tabla users”",
+        "“Usuario o contraseña incorrectos”",
+        "“La consulta fue: SELECT * FROM…”"
+      ],
+      "correcta": 1,
+      "explicacion": "Un mensaje genérico no revela información interna."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué riesgo tiene no validar las entradas de un formulario?",
+      "opciones": [
+        "Que lleguen datos maliciosos a la base de datos",
+        "Que la página cargue más rápido",
+        "Ninguno"
+      ],
+      "correcta": 0,
+      "explicacion": "Toda entrada se valida antes de usarse."
+    },
+    {
+      "id": "r8",
+      "pregunta": "¿Quién debería poder ver los logs detallados?",
+      "opciones": [
+        "Los buscadores de internet",
+        "Solo el equipo autorizado",
+        "Cualquier visitante"
+      ],
+      "correcta": 1,
+      "explicacion": "Los logs también son información sensible."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Cuál de estas prácticas reduce el riesgo en un formulario de autenticación?",
+    "opciones": [
+      "Mostrar en pantalla el error SQL completo para depurar más rápido",
+      "Conectar la aplicación con la cuenta administradora de la base de datos",
+      "Mostrar errores genéricos y usar una cuenta de base de datos con privilegio mínimo"
+    ],
+    "correcta": 2,
+    "explicacion": "Los errores genéricos no filtran información interna y el privilegio mínimo limita lo que un atacante podría hacer.",
+    "defensa": "Mensajes de error genéricos, registro interno de errores (logs) y cuentas de BD con permisos mínimos."
+  },
+  "flag": "CAA{ERR0RES_GENERIC0S}",
+  "mapa": [
+    "#####################################",
+    "#P.......#PI......#P.......#U.....U.#",
+    "#.DD.DD.....D.DD..#.D..DD...........#",
+    "#.................#2...........H....#",
+    "#...K..3.#EE......#.....E..#E.......#",
+    "#..D.DD..#.DD.DD...E.D.DD..#..g.g...#",
+    "#.S......#.1...............#U.....U.#",
+    "#......P.#......P.#.I....P.#........#",
+    "################################LL###",
+    "############################RMM...R.#",
+    "############################...X....#",
+    "############################........#",
+    "############################...G....#",
+    "############################........#",
+    "############################R.....R.#",
+    "############################.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Búsqueda pasiva de información",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "El sitio http://10.10.10.7 publica información sin que haga falta atacarlo. Revísala.",
+    "objetivos": [
+      "Leer el archivo robots.txt",
+      "Buscar comentarios ocultos en la página"
+    ],
+    "fs": {
+      "objetivo.txt": "http://10.10.10.7  — revisar robots.txt y el codigo fuente"
+    },
+    "comandos": [
+      {
+        "match": [
+          "curl http://10.10.10.7/robots.txt",
+          "curl 10.10.10.7/robots.txt",
+          "wget http://10.10.10.7/robots.txt"
+        ],
+        "salida": "User-agent: *\nDisallow: /gestion-interna/\n# nota: no indexar el panel\n# CTF{0S1NT_732d}",
+        "objetivo": 0,
+        "pista": "Pide el archivo robots.txt con curl"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/",
+          "curl 10.10.10.7",
+          "curl -s http://10.10.10.7/ | grep <!--",
+          "view-source"
+        ],
+        "salida": "<html>...\n<!-- panel interno en /gestion-interna/ -->\n<!-- modulo de diagnostico en /diagnostico -->\n...</html>",
+        "objetivo": 1,
+        "pista": "Descarga la página y busca comentarios <!-- -->"
+      }
+    ],
+    "flag": "CTF{0S1NT_732d}",
+    "xp": 60
+  }
+}

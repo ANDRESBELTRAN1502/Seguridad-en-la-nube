@@ -1,0 +1,273 @@
+{
+  "orden": 7,
+  "titulo": "El candado de cristal",
+  "sector": "Sector 07 · Taller del Cliente",
+  "tema": "Validaciones del lado del cliente",
+  "laboratorio": "Laboratorio XSS — campo maxlength en DVWA medio",
+  "icono": "🔍",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Reconocer que los controles del navegador no son un mecanismo de seguridad.",
+  "colores": {
+    "piso_a": "#24361a",
+    "piso_b": "#1f2f16"
+  },
+  "dificultad": {
+    "estrellas": 4,
+    "vida_enemigo": 2,
+    "dano": 22,
+    "tiempo": 27,
+    "persigue": true,
+    "radio": 4,
+    "velocidad_ms": 600,
+    "dano_guardian": 33
+  },
+  "xp": {
+    "por_golpe": 24,
+    "final": 130,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Diseñadora Valentina",
+    "color": "#a3e635",
+    "sprite": "disenadora_valentina",
+    "historia": [
+      "¡Hola! Soy Valentina, diseño las interfaces de la academia.",
+      "Yo pensaba que con poner maxlength=\"10\" en el campo 'Name' nadie podría escribir textos largos.",
+      "Pero en el laboratorio bastó abrir el inspector del navegador y cambiar el número para que el campo aceptara mucho más.",
+      "Mi candado era de cristal. ¿Qué aprendimos?"
+    ]
+  },
+  "pistas": [
+    "Todo lo que llega al navegador puede ser modificado por quien lo usa.",
+    "La verificación que realmente cuenta ocurre en otro lugar.",
+    "La validación en el cliente mejora la experiencia; la del servidor protege."
+  ],
+  "terminales": [
+    {
+      "titulo": "Inspector del navegador",
+      "texto": "Con F12 se cambió maxlength=\"10\" por un número mayor. El navegador obedece a quien lo usa."
+    },
+    {
+      "titulo": "Regla del servidor",
+      "texto": "Toda validación importante se repite en el servidor: longitud, tipo y formato."
+    },
+    {
+      "titulo": "Campos ocultos",
+      "texto": "Un campo hidden también se puede editar. Oculto no significa protegido."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Inspector Rebelde",
+      "color": "#f97316",
+      "sprite": "inspector_rebelde",
+      "frase": "El navegador es mío."
+    },
+    {
+      "nombre": "Campo Oculto",
+      "color": "#94a3b8",
+      "sprite": "campo_oculto",
+      "frase": "Tu maxlength no me detiene."
+    },
+    {
+      "nombre": "Maxlength Roto",
+      "color": "#ef4444",
+      "sprite": "maxlength_roto",
+      "frase": "¿Validar en el servidor? Qué aburrido."
+    },
+    {
+      "nombre": "Validador Falso",
+      "color": "#a855f7",
+      "sprite": "validador_falso",
+      "frase": "El navegador es mío."
+    },
+    {
+      "nombre": "Cliente Tramposo",
+      "color": "#eab308",
+      "sprite": "cliente_tramposo",
+      "frase": "Tu maxlength no me detiene."
+    },
+    {
+      "nombre": "Formulario Mutante",
+      "color": "#ec4899",
+      "sprite": "formulario_mutante",
+      "frase": "¿Validar en el servidor? Qué aburrido."
+    },
+    {
+      "nombre": "Hidden Travieso",
+      "color": "#22d3ee",
+      "sprite": "hidden_travieso",
+      "frase": "El navegador es mío."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Quién controla el código HTML cuando ya llegó al navegador?",
+      "opciones": [
+        "El usuario",
+        "Nadie",
+        "El proveedor de internet",
+        "Solo el servidor"
+      ],
+      "correcta": 0,
+      "explicacion": "El usuario puede verlo y modificarlo a su gusto."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Para qué sirve la validación en el cliente?",
+      "opciones": [
+        "Para cifrar la base de datos",
+        "Para mejorar la experiencia del usuario",
+        "Para proteger el servidor por sí sola",
+        "Para evitar todos los ataques"
+      ],
+      "correcta": 1,
+      "explicacion": "Avisa rápido de errores, pero no es una barrera de seguridad."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué permite modificar el HTML de una página en tu navegador?",
+      "opciones": [
+        "La BIOS",
+        "Las herramientas de desarrollador (inspector)",
+        "El router",
+        "El cargador del portátil"
+      ],
+      "correcta": 1,
+      "explicacion": "Con F12 se puede editar cualquier atributo de la página."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Qué debe revisar el servidor de cada dato recibido?",
+      "opciones": [
+        "La hora del PC del usuario",
+        "Longitud, tipo y formato",
+        "Solo el color",
+        "Nada si el cliente ya validó"
+      ],
+      "correcta": 1,
+      "explicacion": "El servidor repite todas las validaciones importantes."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Un campo oculto (hidden) de un formulario…",
+      "opciones": [
+        "No se envía al servidor",
+        "También puede ser modificado por el usuario",
+        "Es imposible de cambiar",
+        "Siempre está cifrado"
+      ],
+      "correcta": 1,
+      "explicacion": "Oculto no significa protegido."
+    },
+    {
+      "id": "r6",
+      "pregunta": "Principio clave de este nivel:",
+      "opciones": [
+        "JavaScript no se puede leer",
+        "Nunca confiar en los datos que llegan del cliente",
+        "El HTML es secreto",
+        "Confiar siempre en el navegador"
+      ],
+      "correcta": 1,
+      "explicacion": "Todo lo que viene del cliente se trata como no confiable."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué atributo HTML limita la longitud de un campo en el navegador?",
+      "opciones": [
+        "alt",
+        "maxlength",
+        "href",
+        "color"
+      ],
+      "correcta": 1,
+      "explicacion": "Es útil para el usuario, pero se puede cambiar."
+    },
+    {
+      "id": "r8",
+      "pregunta": "Si el servidor recibe un texto más largo de lo permitido debe…",
+      "opciones": [
+        "Ejecutarlo",
+        "Rechazarlo o recortarlo según la regla",
+        "Mostrar el código fuente",
+        "Guardarlo igual"
+      ],
+      "correcta": 1,
+      "explicacion": "La regla del servidor es la que vale."
+    }
+  ],
+  "final": {
+    "pregunta": "El campo tenía maxlength=\"10\", pero se modificó desde el inspector. ¿Qué enseña esto?",
+    "opciones": [
+      "Que el HTML del navegador siempre es seguro",
+      "Que las validaciones del cliente se pueden modificar; hay que validar en el servidor",
+      "Que basta con usar campos todavía más cortos",
+      "Que JavaScript siempre protege el formulario"
+    ],
+    "correcta": 1,
+    "explicacion": "Nunca se debe confiar en el cliente: longitud, tipo y formato deben verificarse de nuevo en el servidor.",
+    "defensa": "Validación en el servidor de longitud, tipo y formato, aunque también exista en el cliente."
+  },
+  "flag": "CAA{VALIDA_EN_SERVID0R}",
+  "mapa": [
+    "#####################################",
+    "#C.....U.#.MMMMM..#C.....UT#P.......#",
+    "#.N...R..#...D..E.#.....D..#.DD.DD..#",
+    "#.....R.T#.D.D.D..#.R...R..#.....3..#",
+    "#.R.K..........E........R..#........#",
+    "#P....R.................R.......D...#",
+    "#.S......#T.....T.#............EN...#",
+    "#........#...D....#....I..E#I...T.P.#",
+    "##############################..#####",
+    "#RMM.MMR.#.MMMMM..#NMMMMM..#P2..P2..#",
+    "#...X....L........#.............DD.4#",
+    "#T.......L...D.D..#.D.DPD...........#",
+    "#...G....#.................#.1..E.P.#",
+    "#.......N#..N....E....3..3.#.DD.D...#",
+    "#R.....R.#TP..1.T.#TE....T.#........#",
+    "#.ggggg..#........#....I...#......P.#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Inyección de comandos",
+    "host": "objetivo",
+    "user": "www-data",
+    "ip": "10.10.10.7",
+    "escenario": "La herramienta de diagnóstico hace ping a lo que escribas, pero no filtra nada.",
+    "objetivos": [
+      "Probar el ping normal",
+      "Encadenar un comando para leer la bandera"
+    ],
+    "fs": {
+      "flag_oculta.txt": "CTF{CMD1NJ_de0f}"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ping 127.0.0.1",
+          "ping -c 1 127.0.0.1",
+          "ping -c1 127.0.0.1"
+        ],
+        "salida": "PING 127.0.0.1: 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.03 ms",
+        "objetivo": 0,
+        "pista": "Primero prueba un ping normal: ping 127.0.0.1"
+      },
+      {
+        "match": [
+          "127.0.0.1; cat flag_oculta.txt",
+          "ping 127.0.0.1; cat flag_oculta.txt",
+          "127.0.0.1 && cat flag_oculta.txt",
+          "127.0.0.1; cat flag_oculta.txt #",
+          "127.0.0.1 | cat flag_oculta.txt"
+        ],
+        "salida": "64 bytes from 127.0.0.1: time=0.03 ms\nCTF{CMD1NJ_de0f}",
+        "objetivo": 1,
+        "pista": "Agrega un segundo comando: 127.0.0.1; cat flag_oculta.txt"
+      }
+    ],
+    "flag": "CTF{CMD1NJ_de0f}",
+    "xp": 90
+  }
+}

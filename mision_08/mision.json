@@ -1,0 +1,279 @@
+{
+  "orden": 8,
+  "titulo": "La galleta de sesión",
+  "sector": "Sector 08 · Oficina del Detective",
+  "tema": "Cookies, HttpOnly e ingeniería social (BeEF)",
+  "laboratorio": "Laboratorio BeEF — impacto de un XSS",
+  "icono": "🍪",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar la bandera de cookie que protege la sesión frente a scripts.",
+  "colores": {
+    "piso_a": "#13304a",
+    "piso_b": "#10293f"
+  },
+  "dificultad": {
+    "estrellas": 4,
+    "vida_enemigo": 2,
+    "dano": 24,
+    "tiempo": 24,
+    "persigue": true,
+    "radio": 4,
+    "velocidad_ms": 560,
+    "dano_guardian": 36
+  },
+  "xp": {
+    "por_golpe": 26,
+    "final": 130,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Detective Gabriel",
+    "color": "#38bdf8",
+    "sprite": "detective_gabriel",
+    "historia": [
+      "Detective Gabriel, a sus órdenes.",
+      "El laboratorio de BeEF mostró que un XSS no es solo una ventanita molesta: es la puerta a controlar el navegador de la víctima.",
+      "En el entorno de pruebas aparecieron formularios de login falsos, barras de 'actualización' falsas y ventanas que pedían la contraseña otra vez. La víctima confió porque parecían del sistema.",
+      "Lo más grave: la cookie de sesión podía leerse desde JavaScript. Con ella, alguien podría hacerse pasar por el usuario. ¿Qué la habría protegido?"
+    ]
+  },
+  "pistas": [
+    "Es una bandera que hace que la cookie solo viaje en las peticiones HTTP.",
+    "Con ella activa, el resultado de leer la cookie desde un script sale vacío.",
+    "Se complementa con la bandera Secure, que obliga a enviar la cookie solo por HTTPS."
+  ],
+  "terminales": [
+    {
+      "titulo": "Panel de pruebas",
+      "texto": "En el laboratorio, un XSS permitió conectar el navegador de prueba a un panel de control."
+    },
+    {
+      "titulo": "Ingeniería social",
+      "texto": "Aparecieron logins y actualizaciones falsas. Parecían del sistema y por eso engañaban."
+    },
+    {
+      "titulo": "Cookies seguras",
+      "texto": "HttpOnly evita que los scripts lean la cookie. Secure obliga a usar HTTPS. SameSite limita su envío."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Ladrón de Galletas",
+      "color": "#d97706",
+      "sprite": "ladron_de_galletas",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Gancho del Navegador",
+      "color": "#ef4444",
+      "sprite": "gancho_del_navegador",
+      "frase": "Ese login es auténtico… créeme."
+    },
+    {
+      "nombre": "Login Falso",
+      "color": "#a855f7",
+      "sprite": "login_falso",
+      "frase": "Tu navegador ya está enganchado."
+    },
+    {
+      "nombre": "Barra Falsa",
+      "color": "#f97316",
+      "sprite": "barra_falsa",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Ventana Impostora",
+      "color": "#ec4899",
+      "sprite": "ventana_impostora",
+      "frase": "Ese login es auténtico… créeme."
+    },
+    {
+      "nombre": "Sesión Robada",
+      "color": "#eab308",
+      "sprite": "sesion_robada",
+      "frase": "Tu navegador ya está enganchado."
+    },
+    {
+      "nombre": "Notificación Trampa",
+      "color": "#22d3ee",
+      "sprite": "notificacion_trampa",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Pop-up Mentiroso",
+      "color": "#a3e635",
+      "sprite": "pop_up_mentiroso",
+      "frase": "Ese login es auténtico… créeme."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Para qué sirve una cookie de sesión?",
+      "opciones": [
+        "Para imprimir",
+        "Para que el servidor recuerde que ya iniciaste sesión",
+        "Para acelerar el wifi",
+        "Para guardar fotos"
+      ],
+      "correcta": 1,
+      "explicacion": "Es como un pase temporal de identidad."
+    },
+    {
+      "id": "r2",
+      "pregunta": "Si alguien roba tu cookie de sesión podría…",
+      "opciones": [
+        "Hacerse pasar por ti sin tu contraseña",
+        "Apagar tu computador",
+        "Cambiar tu teclado",
+        "Nada"
+      ],
+      "correcta": 0,
+      "explicacion": "Esto se llama secuestro de sesión."
+    },
+    {
+      "id": "r3",
+      "pregunta": "La bandera 'Secure' en una cookie…",
+      "opciones": [
+        "La borra al cerrar",
+        "La hace visible para JavaScript",
+        "Hace que solo viaje por HTTPS",
+        "La comparte con otros sitios"
+      ],
+      "correcta": 2,
+      "explicacion": "Evita que viaje sin cifrar."
+    },
+    {
+      "id": "r4",
+      "pregunta": "La bandera 'SameSite' ayuda a…",
+      "opciones": [
+        "Aumentar su tamaño",
+        "Cifrar el disco",
+        "Limitar el envío de la cookie desde otros sitios",
+        "Mostrarla en pantalla"
+      ],
+      "correcta": 2,
+      "explicacion": "Reduce ataques que abusan de peticiones entre sitios."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Un login falso que aparece dentro de una página legítima es un ataque de…",
+      "opciones": [
+        "Ingeniería social",
+        "Compresión",
+        "Red eléctrica",
+        "Hardware"
+      ],
+      "correcta": 0,
+      "explicacion": "Engaña a la persona, no a la máquina."
+    },
+    {
+      "id": "r6",
+      "pregunta": "¿Qué conclusión dejó el laboratorio de BeEF?",
+      "opciones": [
+        "BeEF es un antivirus",
+        "Los navegadores son inmunes",
+        "Un XSS puede llevar a controlar el navegador de la víctima",
+        "Un XSS solo muestra ventanitas inofensivas"
+      ],
+      "correcta": 2,
+      "explicacion": "El impacto de un XSS va mucho más allá de una alerta."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué hacía el 'hook' en el laboratorio de BeEF?",
+      "opciones": [
+        "Aceleraba internet",
+        "Reparaba el navegador",
+        "Actualizaba el antivirus",
+        "Conectaba el navegador de prueba al panel de control"
+      ],
+      "correcta": 3,
+      "explicacion": "Mostró el impacto real de un XSS."
+    },
+    {
+      "id": "r8",
+      "pregunta": "¿Qué ayuda a que las personas no caigan en ventanas falsas?",
+      "opciones": [
+        "Desactivar el sonido",
+        "Pantallas más grandes",
+        "Usar modo oscuro",
+        "Capacitación en ingeniería social"
+      ],
+      "correcta": 3,
+      "explicacion": "La persona también es parte de la defensa."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Qué bandera impide que JavaScript lea la cookie de sesión?",
+    "opciones": [
+      "HttpOnly",
+      "Expires",
+      "Path",
+      "SameDomain"
+    ],
+    "correcta": 0,
+    "explicacion": "Con HttpOnly el navegador no entrega la cookie a los scripts, lo que dificulta el secuestro de sesión.",
+    "defensa": "Cookies HttpOnly + Secure + SameSite, CSP para bloquear scripts externos y capacitación contra ingeniería social."
+  },
+  "flag": "CAA{HTTP0NLY}",
+  "mapa": [
+    "#####################################",
+    "#C4I...U.#C....TU.#N.N.N.N.#C.....U.#",
+    "#.....R..#........#..Ek........2.N3.#",
+    "#.R...N...E..H....#...k............P#",
+    "#PN.K.......1.....#kkkkkkk.#TR...R1.#",
+    "#.....R..#..g.g.......k....#.....R..#",
+    "#.S.....T#UD........3.k..UE#........#",
+    "#........#.....E..#...N.T..#...E....#",
+    "################################..###",
+    "#RMM.MMR.#.MMMMM.I#C..E..U.#C.....CI#",
+    "#...X....#1.D..2..#...P.............#",
+    "#.......T#.D.D.D.E#...H........H....#",
+    "#...G....#.T......#........#......E.#",
+    "#........L...........g.g..2#..gTg...#",
+    "#R..P....L..............DU.#C.....U.#",
+    "#.ggggg..#........#....3...#.......R#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Esteganografía",
+    "host": "kali",
+    "user": "agente",
+    "ip": "",
+    "escenario": "Descargaste una imagen sospechosa (agente_secreto.png). Esconde una bandera.",
+    "objetivos": [
+      "Listar los archivos",
+      "Extraer los datos ocultos de la imagen"
+    ],
+    "fs": {
+      "agente_secreto.png": "(imagen binaria del agente)"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "file agente_secreto.png"
+        ],
+        "salida": "agente_secreto.png",
+        "objetivo": 0,
+        "pista": "Lista los archivos con ls"
+      },
+      {
+        "match": [
+          "strings agente_secreto.png",
+          "strings agente_secreto.png | grep ctf",
+          "binwalk agente_secreto.png",
+          "exiftool agente_secreto.png",
+          "strings agente_secreto.png | grep flag"
+        ],
+        "salida": "IHDR...IDAT...IEND\nComentario: datos ocultos ->\nFLAG=CTF{ST3G0_05c9}",
+        "objetivo": 1,
+        "pista": "Usa strings o exiftool sobre la imagen"
+      }
+    ],
+    "flag": "CTF{ST3G0_05c9}",
+    "xp": 90
+  }
+}

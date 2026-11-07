@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}Personajes{% endblock %}
+{% block contenido %}
+<section class="screen center">
+  <div class="card page-card" style="width:min(1100px,100%)">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hud-logo big">
+    <h1 class="glow small-glow"> Personajes de CyberAgent Academy</h1>
+    <p class="hint">{{ personajes|length }} personajes · Todas las imágenes están en <b>static/img/personajes/galeria/</b> con el nombre de cada uno · Creado por {{ AUTOR }}</p>
+    <div class="filtros">
+      <button class="btn small" data-f="todos">Todos</button>
+      <button class="btn small ghost" data-f="jugador">Jugador</button>
+      <button class="btn small ghost" data-f="guardian">Guardianes</button>
+      <button class="btn small ghost" data-f="enemigo">Enemigos</button>
+    </div>
+    <div class="galeria">
+      {% for p in personajes %}
+      <div class="pj" data-tipo="{{ p.tipo }}">
+        <div class="spr {{ 'persona' if p.tipo != 'enemigo' }}" style="background-image:url('{{ url_for('static', filename='img/personajes/' ~ p.sprite) }}')"></div>
+        <div class="nm">{{ p.nombre }}</div>
+        <div class="rl">{% if p.tipo == 'jugador' %}Protagonista{% elif p.tipo == 'guardian' %}Guardián · Nivel {{ '%02d' % p.nivel }}{% else %}Enemigo · Nivel {{ '%02d' % p.nivel }} · {{ p.clase }}{% endif %}</div>
+        {% if p.frase %}<div class="fr">«{{ p.frase }}»</div>{% elif p.mision %}<div class="fr">{{ p.mision }}</div>{% else %}<div class="fr">{{ p.descripcion }}</div>{% endif %}
+        <a class="hint" href="{{ url_for('static', filename='img/personajes/' ~ p.retrato) }}" target="_blank">🖼 Ver retrato</a>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="btn small ghost" href="{{ url_for('static', filename='img/personajes/galeria/TODOS_LOS_PERSONAJES.png') }}" target="_blank">🖼 Lámina con todos</a>
+    <a class="btn primary" href="/">▶ Volver al juego</a>
+  </div>
+</section>
+<script>
+document.querySelectorAll(".filtros button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".filtros button").forEach(x => x.classList.add("ghost")); b.classList.remove("ghost");
+  document.querySelectorAll(".pj").forEach(p => p.style.display = (b.dataset.f === "todos" || p.dataset.tipo === b.dataset.f) ? "" : "none");
+});
+</script>
+{% endblock %}

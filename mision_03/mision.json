@@ -1,0 +1,247 @@
+{
+  "orden": 3,
+  "titulo": "Tres caminos de inyección",
+  "sector": "Sector 03 · Laberinto de Consultas",
+  "tema": "SQLi por POST, GET y Blind",
+  "laboratorio": "Laboratorio SQL Injection — conclusiones POST / GET / Blind",
+  "icono": "🧭",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Diferenciar las variantes de SQL Injection y su nivel de detección.",
+  "colores": {
+    "piso_a": "#3a1c33",
+    "piso_b": "#32182c"
+  },
+  "dificultad": {
+    "estrellas": 2,
+    "vida_enemigo": 1,
+    "dano": 14,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 820,
+    "dano_guardian": 21
+  },
+  "xp": {
+    "por_golpe": 16,
+    "final": 110,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Analista Sofía",
+    "color": "#f472b6",
+    "sprite": "analista_sofia",
+    "historia": [
+      "Soy Sofía, analista del Centro de Operaciones.",
+      "En el laboratorio comparamos tres variantes: POST, que se esconde en los formularios; GET, que queda expuesta en la URL y en los logs; y Blind, la ciega.",
+      "La variante ciega no muestra ningún error. El atacante solo observa si la página responde distinto o tarda más.",
+      "Que un sistema no muestre errores no significa que sea seguro. ¿Sabes cuál es la más difícil de detectar?"
+    ]
+  },
+  "pistas": [
+    "Una de ellas se deduce por respuestas de verdadero/falso o por tiempos de espera.",
+    "Su nombre en español es 'ciega'.",
+    "El informe la llama 'un riesgo silencioso de exfiltración de datos'."
+  ],
+  "terminales": [
+    {
+      "titulo": "Comparativa de variantes",
+      "texto": "POST: oculta en el cuerpo. GET: visible en la URL y en los logs. Blind: sin errores, se deduce por respuestas o tiempos."
+    },
+    {
+      "titulo": "Alerta del SOC",
+      "texto": "Respuestas que tardan exactamente lo mismo una y otra vez pueden indicar una inyección basada en tiempo."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Sombra Booleana",
+      "color": "#8b5cf6",
+      "sprite": "sombra_booleana",
+      "frase": "No me verás venir… soy silencioso."
+    },
+    {
+      "nombre": "URL Chismosa",
+      "color": "#f97316",
+      "sprite": "url_chismosa",
+      "frase": "Verdadero o falso: vas a perder."
+    },
+    {
+      "nombre": "Formulario Fantasma",
+      "color": "#94a3b8",
+      "sprite": "formulario_fantasma",
+      "frase": "Mi URL lo cuenta todo."
+    },
+    {
+      "nombre": "Ciego del Tiempo",
+      "color": "#ef4444",
+      "sprite": "ciego_del_tiempo",
+      "frase": "No me verás venir… soy silencioso."
+    },
+    {
+      "nombre": "Retardo Sospechoso",
+      "color": "#22d3ee",
+      "sprite": "retardo_sospechoso",
+      "frase": "Verdadero o falso: vas a perder."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "En una SQL Injection por GET, ¿dónde viaja el dato manipulado?",
+      "opciones": [
+        "En la URL",
+        "En la cookie de idioma",
+        "En el cable de poder"
+      ],
+      "correcta": 0,
+      "explicacion": "Los parámetros GET forman parte de la dirección."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Por qué la SQLi por GET deja más rastro?",
+      "opciones": [
+        "Usa más electricidad",
+        "La URL queda en el historial y en los logs del servidor",
+        "Se imprime automáticamente"
+      ],
+      "correcta": 1,
+      "explicacion": "Todo lo que va en la URL suele quedar registrado."
+    },
+    {
+      "id": "r3",
+      "pregunta": "En la SQLi por POST, los datos van…",
+      "opciones": [
+        "Solo en la URL",
+        "En el cuerpo de la petición",
+        "En el nombre del dominio"
+      ],
+      "correcta": 1,
+      "explicacion": "POST envía los datos en el body, por eso se necesita un proxy para verlos."
+    },
+    {
+      "id": "r4",
+      "pregunta": "La SQLi ciega basada en tiempo se detecta observando…",
+      "opciones": [
+        "El color de la página",
+        "Cuánto tarda en responder el servidor",
+        "El tamaño del logo"
+      ],
+      "correcta": 1,
+      "explicacion": "Una demora anómala puede indicar una inyección basada en tiempo."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Que una página no muestre errores significa que…",
+      "opciones": [
+        "No necesariamente es segura",
+        "Es totalmente segura",
+        "No tiene base de datos"
+      ],
+      "correcta": 0,
+      "explicacion": "La inyección ciega funciona justamente sin errores visibles."
+    },
+    {
+      "id": "r6",
+      "pregunta": "¿Qué capa adicional ayuda a detectar patrones de inyección?",
+      "opciones": [
+        "Un WAF (firewall de aplicaciones web)",
+        "Un teclado nuevo",
+        "Un protector de pantalla"
+      ],
+      "correcta": 0,
+      "explicacion": "El WAF complementa, pero no reemplaza, las consultas parametrizadas."
+    },
+    {
+      "id": "r7",
+      "pregunta": "Si una página responde distinto ante condiciones verdaderas y falsas, puede indicar…",
+      "opciones": [
+        "Que el servidor es muy rápido",
+        "Una SQL Injection ciega booleana",
+        "Que no hay base de datos"
+      ],
+      "correcta": 1,
+      "explicacion": "La diferencia de respuesta filtra información bit a bit."
+    },
+    {
+      "id": "r8",
+      "pregunta": "¿Qué variante necesita un proxy como Burp Suite para ver el dato enviado?",
+      "opciones": [
+        "Ninguna",
+        "POST",
+        "GET"
+      ],
+      "correcta": 1,
+      "explicacion": "En POST el dato va en el cuerpo, no en la URL."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Qué variante de SQL Injection es la más difícil de detectar porque no muestra errores y depende de respuestas lógicas o tiempos?",
+    "opciones": [
+      "SQL Injection Blind (ciega)",
+      "SQL Injection por GET",
+      "SQL Injection por POST"
+    ],
+    "correcta": 0,
+    "explicacion": "La inyección ciega no depende de errores visibles, por eso pasa desapercibida con más facilidad.",
+    "defensa": "Consultas parametrizadas, monitoreo de tiempos de respuesta anómalos y un WAF como capa adicional."
+  },
+  "flag": "CAA{BL1ND_SQLI}",
+  "mapa": [
+    "#####################################",
+    "#PI.....2#C.....C.#.MMMMM..#U...PIC.#",
+    "#.DD.DD..#..R..............#.E3.....#",
+    "#........#...H.E...3..D.D......H....#",
+    "#...K....#........#D................#",
+    "#..D.DD.....g.g.E.#.......E#.4g.g...#",
+    "#.S..P..........U.#T.....T.#U.....U.#",
+    "#......P.#........#...E..1.#........#",
+    "################################LL###",
+    "############################RMM...R.#",
+    "############################...X....#",
+    "############################........#",
+    "############################...G....#",
+    "############################........#",
+    "############################R.....RR#",
+    "############################.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Enumeración web",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "Hay un directorio que no está enlazado en ninguna página. Encuéntralo por fuerza bruta.",
+    "objetivos": [
+      "Enumerar directorios ocultos",
+      "Abrir el directorio encontrado"
+    ],
+    "fs": {
+      "wordlist.txt": "admin\nbackup\nlogin\ngestion-interna\ndev"
+    },
+    "comandos": [
+      {
+        "match": [
+          "gobuster dir -u http://10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u http://10.10.10.7",
+          "dirb http://10.10.10.7",
+          "gobuster -u http://10.10.10.7 -w wordlist.txt"
+        ],
+        "salida": "/admin           (Status: 403)\n/login           (Status: 200)\n/gestion-interna (Status: 200)  <-- oculto\n",
+        "objetivo": 0,
+        "pista": "Usa gobuster dir -u http://10.10.10.7 -w wordlist.txt"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/gestion-interna/",
+          "curl 10.10.10.7/gestion-interna/",
+          "curl http://10.10.10.7/gestion-interna"
+        ],
+        "salida": "<h1>Gestion interna</h1>\nAcceso no autorizado detectado. Bandera: CTF{3NUM_a59e}",
+        "objetivo": 1,
+        "pista": "Abre /gestion-interna/ con curl"
+      }
+    ],
+    "flag": "CTF{3NUM_a59e}",
+    "xp": 70
+  }
+}

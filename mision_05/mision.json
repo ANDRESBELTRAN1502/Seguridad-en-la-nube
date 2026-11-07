@@ -1,0 +1,266 @@
+{
+  "orden": 5,
+  "titulo": "El eco reflejado y el eco guardado",
+  "sector": "Sector 05 · Biblioteca de Ecos",
+  "tema": "XSS reflejado vs. XSS almacenado",
+  "laboratorio": "Laboratorio XSS — DVWA y Mutillidae, nivel bajo",
+  "icono": "📚",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Diferenciar el XSS reflejado del XSS almacenado por su impacto.",
+  "colores": {
+    "piso_a": "#143a36",
+    "piso_b": "#11322e"
+  },
+  "dificultad": {
+    "estrellas": 3,
+    "vida_enemigo": 2,
+    "dano": 18,
+    "tiempo": 35,
+    "persigue": true,
+    "radio": 3,
+    "velocidad_ms": 720,
+    "dano_guardian": 27
+  },
+  "xp": {
+    "por_golpe": 20,
+    "final": 120,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Bibliotecaria Lía",
+    "color": "#34d399",
+    "sprite": "bibliotecaria_lia",
+    "historia": [
+      "Shhh… estás en la Biblioteca de Ecos. Soy Lía.",
+      "En el laboratorio de XSS, el agente probó dos tipos de eco. El reflejado viaja en la URL y solo afecta a quien abre ese enlace.",
+      "El almacenado se queda guardado en el servidor, por ejemplo en un libro de visitas, y se ejecuta para cada persona que entra.",
+      "Uno es un riesgo focalizado; el otro es un riesgo sistémico. ¿Cuál es cuál?"
+    ]
+  },
+  "pistas": [
+    "Uno de ellos necesita que la víctima haga clic en un enlace preparado.",
+    "El otro persiste en la base de datos y no requiere ninguna acción extra de la víctima.",
+    "'Stored' en inglés significa 'guardado'."
+  ],
+  "terminales": [
+    {
+      "titulo": "Libro de visitas",
+      "texto": "Los comentarios se guardaban sin escapar y se mostraban a todos: XSS almacenado."
+    },
+    {
+      "titulo": "Enlace sospechoso",
+      "texto": "El XSS reflejado viaja en la URL: solo afecta a quien abre el enlace preparado."
+    },
+    {
+      "titulo": "Plan de recuperación",
+      "texto": "Las copias de seguridad permiten restaurar el contenido limpio después de un incidente."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Eco Reflejado",
+      "color": "#22d3ee",
+      "sprite": "eco_reflejado",
+      "frase": "¡Me quedaré guardado para siempre!"
+    },
+    {
+      "nombre": "Eco Guardado",
+      "color": "#a855f7",
+      "sprite": "eco_guardado",
+      "frase": "Solo un clic en mi enlace…"
+    },
+    {
+      "nombre": "Comentario Tóxico",
+      "color": "#ef4444",
+      "sprite": "comentario_toxico",
+      "frase": "Tu navegador me obedece."
+    },
+    {
+      "nombre": "Enlace Trampa",
+      "color": "#f97316",
+      "sprite": "enlace_trampa",
+      "frase": "¡Me quedaré guardado para siempre!"
+    },
+    {
+      "nombre": "Script Errante",
+      "color": "#eab308",
+      "sprite": "script_errante",
+      "frase": "Solo un clic en mi enlace…"
+    },
+    {
+      "nombre": "Comentario Eterno",
+      "color": "#ec4899",
+      "sprite": "comentario_eterno",
+      "frase": "Tu navegador me obedece."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué significa XSS?",
+      "opciones": [
+        "Extra Secure System",
+        "Cross-Site Scripting",
+        "Cross Server Storage",
+        "XML Super Server"
+      ],
+      "correcta": 1,
+      "explicacion": "Es la inyección de scripts en páginas que ven otras personas."
+    },
+    {
+      "id": "r2",
+      "pregunta": "El XSS ocurre cuando…",
+      "opciones": [
+        "Se apaga el router",
+        "Se borra una tabla",
+        "Se cae el servidor de correo",
+        "El navegador ejecuta código inyectado en una página"
+      ],
+      "correcta": 3,
+      "explicacion": "El navegador no distingue el script inyectado del legítimo."
+    },
+    {
+      "id": "r3",
+      "pregunta": "Un libro de visitas que guarda comentarios sin filtrar es riesgo de…",
+      "opciones": [
+        "Ataque físico",
+        "Fuerza bruta",
+        "XSS almacenado",
+        "Phishing por SMS"
+      ],
+      "correcta": 2,
+      "explicacion": "Lo guardado se muestra a cada visitante."
+    },
+    {
+      "id": "r4",
+      "pregunta": "El XSS reflejado normalmente necesita que la víctima…",
+      "opciones": [
+        "Desinstale el antivirus",
+        "Cambie de navegador",
+        "Abra un enlace preparado",
+        "Reinicie el computador"
+      ],
+      "correcta": 2,
+      "explicacion": "El código viaja en el enlace y vuelve reflejado en la respuesta."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Dónde se ejecuta el código de un XSS?",
+      "opciones": [
+        "En la impresora",
+        "En el navegador de la víctima",
+        "En el disco duro del servidor",
+        "En la BIOS"
+      ],
+      "correcta": 1,
+      "explicacion": "Por eso puede leer lo que la página ve, como cookies sin protección."
+    },
+    {
+      "id": "r6",
+      "pregunta": "Tras un XSS almacenado, ¿qué ayuda a recuperar el contenido limpio?",
+      "opciones": [
+        "Las copias de seguridad",
+        "Reiniciar el monitor",
+        "Cambiar el logo",
+        "Borrar el historial"
+      ],
+      "correcta": 0,
+      "explicacion": "El informe recomendó backups para restaurar contenido alterado."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué información puede leer un script inyectado?",
+      "opciones": [
+        "La contraseña del wifi del vecino",
+        "Lo que la página ve, como cookies sin HttpOnly",
+        "La BIOS del servidor",
+        "Nada"
+      ],
+      "correcta": 1,
+      "explicacion": "El script corre con los permisos de la página."
+    },
+    {
+      "id": "r8",
+      "pregunta": "¿Dónde se debe escapar un comentario antes de mostrarlo?",
+      "opciones": [
+        "En el servidor, al generar la página",
+        "En el router",
+        "En la impresora",
+        "Solo en el navegador del autor"
+      ],
+      "correcta": 0,
+      "explicacion": "El servidor controla lo que se entrega a todos."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Qué tipo de XSS queda guardado en el servidor y afecta a todos los usuarios que visitan la página?",
+    "opciones": [
+      "XSS almacenado (Stored)",
+      "XSS reflejado (Reflected)",
+      "Ninguno: los dos son siempre temporales",
+      "Ninguno, el XSS no existe en servidores reales"
+    ],
+    "correcta": 0,
+    "explicacion": "El XSS almacenado persiste en el servidor y puede comprometer a toda la base de usuarios con una sola inyección.",
+    "defensa": "Escapar la salida, validar lo que se guarda y tener copias de seguridad para restaurar contenido alterado."
+  },
+  "flag": "CAA{XSS_ST0RED}",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM..#.MMMMM..#N.N.NEN.#C..4..U.#",
+    "#1................#...k....#.R...N..#",
+    "#.D.D.D....E.D.D..#...k....#.....RT.#",
+    "#...K.2..#...........kkkkk.#.R...R..#",
+    "#R.......#.....E.....3k..........E.2#",
+    "#TS....T.#T..R..T.#R..k3............#",
+    "#...I....#...I....#....E.1P#........#",
+    "################################..###",
+    "###################RMM.MMR.#C.....U.#",
+    "###################...X....#........#",
+    "###################........L...H....#",
+    "###################...G....L.......P#",
+    "###################........#..g.g...#",
+    "###################R....TR.#C..E..C.#",
+    "###################.ggggg..#...I....#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Gestión de sesiones",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "Entraste como invitado. Tu rol viaja en una cookie sin firmar. Hazte administrador.",
+    "objetivos": [
+      "Ver tus cookies",
+      "Pedir el panel con el rol de administrador"
+    ],
+    "fs": {
+      "cookies.txt": "sesion=abc123\nrol=invitado"
+    },
+    "comandos": [
+      {
+        "match": [
+          "cat cookies.txt",
+          "curl -v http://10.10.10.7/panel",
+          "cat cookies"
+        ],
+        "salida": "sesion=abc123\nrol=invitado   <-- se puede cambiar",
+        "objetivo": 0,
+        "pista": "Mira el archivo cookies.txt"
+      },
+      {
+        "match": [
+          "curl -b rol=admin http://10.10.10.7/panel",
+          "curl --cookie rol=admin http://10.10.10.7/panel",
+          "curl -b 'rol=admin' http://10.10.10.7/panel",
+          "curl -b rol=admin 10.10.10.7/panel"
+        ],
+        "salida": "Panel de administrador\nRol: admin\nBandera: CTF{S3SS10N_d966}",
+        "objetivo": 1,
+        "pista": "Envía la cookie modificada: curl -b rol=admin http://10.10.10.7/panel"
+      }
+    ],
+    "flag": "CTF{S3SS10N_d966}",
+    "xp": 80
+  }
+}

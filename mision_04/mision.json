@@ -1,0 +1,256 @@
+{
+  "orden": 4,
+  "titulo": "La bóveda del volcado",
+  "sector": "Sector 04 · Bóveda de Datos",
+  "tema": "Exposición de bases de datos y hashing",
+  "laboratorio": "Laboratorios SQLMAP y Base de datos DVWA",
+  "icono": "🗄️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Reconocer cómo proteger las contraseñas almacenadas.",
+  "colores": {
+    "piso_a": "#3b3214",
+    "piso_b": "#332b11"
+  },
+  "dificultad": {
+    "estrellas": 2,
+    "vida_enemigo": 2,
+    "dano": 16,
+    "tiempo": 40,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 760,
+    "dano_guardian": 24
+  },
+  "xp": {
+    "por_golpe": 18,
+    "final": 110,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Guardián Tomás",
+    "color": "#fbbf24",
+    "sprite": "guardian_tomas",
+    "historia": [
+      "Alto ahí. Soy Tomás, guardián de la bóveda de datos.",
+      "En el laboratorio, una herramienta automatizada demostró en minutos que una aplicación vulnerable podía mostrar las bases de datos, sus tablas y la tabla de usuarios completa.",
+      "El impacto es crítico: suplantación de identidad, escalada de privilegios y movimiento lateral si la gente repite contraseñas.",
+      "Pero aun si alguien llega a ver la tabla, todavía queda una última línea de defensa. ¿Cuál es?"
+    ]
+  },
+  "pistas": [
+    "Una contraseña nunca debe guardarse tal como la escribe el usuario.",
+    "Se usa una función de una sola vía, combinada con un valor aleatorio único por usuario.",
+    "Ese valor aleatorio se llama 'salt'. Algoritmos recomendados: bcrypt o Argon2."
+  ],
+  "terminales": [
+    {
+      "titulo": "Informe de impacto",
+      "texto": "La herramienta automatizada enumeró bases de datos, tablas y usuarios en pocos minutos dentro del laboratorio."
+    },
+    {
+      "titulo": "Recomendación de hashing",
+      "texto": "Guardar las contraseñas con bcrypt o Argon2 y un salt único por usuario."
+    },
+    {
+      "titulo": "Riesgo de reutilización",
+      "texto": "Si alguien usa la misma contraseña en varios servicios, una sola filtración los abre todos."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Volcador",
+      "color": "#ef4444",
+      "sprite": "volcador",
+      "frase": "Ya tengo tu tabla de usuarios."
+    },
+    {
+      "nombre": "Hash Débil",
+      "color": "#eab308",
+      "sprite": "hash_debil",
+      "frase": "Tu hash es más débil que yo."
+    },
+    {
+      "nombre": "Tabla Expuesta",
+      "color": "#f97316",
+      "sprite": "tabla_expuesta",
+      "frase": "Una contraseña repetida abre todas las puertas."
+    },
+    {
+      "nombre": "Reutilizador",
+      "color": "#a855f7",
+      "sprite": "reutilizador",
+      "frase": "Ya tengo tu tabla de usuarios."
+    },
+    {
+      "nombre": "Movimiento Lateral",
+      "color": "#ec4899",
+      "sprite": "movimiento_lateral",
+      "frase": "Tu hash es más débil que yo."
+    },
+    {
+      "nombre": "Contraseña Repetida",
+      "color": "#22d3ee",
+      "sprite": "contrasena_repetida",
+      "frase": "Una contraseña repetida abre todas las puertas."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué hace una herramienta como sqlmap en un laboratorio autorizado?",
+      "opciones": [
+        "Diseña páginas web",
+        "Compone música",
+        "Automatiza la detección de inyecciones SQL"
+      ],
+      "correcta": 2,
+      "explicacion": "Automatiza lo que manualmente tomaría mucho tiempo, por eso el impacto es rápido."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué es un hash de contraseña?",
+      "opciones": [
+        "La contraseña escrita al revés",
+        "Una transformación de una sola vía",
+        "Una copia en texto plano"
+      ],
+      "correcta": 1,
+      "explicacion": "Del hash no se puede volver directamente a la contraseña."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Para qué sirve el 'salt'?",
+      "opciones": [
+        "Para que dos contraseñas iguales tengan hashes distintos",
+        "Para acelerar el login",
+        "Para cifrar el disco duro"
+      ],
+      "correcta": 0,
+      "explicacion": "El salt es un valor aleatorio único por usuario."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Qué algoritmo es adecuado para guardar contraseñas?",
+      "opciones": [
+        "MD5 sin salt",
+        "Base64",
+        "bcrypt o Argon2"
+      ],
+      "correcta": 2,
+      "explicacion": "Son lentos a propósito, lo que dificulta adivinar contraseñas."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Por qué es peligroso reutilizar contraseñas?",
+      "opciones": [
+        "No es peligroso",
+        "Se olvidan más rápido",
+        "Una filtración permite entrar a otros servicios"
+      ],
+      "correcta": 2,
+      "explicacion": "Una sola filtración se multiplica en muchas cuentas."
+    },
+    {
+      "id": "r6",
+      "pregunta": "'Movimiento lateral' significa…",
+      "opciones": [
+        "Mover el mouse a la izquierda",
+        "Cambiarse de oficina",
+        "Usar un acceso para llegar a otros sistemas de la red"
+      ],
+      "correcta": 2,
+      "explicacion": "Por eso una cuenta comprometida puede afectar toda la red."
+    },
+    {
+      "id": "r7",
+      "pregunta": "Si una base de datos se filtró, ¿qué deben hacer los usuarios?",
+      "opciones": [
+        "Nada",
+        "Publicar sus contraseñas",
+        "Cambiar sus contraseñas, empezando por las repetidas"
+      ],
+      "correcta": 2,
+      "explicacion": "Así se corta el efecto en cadena."
+    },
+    {
+      "id": "r8",
+      "pregunta": "¿Qué limita lo que se puede leer aunque exista una inyección?",
+      "opciones": [
+        "El privilegio mínimo de la cuenta de la BD",
+        "Codificar en Base64",
+        "Ocultar la URL"
+      ],
+      "correcta": 0,
+      "explicacion": "Con pocos permisos, el daño es menor."
+    }
+  ],
+  "final": {
+    "pregunta": "Si un atacante llega a ver la tabla de usuarios, ¿qué es la última línea de defensa para las contraseñas?",
+    "opciones": [
+      "Guardarlas en texto plano para poder recuperarlas rápido",
+      "Almacenarlas con un algoritmo de hash robusto y salt",
+      "Cambiarle el nombre a la tabla 'users'"
+    ],
+    "correcta": 1,
+    "explicacion": "Un hash robusto con salt hace muy costoso descubrir las contraseñas originales aunque se filtre la tabla.",
+    "defensa": "Hash con bcrypt/Argon2 y salt, consultas preparadas y privilegio mínimo en la BD."
+  },
+  "flag": "CAA{HASH_C0N_SALT}",
+  "mapa": [
+    "#####################################",
+    "#N.N.N.NI#P....I.1#P....1..#N.N.N.N.#",
+    "#...k.......DPDD..#.D..DD......k....#",
+    "#.NKk.........E3..#...2........k....#",
+    "#kkkkkkk.#......E..E..D....#kkkkkkk.#",
+    "#...k..2.#.DD3DD.....D..D.E#E.Dk....#",
+    "#RS.k..U.#........#........#R.....U.#",
+    "#........#......P.#....I.P.#........#",
+    "##############################..#####",
+    "###################RMM.MMRR#P......T#",
+    "###################...X....#.D...D..#",
+    "###################........#........#",
+    "###################...G....L........#",
+    "###################........L..D.DD..#",
+    "###################R.....R.#........#",
+    "###################.ggggg..#.4.E..P.#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Análisis HTTP",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "El servidor esconde algo en sus cabeceras HTTP. Analízalas.",
+    "objetivos": [
+      "Ver solo las cabeceras HTTP",
+      "Decodificar la cabecera en Base64"
+    ],
+    "fs": {},
+    "comandos": [
+      {
+        "match": [
+          "curl -i http://10.10.10.7/",
+          "curl -i 10.10.10.7",
+          "curl --head http://10.10.10.7/",
+          "curl -i http://10.10.10.7"
+        ],
+        "salida": "HTTP/1.1 200 OK\nServer: Apache\nX-Powered-By: CyberAgent/1.0\nX-Agente-Flag: Q1RGe0hUVFBfYjA0M30=\nContent-Type: text/html",
+        "objetivo": 0,
+        "pista": "Mira solo las cabeceras: curl -I http://10.10.10.7/"
+      },
+      {
+        "match": [
+          "echo q1rfe0huvvbfyja0m30= | base64 -d",
+          "base64 -d",
+          "echo 'q1rge0huvfbfyja0m30=' | base64 -d",
+          "echo q1rge0huvfbfyja0m30= | base64 -d"
+        ],
+        "salida": "CTF{HTTP_8ad6}",
+        "objetivo": 1,
+        "pista": "Decodifica el valor con: echo <valor> | base64 -d"
+      }
+    ],
+    "flag": "CTF{HTTP_8ad6}",
+    "xp": 70
+  }
+}

@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block titulo %}CyberAgent Academy{% endblock %}
+{% block contenido %}
+
+<!-- ================= ETAPA 1 · TÍTULO ================= -->
+<section id="title" class="screen center">
+  <div class="title-card">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo Hacking Ético — Andrés Beltrán" class="logo">
+    <h1 class="glow">CYBERAGENT<br><span>ACADEMY</span></h1>
+    <p class="tag">RPG de hacking ético · enemigos · poderes · jefes</p>
+    <label class="name-label" for="agentName">Nombre del agente</label>
+    <input id="agentName" maxlength="24" placeholder="Escribe tu nombre de agente">
+    <div class="title-buttons">
+      <button id="btnStart" class="btn primary">▶ NUEVA PARTIDA</button>
+      <button id="btnContinue" class="btn hidden">⟲ CONTINUAR</button>
+    </div>
+    <div class="links">
+      <a href="/ranking" class="srv-only"> Ranking</a>
+      <a href="/personajes" class="srv-only">Personajes</a>
+      <a href="/creditos" class="srv-only">Créditos</a>
+    </div>
+    <div id="loadError" class="error hidden"></div>
+    <p class="credit">Creado por <strong>{{ AUTOR }}</strong><br>
+      Universidad de Cundinamarca · Ingeniería de Sistemas · Ética Hacking 901N</p>
+  </div>
+</section>
+
+<!-- ================= ETAPA 2 · MAPA DE NIVELES ================= -->
+<section id="world" class="screen hidden">
+  <header class="world-head">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hud-logo">
+    <div>
+      <div class="hud-name" id="wName">AGENTE</div>
+      <div class="hud-rank" id="wRank">Cadete</div>
+    </div>
+    <div class="grow">
+      <div class="xpbar"><div id="wXpFill"></div></div>
+      <div class="hud-small"><span id="wXp">0</span> XP · <span id="wDone">0</span> misiones completadas</div>
+    </div>
+    <button class="icon-btn btn-music" title="Música">🎵</button>
+    <a class="btn small ghost srv-only" href="/personajes">👾 Personajes</a>
+    <button class="btn small hidden" id="btnCert">🏆 Certificado</button>
+    <button class="btn small ghost" id="btnTitle">⏏ Salir</button>
+  </header>
+  <h2 class="world-title">Selecciona tu misión</h2>
+  <div id="levelGrid" class="level-grid"></div>
+  <p class="world-credit">CyberAgent Academy · Creado por {{ AUTOR }}</p>
+</section>
+
+<!-- ================= ETAPA 3 · JUEGO ================= -->
+<section id="game" class="screen hidden">
+  <header class="hud">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hud-logo">
+    <div class="hud-block">
+      <div class="hud-name" id="hudLevel">NIVEL 01</div>
+      <div class="hud-rank" id="hudTitle">Misión</div>
+    </div>
+    <div class="hud-block grow">
+      <div class="bar-label">❤ Vida <span id="hudHp">100</span></div>
+      <div class="hpbar"><div id="hpFill"></div></div>
+    </div>
+    <div class="hud-stats">
+      <span title="Enemigos restantes">👾 <b id="hudEnemies">0</b></span>
+      <span title="Pistas">🧩 <b id="hudClues">0</b></span>
+      <span title="XP del nivel">⭐ <b id="hudXp">0</b></span>
+    </div>
+    <button class="icon-btn" id="btnClues" title="Pistas (P)">🧩</button>
+    <button class="icon-btn" id="btnConsola" title="Consola de comandos (C)">⌨️</button>
+    <button class="icon-btn btn-music" title="Música">🎵</button>
+    <button class="icon-btn" id="btnSound" title="Efectos de sonido">🔊</button>
+    <button class="icon-btn" id="btnExit" title="Volver al mapa de niveles">🗺</button>
+  </header>
+
+  <div class="stage">
+    <canvas id="world-canvas" width="640" height="448"></canvas>
+    <div id="toast" class="toast hidden"></div>
+    <div id="fade" class="fade hidden"></div>
+    <div id="prompt" class="prompt hidden">Pulsa <kbd>E</kbd> para hablar</div>
+    <div id="dialog" class="dialog hidden">
+      <div class="dialog-name" id="dlgName">NPC</div>
+      <div class="dialog-text" id="dlgText"></div>
+      <div class="dialog-next">▼ Espacio</div>
+    </div>
+  </div>
+
+  <div class="inventory">
+    <button class="inv" id="invEscudo" title="Escudo: bloquea el próximo golpe (se usa en combate)">🛡 <b>0</b><small>Escudo</small></button>
+    <button class="inv" id="invEscaner" title="Escáner: tacha una opción incorrecta (en combate)">🔍 <b>0</b><small>Escáner</small></button>
+    <button class="inv" id="invParche" title="Parche: recupera 35 de vida (tecla 3)">💊 <b>0</b><small>Parche</small></button>
+    <button class="inv" id="invTurbo" title="Turbo: corres más rápido 20 s (tecla 4)">⚡ <b>0</b><small>Turbo</small></button>
+    <button class="inv" id="invConsola" title="Consola de comandos">⌨️ <b>CTF</b><small>Consola</small></button><span class="inv-state" id="invState"></span>
+  </div>
+
+  <div class="dpad">
+    <button data-dir="up">▲</button>
+    <button data-dir="left">◀</button>
+    <button data-act="talk" class="talk">E</button>
+    <button data-dir="right">▶</button>
+    <button data-dir="down">▼</button>
+  </div>
+</section>
+
+<!-- ================= MODALES ================= -->
+<div id="intro" class="modal hidden">
+  <div class="card intro-card">
+    <div class="intro-icon" id="inIcon">🔐</div>
+    <div class="quiz-level" id="inLevel">NIVEL 01</div>
+    <h2 id="inTitle">Misión</h2>
+    <div class="quiz-topic" id="inTopic"></div>
+    <div class="quiz-lab" id="inLab"></div>
+    <div class="stars" id="inStars"></div>
+    <div class="intro-stats" id="inStats"></div>
+    <p class="quiz-obj"><b>Objetivo:</b> <span id="inObj"></span></p>
+    <ol class="intro-steps">
+      <li>Explora las salas y recoge poderes 🛡 🔍 💊 ⚡</li>
+      <li>Derrota a los enemigos 👾 respondiendo bien: ellos sueltan las pistas 🧩</li>
+      <li>Cuando caiga el último, se abre la sala del guardián</li>
+      <li>Vence al guardián con la pregunta final y entra al portal 🌀</li>
+    </ol>
+    <button id="btnBegin" class="btn primary">⚔ COMENZAR MISIÓN</button>
+  </div>
+</div>
+
+<div id="consola" class="modal hidden">
+  <div class="card consola-card">
+    <div class="consola-head"><h2 id="consolaCat">⌨️ Consola</h2><span id="consolaProg" class="pts"></span></div>
+    <p class="consola-esc" id="consolaEsc"></p>
+    <ul class="consola-obj" id="consolaObj"></ul>
+    <div class="consola-out" id="consolaOut"></div>
+    <div class="consola-linea"><span class="consola-prompt">agente@objetivo:~$</span>
+      <input id="consolaInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="escribe un comando y pulsa Enter...">
+    </div>
+    <div id="consolaFlag" class="consola-flag hidden">🚩 Encontraste una bandera: escríbela arriba (CTF{...}) para validarla.</div>
+    <div class="consola-actions">
+      <button class="btn small ghost" id="consolaPista">💡 Pista</button>
+      <button class="btn small ghost" id="consolaCerrar">Cerrar</button>
+    </div>
+    <div class="quiz-credit">CyberAgent Academy · {{ AUTOR }}</div>
+  </div>
+</div>
+
+<div id="trans" class="trans hidden"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+<div id="battle" class="modal hidden">
+  <div class="card battle-card">
+    <div class="battle-top">
+      <div class="foe">
+        <canvas id="foeCanvas" width="96" height="96"></canvas>
+        <div>
+          <div class="foe-name" id="foeName">Enemigo</div>
+          <div class="foe-hp" id="foeHp"></div>
+          <div class="taunt" id="foeTaunt">…</div>
+        </div>
+      </div>
+      <div class="me">
+        <canvas id="meCanvas" width="80" height="72"></canvas>
+        <div class="bar-label">❤ Tu vida <span id="bHp">100</span></div>
+        <div class="hpbar"><div id="bHpFill"></div></div>
+        <div class="shield-on hidden" id="bShield">🛡 Escudo activo</div>
+      </div>
+    </div>
+    <div class="timer hidden" id="bTimerWrap"><div id="bTimer"></div></div>
+    <div id="bClues" class="b-clues hidden"></div>
+    <h3 id="bQuestion">Pregunta</h3>
+    <div id="bAnswers" class="answers"></div>
+    <div id="bFeedback" class="feedback"></div>
+    <div class="battle-actions">
+      <button class="btn small" id="bEscudo">🛡 Escudo (<b>0</b>)</button>
+      <button class="btn small" id="bEscaner">🔍 Escáner (<b>0</b>)</button>
+      <button class="btn small" id="bParche">💊 Parche (<b>0</b>)</button>
+      <button class="btn small ghost" id="bFlee">🏃 Huir (−5 ❤)</button>
+      <button class="btn primary hidden" id="bNext">Siguiente ▶</button>
+    </div>
+    <div class="quiz-credit">CyberAgent Academy · {{ AUTOR }}</div>
+  </div>
+</div>
+
+<div id="cluesPanel" class="modal hidden">
+  <div class="card list-card">
+    <h2>🧩 Pistas recolectadas</h2>
+    <ol id="cluesList"></ol>
+    <p class="hint">Derrota enemigos para obtener las pistas que faltan.</p>
+    <button id="btnCloseClues" class="btn small">Cerrar</button>
+  </div>
+</div>
+
+<div id="levelDone" class="modal hidden">
+  <div class="card intro-card">
+    <div class="intro-icon">🌀</div>
+    <h2 id="ldTitle">¡Misión completada!</h2>
+    <div id="ldStats" class="intro-stats"></div>
+    <div id="ldFlag" class="flag-big"></div>
+    <div class="title-buttons">
+      <button id="btnLdWorld" class="btn">🗺 Mapa de niveles</button>
+      <button id="btnLdNext" class="btn primary">Siguiente nivel ▶</button>
+    </div>
+  </div>
+</div>
+
+<div id="gameOver" class="modal hidden">
+  <div class="card intro-card over">
+    <div class="intro-icon">💀</div>
+    <h2>CONEXIÓN PERDIDA</h2>
+    <p>Te quedaste sin vida. Repasa las pistas y vuelve a intentarlo.</p>
+    <div class="title-buttons">
+      <button id="btnGoWorld" class="btn">🗺 Mapa</button>
+      <button id="btnGoRetry" class="btn primary">⟲ Reintentar nivel</button>
+    </div>
+  </div>
+</div>
+
+<div id="victory" class="modal hidden">
+  <div class="cert">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="cert-logo">
+    <div class="cert-kicker">CYBERAGENT ACADEMY CERTIFICA QUE</div>
+    <div class="cert-name" id="certName">AGENTE</div>
+    <p>completó todas las misiones de entrenamiento en hacking ético y alcanzó el rango</p>
+    <div class="cert-rank">🏆 AGENTE ÉLITE</div>
+    <div class="cert-stats" id="certStats"></div>
+    <div class="cert-flags" id="certFlags"></div>
+    <div class="cert-sign">
+      <div><span class="sig">{{ AUTOR }}</span><br>Creador y director de CyberAgent Academy</div>
+      <div><span class="sig" id="certDate"></span><br>Fecha</div>
+    </div>
+    <div class="cert-actions">
+      <button id="btnPrint" class="btn small">🖨 Imprimir</button>
+      <button id="btnCloseCert" class="btn primary small">Cerrar</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sonido.js') }}"></script>
+<script src="{{ url_for('static', filename='js/musica.js') }}"></script>
+<script src="{{ url_for('static', filename='js/motor.js') }}"></script>
+<script src="{{ url_for('static', filename='js/combate.js') }}"></script>
+<script src="{{ url_for('static', filename='js/consola.js') }}"></script>
+<script src="{{ url_for('static', filename='js/juego.js') }}"></script>
+{% endblock %}

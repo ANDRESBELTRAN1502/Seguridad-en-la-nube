@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Créditos{% endblock %}
+{% block contenido %}
+<section class="screen center">
+  <div class="card page-card">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="logo">
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <h1 class="glow small-glow">CyberAgent Academy</h1>
+    <p>Videojuego RPG educativo de hacking ético.</p>
+    <p class="big-credit">Creado por <b>{{ AUTOR }}</b></p>
+    <p class="hint">Universidad de Cundinamarca · Ingeniería de Sistemas y Computación · Ética Hacking 901N</p>
+    {% if misiones %}
+    <h3>Misiones instaladas</h3>
+    <ol class="credit-list">
+      {% for m in misiones %}<li>{{ m.icono }} <b>{{ m.titulo }}</b> — {{ m.tema }} · {{ '★' * m.estrellas }} · {{ m.enemigos }} enemigos</li>{% endfor %}
+    </ol>
+    {% endif %}
+    <p class="hint">Basado en los laboratorios de SQL Injection, XSS, BeEF y Carga de archivos realizados en entornos aislados y autorizados.</p>
+    <a class="btn primary" href="/">▶ Volver al juego</a>
+  </div>
+</section>
+{% endblock %}

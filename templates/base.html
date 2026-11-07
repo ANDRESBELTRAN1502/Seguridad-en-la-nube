@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="{{ AUTOR }}">
+  <meta name="description" content="CyberAgent Academy — videojuego RPG educativo de hacking ético creado por {{ AUTOR }}">
+  <title>{% block titulo %}CyberAgent Academy{% endblock %} · por {{ AUTOR }}</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  {% block contenido %}{% endblock %}
+  <footer class="site-footer">CyberAgent Academy © 2026 · Creado por <b>{{ AUTOR }}</b> · Universidad de Cundinamarca · Solo para laboratorios propios y autorizados</footer>
+  <script src="{{ url_for('static', filename='js/fondo.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

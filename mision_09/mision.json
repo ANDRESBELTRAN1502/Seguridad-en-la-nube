@@ -1,0 +1,283 @@
+{
+  "orden": 9,
+  "titulo": "El archivo disfrazado",
+  "sector": "Sector 09 · Aduana de Archivos",
+  "tema": "Carga segura de archivos",
+  "laboratorio": "Laboratorio Carga de archivos y ejecución — DVWA bajo y medio",
+  "icono": "📦",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar las medidas correctas para una carga segura de archivos.",
+  "colores": {
+    "piso_a": "#3d2610",
+    "piso_b": "#34200d"
+  },
+  "dificultad": {
+    "estrellas": 5,
+    "vida_enemigo": 3,
+    "dano": 27,
+    "tiempo": 21,
+    "persigue": true,
+    "radio": 5,
+    "velocidad_ms": 500,
+    "dano_guardian": 40
+  },
+  "xp": {
+    "por_golpe": 28,
+    "final": 140,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Custodia Elena",
+    "color": "#fb923c",
+    "sprite": "custodia_elena",
+    "historia": [
+      "Soy Elena, custodia de la Aduana de Archivos.",
+      "En el nivel bajo, el servidor aceptaba cualquier archivo sin preguntar: confianza ciega.",
+      "En el nivel medio solo revisaba la 'etiqueta': el nombre y la extensión que enviaba el navegador. En el laboratorio se demostró que esa etiqueta se puede cambiar en el camino, y el archivo terminó ejecutándose en el servidor.",
+      "Un archivo disfrazado casi toma el control. ¿Cómo debería protegerse esta aduana?"
+    ]
+  },
+  "pistas": [
+    "El informe concluyó que validar solo la extensión o el tipo MIME del cliente es insuficiente.",
+    "La carpeta donde se guardan las cargas nunca debería ejecutar código.",
+    "También se recomienda renombrar los archivos subidos y, en imágenes, reprocesarlas o redimensionarlas."
+  ],
+  "terminales": [
+    {
+      "titulo": "Nivel bajo",
+      "texto": "El servidor aceptaba cualquier archivo: confianza ciega."
+    },
+    {
+      "titulo": "Nivel medio",
+      "texto": "Solo revisaba el nombre y el tipo que mandaba el navegador, y esos datos se pueden cambiar en el camino."
+    },
+    {
+      "titulo": "Aduana segura",
+      "texto": "Lista blanca, revisar el contenido real, renombrar y guardar sin permisos de ejecución."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Archivo Disfrazado",
+      "color": "#f97316",
+      "sprite": "archivo_disfrazado",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Extensión Mentirosa",
+      "color": "#ef4444",
+      "sprite": "extension_mentirosa",
+      "frase": "Tu filtro solo lee etiquetas."
+    },
+    {
+      "nombre": "MIME Falso",
+      "color": "#a855f7",
+      "sprite": "mime_falso",
+      "frase": "Déjame entrar a la carpeta de cargas."
+    },
+    {
+      "nombre": "Shell Oculta",
+      "color": "#64748b",
+      "sprite": "shell_oculta",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Carga Ciega",
+      "color": "#eab308",
+      "sprite": "carga_ciega",
+      "frase": "Tu filtro solo lee etiquetas."
+    },
+    {
+      "nombre": "Imagen Troyana",
+      "color": "#ec4899",
+      "sprite": "imagen_troyana",
+      "frase": "Déjame entrar a la carpeta de cargas."
+    },
+    {
+      "nombre": "Cargador Infinito",
+      "color": "#22d3ee",
+      "sprite": "cargador_infinito",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Doble Extensión",
+      "color": "#a3e635",
+      "sprite": "doble_extension",
+      "frase": "Tu filtro solo lee etiquetas."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "Validar solo la extensión del archivo es insuficiente porque…",
+      "opciones": [
+        "Los archivos no tienen nombre",
+        "Las extensiones no existen",
+        "El nombre y el tipo enviados por el cliente se pueden falsificar",
+        "El servidor no lee nombres"
+      ],
+      "correcta": 2,
+      "explicacion": "La etiqueta la pone quien envía el archivo."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué es el tipo MIME?",
+      "opciones": [
+        "Un virus",
+        "Una etiqueta que describe el tipo de contenido",
+        "Un mimo digital",
+        "Un protocolo de correo"
+      ],
+      "correcta": 1,
+      "explicacion": "Ejemplo: image/png. También lo puede cambiar el cliente."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Por qué conviene renombrar los archivos subidos?",
+      "opciones": [
+        "Para ordenarlos alfabéticamente",
+        "Para que pesen menos",
+        "Por estética",
+        "Para que el atacante no controle el nombre ni la ruta"
+      ],
+      "correcta": 3,
+      "explicacion": "Un nombre generado por el servidor evita sorpresas."
+    },
+    {
+      "id": "r4",
+      "pregunta": "La carpeta donde se guardan las cargas debe…",
+      "opciones": [
+        "Ser pública y ejecutable",
+        "No tener permisos de ejecución",
+        "Compartirse sin contraseña",
+        "Estar en el escritorio del administrador"
+      ],
+      "correcta": 1,
+      "explicacion": "Si nada se ejecuta allí, un archivo malicioso pierde su poder."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Una 'web shell' es…",
+      "opciones": [
+        "Un archivo malicioso que permite dar órdenes al servidor",
+        "Un navegador",
+        "Un antivirus web",
+        "Un caparazón de tortuga"
+      ],
+      "correcta": 0,
+      "explicacion": "Por eso una carga mal validada es tan crítica."
+    },
+    {
+      "id": "r6",
+      "pregunta": "Una 'lista blanca' de tipos de archivo significa…",
+      "opciones": [
+        "Aceptar todos menos .exe",
+        "Aceptar solo los formatos necesarios (por ejemplo JPG o PNG)",
+        "Rechazar todo",
+        "Aceptar solo archivos grandes"
+      ],
+      "correcta": 1,
+      "explicacion": "Se define lo permitido, no lo prohibido."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Dónde conviene guardar los archivos subidos?",
+      "opciones": [
+        "Fuera de la carpeta pública de la web",
+        "En la carpeta principal del sitio",
+        "En la página de inicio",
+        "En el escritorio del servidor"
+      ],
+      "correcta": 0,
+      "explicacion": "Así no se pueden pedir ni ejecutar directamente."
+    },
+    {
+      "id": "r8",
+      "pregunta": "Reprocesar o redimensionar una imagen subida ayuda a…",
+      "opciones": [
+        "Que pese más",
+        "Nada",
+        "Cambiar su color",
+        "Eliminar contenido oculto que no es imagen"
+      ],
+      "correcta": 3,
+      "explicacion": "Solo sobrevive lo que realmente es imagen."
+    }
+  ],
+  "final": {
+    "pregunta": "Un filtro que solo revisaba la extensión fue evadido. ¿Qué combinación protege mejor la carga de archivos?",
+    "opciones": [
+      "Confiar en la extensión que envía el navegador",
+      "Permitir cualquier archivo siempre que pese poco",
+      "Validar el contenido real en el servidor, renombrar los archivos y desactivar la ejecución en la carpeta de cargas",
+      "Comprimir el archivo en ZIP antes de guardarlo"
+    ],
+    "correcta": 2,
+    "explicacion": "La defensa en capas revisa lo que el archivo realmente es y evita que se ejecute aunque logre subir.",
+    "defensa": "Lista blanca de tipos, inspección del contenido, renombrado, almacenamiento fuera de la raíz web y sin permisos de ejecución."
+  },
+  "flag": "CAA{UPL0AD_SEGUR0}",
+  "mapa": [
+    "#####################################",
+    "#C.....U.#C....NUE#U.1...U.#P.......#",
+    "#.R......#.....R....2.......E.DND...#",
+    "#.R.P.N..#3R...N.....2H.............#",
+    "#.N.K.N..#.R1..R..#......E.#.P......#",
+    "#..D..N...........#..g.g...#.DD.D...#",
+    "#.S..........E....#U.P...C.#........#",
+    "#..I.P...#...P.T..#D......D#..D...P.#",
+    "###############################..####",
+    "#P....E..#U..RE.U.#.MMMMM..#C.P...C.#",
+    "#.DD...4......31..#.......R#........#",
+    "#.D..........H....#.D.D.D..#...H.T.D#",
+    "#.....N..#...R.....3.....E...E......#",
+    "#.DD.DD..#..g.g...............g.g...#",
+    "#........#U.....U.#TP...2T.#C.....U.#",
+    "#...T..PI#...T....#....IP..#3.......#",
+    "#####LL##############################",
+    "#RMM...R.############################",
+    "#...X....############################",
+    "#........############################",
+    "#.N.G....############################",
+    "#.....D..############################",
+    "#R.....R.############################",
+    "#.gggggN.############################",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "XSS",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "El buscador refleja lo que escribes sin filtrarlo. Inyecta un script.",
+    "objetivos": [
+      "Probar una búsqueda normal",
+      "Inyectar un script que se ejecute"
+    ],
+    "fs": {},
+    "comandos": [
+      {
+        "match": [
+          "curl http://10.10.10.7/buscar?q=hola",
+          "curl 'http://10.10.10.7/buscar?q=hola'",
+          "curl http://10.10.10.7/buscar?q=test"
+        ],
+        "salida": "No se encontro: hola",
+        "objetivo": 0,
+        "pista": "Prueba el buscador: curl http://10.10.10.7/buscar?q=hola"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/buscar?q=<script>alert(1)</script>",
+          "curl 'http://10.10.10.7/buscar?q=<script>alert(1)</script>'",
+          "curl http://10.10.10.7/buscar?q=<script>alert('xss')</script>"
+        ],
+        "salida": "El administrador reviso tu mensaje y el script se ejecuto.\nBandera: CTF{XSS_dbdf}",
+        "objetivo": 1,
+        "pista": "Inyecta <script>alert(1)</script> en q="
+      }
+    ],
+    "flag": "CTF{XSS_dbdf}",
+    "xp": 100
+  }
+}

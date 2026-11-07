@@ -1,0 +1,310 @@
+{
+  "orden": 10,
+  "titulo": "Agente Élite: el código ético",
+  "sector": "Sector 10 · Torre de la Dirección",
+  "tema": "Ética, autorización y alcance",
+  "laboratorio": "Todos los laboratorios — entorno aislado 192.168.56.0/24",
+  "icono": "🏆",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Aplicar los principios del hacking ético: autorización, alcance y reporte responsable.",
+  "colores": {
+    "piso_a": "#2f1a40",
+    "piso_b": "#281636"
+  },
+  "dificultad": {
+    "estrellas": 5,
+    "vida_enemigo": 3,
+    "dano": 30,
+    "tiempo": 18,
+    "persigue": true,
+    "radio": 5,
+    "velocidad_ms": 450,
+    "dano_guardian": 45
+  },
+  "xp": {
+    "por_golpe": 30,
+    "final": 140,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Directora Nova",
+    "color": "#e879f9",
+    "sprite": "directora_nova",
+    "historia": [
+      "Llegaste a la Torre de la Dirección. Soy Nova, directora de CyberAgent Academy, la academia creada por Andrés Felipe Beltrán Barrera.",
+      "Todo lo que aprendiste se practicó en máquinas propias, aisladas en una red virtual, con permiso del profesor.",
+      "Tu último caso: navegando fuera del laboratorio, notas que la página de un comercio parece tener una de las fallas que estudiaste.",
+      "Esta decisión define si te gradúas como Agente Élite."
+    ]
+  },
+  "pistas": [
+    "Saber hacer algo no te da permiso para hacerlo.",
+    "El hacking ético exige autorización por escrito y un alcance acordado.",
+    "Si encuentras algo fuera de tu alcance, lo correcto es avisar al responsable por un canal oficial, sin probarlo."
+  ],
+  "terminales": [
+    {
+      "titulo": "Red del laboratorio",
+      "texto": "Todas las prácticas se hicieron en la red aislada 192.168.56.0/24 con máquinas propias."
+    },
+    {
+      "titulo": "Código del agente",
+      "texto": "Autorización por escrito, alcance definido, no dañar y no guardar datos de terceros."
+    },
+    {
+      "titulo": "Divulgación responsable",
+      "texto": "Si ves algo fuera de tu alcance, avisas al responsable por un canal oficial y no lo pruebas."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Tentación Ilegal",
+      "color": "#ef4444",
+      "sprite": "tentacion_ilegal",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Fuera de Alcance",
+      "color": "#f97316",
+      "sprite": "fuera_de_alcance",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Divulgador Imprudente",
+      "color": "#a855f7",
+      "sprite": "divulgador_imprudente",
+      "frase": "Publícalo y serás famoso."
+    },
+    {
+      "nombre": "Sin Autorización",
+      "color": "#ec4899",
+      "sprite": "sin_autorizacion",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Curioso Peligroso",
+      "color": "#eab308",
+      "sprite": "curioso_peligroso",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Ego Hacker",
+      "color": "#22d3ee",
+      "sprite": "ego_hacker",
+      "frase": "Publícalo y serás famoso."
+    },
+    {
+      "nombre": "Atajo Prohibido",
+      "color": "#64748b",
+      "sprite": "atajo_prohibido",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Último Firewall",
+      "color": "#dc2626",
+      "sprite": "ultimo_firewall",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Atajo Oscuro",
+      "color": "#a3e635",
+      "sprite": "atajo_oscuro",
+      "frase": "Publícalo y serás famoso."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "Antes de realizar una prueba de seguridad se necesita…",
+      "opciones": [
+        "Solo curiosidad",
+        "Autorización por escrito",
+        "Una VPN",
+        "Una cuenta falsa"
+      ],
+      "correcta": 1,
+      "explicacion": "Sin autorización no es hacking ético."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué es el 'alcance' de una prueba?",
+      "opciones": [
+        "Los sistemas y acciones acordados que se pueden probar",
+        "El número de computadores",
+        "La velocidad de internet",
+        "El horario de clase"
+      ],
+      "correcta": 0,
+      "explicacion": "Salirse del alcance es salirse de la ética."
+    },
+    {
+      "id": "r3",
+      "pregunta": "Divulgación responsable significa…",
+      "opciones": [
+        "Ignorarla",
+        "Publicar la falla de inmediato",
+        "Venderla",
+        "Avisar al dueño por un canal oficial y darle tiempo de corregir"
+      ],
+      "correcta": 3,
+      "explicacion": "Protege a los usuarios mientras se corrige."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Por qué los laboratorios usaban una red aislada?",
+      "opciones": [
+        "Para tener más velocidad",
+        "Para que las prácticas no afecten sistemas reales",
+        "Por casualidad",
+        "Para jugar en línea"
+      ],
+      "correcta": 1,
+      "explicacion": "El aislamiento es parte del método ético."
+    },
+    {
+      "id": "r5",
+      "pregunta": "Un informe de laboratorio debe incluir…",
+      "opciones": [
+        "Solo capturas sin explicación",
+        "Nada, es opcional",
+        "Contraseñas reales de terceros",
+        "Hallazgos, evidencias, impacto y recomendaciones"
+      ],
+      "correcta": 3,
+      "explicacion": "El informe convierte la prueba en mejoras."
+    },
+    {
+      "id": "r6",
+      "pregunta": "Si durante una prueba autorizada encuentras datos personales…",
+      "opciones": [
+        "Los vendes",
+        "Los proteges, no los copias e informas al responsable",
+        "Los publicas",
+        "Los compartes con el grupo"
+      ],
+      "correcta": 1,
+      "explicacion": "La confidencialidad aplica también al auditor."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Qué es una prueba de penetración (pentest)?",
+      "opciones": [
+        "Un ataque a cualquier sistema",
+        "Una evaluación de seguridad autorizada y controlada",
+        "Un videojuego",
+        "Un virus"
+      ],
+      "correcta": 1,
+      "explicacion": "La autorización es lo que la hace ética."
+    },
+    {
+      "id": "r8",
+      "pregunta": "Al terminar una prueba autorizada se debe…",
+      "opciones": [
+        "Entregar el informe y no dejar accesos ni archivos",
+        "Contar los detalles a todo el mundo",
+        "Dejar una puerta trasera por si acaso",
+        "Borrar el informe"
+      ],
+      "correcta": 0,
+      "explicacion": "Se deja el sistema como estaba y se reporta."
+    }
+  ],
+  "final": {
+    "pregunta": "Notas una posible falla en un sistema que no pertenece a tu laboratorio. ¿Qué debes hacer?",
+    "opciones": [
+      "Probarla “solo un poco” para confirmar que existe",
+      "No probarla; trabajar solo con autorización y alcance definido, y avisar por un canal responsable",
+      "Publicarla en redes sociales para ganar reputación",
+      "Esperar a que otro la pruebe primero"
+    ],
+    "correcta": 1,
+    "explicacion": "Un agente ético nunca prueba sistemas ajenos sin permiso y reporta de forma responsable.",
+    "defensa": "Autorización escrita, alcance definido, laboratorios aislados y divulgación responsable."
+  },
+  "flag": "CAA{AGENTE_ELITE_ETIC0}",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM.I#N.NIN.N.#P...R...#N.N.N.NE#",
+    "#.D...3..#P.Ek....#....DD..#D..k....#",
+    "#.D.DTD..#...k....#.N...T.E#...kP..P#",
+    "#...K......Ekkkk...........#kkkkkkk.#",
+    "#............k.2.....D..D4.....k....#",
+    "#TS....T.#R..k.DU.#......3........U.#",
+    "#.....D..#.....P..#......P.#........#",
+    "###############################..####",
+    "#C.....U.#.MMMMM.R#N.N.N.N.#P....E..#",
+    "#.R.N.R..#........#...kD......D.....#",
+    "#........#.D.D.D..#..Rk.............#",
+    "#.R...R......1...P#kkkkkkk.#...1N..T#",
+    "#.RD..R........E......k....#.DD.DD..#",
+    "#.2...P.3#TP..........k.TU.#.....1..#",
+    "#.....E..#.....2..#.E......#.T..3.P.#",
+    "##..#################################",
+    "#P...I...#RMM.MMR.###################",
+    "#....DD..#...X.P..###################",
+    "#D.......L........###################",
+    "#..EP....L...G....###################",
+    "#.DD.DD..#........###################",
+    "#.T......#RP.P..R.###################",
+    "#......P.#.ggggg..###################",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Linux y Docker",
+    "host": "objetivo",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "Entraste por SSH al contenedor. Combina Linux y Docker para la bandera final.",
+    "objetivos": [
+      "Ver tus permisos sudo",
+      "Leer el respaldo protegido",
+      "Revisar las variables del contenedor"
+    ],
+    "fs": {
+      "leeme.txt": "Pista: revisa 'sudo -l' y luego 'env'."
+    },
+    "comandos": [
+      {
+        "match": [
+          "sudo -l",
+          "whoami"
+        ],
+        "salida": "Usuario agente puede ejecutar: (root) NOPASSWD: /bin/cat",
+        "objetivo": 0,
+        "pista": "Mira qué puedes ejecutar como root: sudo -l"
+      },
+      {
+        "match": [
+          "sudo cat /opt/respaldo/flag.txt",
+          "sudo cat /opt/respaldo/10_linux.flag",
+          "cat /opt/respaldo/flag.txt",
+          "sudo /bin/cat /opt/respaldo/flag.txt"
+        ],
+        "salida": "Parte 1: CTF{L1NUX_1f79}",
+        "objetivo": 1,
+        "pista": "Usa el permiso sudo: sudo cat /opt/respaldo/flag.txt"
+      },
+      {
+        "match": [
+          "env",
+          "env | grep flag",
+          "env | grep -i flag",
+          "printenv"
+        ],
+        "salida": "PATH=/usr/bin\nHOSTNAME=objetivo-ctf\nFLAG_DOCKER=CTF{D0CK3R_02ef}\nParte 2 lista.",
+        "objetivo": 2,
+        "pista": "Lista las variables de entorno del contenedor: env"
+      }
+    ],
+    "pregunta": {
+      "texto": "Junta las dos partes: escribe la bandera final del contenedor (la de Docker).",
+      "acepta": [
+        "ctf{d0ck3r_02ef}"
+      ],
+      "xp": 30
+    },
+    "flag": "CTF{D0CK3R_02ef}",
+    "xp": 110
+  }
+}

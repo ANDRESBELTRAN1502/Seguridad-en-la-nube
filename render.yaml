@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cyberagent-academy
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: waitress-serve --listen=0.0.0.0:$PORT app:app
+    healthCheckPath: /

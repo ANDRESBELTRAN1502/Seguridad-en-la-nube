@@ -1,0 +1,273 @@
+{
+  "orden": 6,
+  "titulo": "El filtro de palabras prohibidas",
+  "sector": "Sector 06 · Puesto del Centinela",
+  "tema": "Filtros de lista negra y codificación de salida",
+  "laboratorio": "Laboratorio XSS — DVWA nivel medio",
+  "icono": "🛡️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Entender por qué las listas negras fallan y cuál es la defensa correcta contra XSS.",
+  "colores": {
+    "piso_a": "#3d1717",
+    "piso_b": "#341313"
+  },
+  "dificultad": {
+    "estrellas": 3,
+    "vida_enemigo": 2,
+    "dano": 20,
+    "tiempo": 30,
+    "persigue": true,
+    "radio": 3,
+    "velocidad_ms": 660,
+    "dano_guardian": 30
+  },
+  "xp": {
+    "por_golpe": 22,
+    "final": 120,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Centinela Marco",
+    "color": "#f87171",
+    "sprite": "centinela_marco",
+    "historia": [
+      "Soy Marco, centinela del sector seis.",
+      "En el nivel medio de DVWA, los desarrolladores pusieron un filtro que borraba una palabra exacta. El laboratorio demostró que se podía evadir con variaciones de mayúsculas y minúsculas.",
+      "La conclusión del informe fue clara: la seguridad que depende de adivinar el ataque es vulnerable por diseño.",
+      "Dime, agente: ¿cuál es la defensa moderna?"
+    ]
+  },
+  "pistas": [
+    "En vez de borrar lo peligroso, se convierte en texto inofensivo.",
+    "Por ejemplo, el símbolo < se transforma en &lt; antes de mostrarlo.",
+    "En PHP se usa htmlspecialchars(), y se complementa con una Content Security Policy (CSP)."
+  ],
+  "terminales": [
+    {
+      "titulo": "Filtro del nivel medio",
+      "texto": "El filtro buscaba una palabra exacta. Cambiar mayúsculas y minúsculas bastó para evadirlo."
+    },
+    {
+      "titulo": "Codificación de salida",
+      "texto": "htmlspecialchars convierte < y > en entidades: el navegador los muestra como texto."
+    },
+    {
+      "titulo": "Content Security Policy",
+      "texto": "CSP limita de dónde puede cargar scripts la página, incluso si algo se cuela."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Evasor de Filtros",
+      "color": "#ef4444",
+      "sprite": "evasor_de_filtros",
+      "frase": "Tu filtro es una lista de deseos."
+    },
+    {
+      "nombre": "Máscara Mayúscula",
+      "color": "#f97316",
+      "sprite": "mascara_mayuscula",
+      "frase": "Cambio de máscara y paso."
+    },
+    {
+      "nombre": "Lista Negra Rota",
+      "color": "#64748b",
+      "sprite": "lista_negra_rota",
+      "frase": "¿Codificación? ¡Nunca la vi!"
+    },
+    {
+      "nombre": "Código Camuflado",
+      "color": "#a855f7",
+      "sprite": "codigo_camuflado",
+      "frase": "Tu filtro es una lista de deseos."
+    },
+    {
+      "nombre": "Inyector Contextual",
+      "color": "#ec4899",
+      "sprite": "inyector_contextual",
+      "frase": "Cambio de máscara y paso."
+    },
+    {
+      "nombre": "Saltafiltros",
+      "color": "#eab308",
+      "sprite": "saltafiltros",
+      "frase": "¿Codificación? ¡Nunca la vi!"
+    },
+    {
+      "nombre": "Etiqueta Rebelde",
+      "color": "#22d3ee",
+      "sprite": "etiqueta_rebelde",
+      "frase": "Tu filtro es una lista de deseos."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "Una 'lista negra' de seguridad…",
+      "opciones": [
+        "Cifra los datos",
+        "Permite solo formatos válidos",
+        "Bloquea solo lo que alguien pensó de antemano",
+        "Elimina las cookies"
+      ],
+      "correcta": 2,
+      "explicacion": "Todo lo que no está en la lista pasa, por eso falla."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué hace htmlspecialchars() en PHP?",
+      "opciones": [
+        "Comprime imágenes",
+        "Envía correos",
+        "Borra la base de datos",
+        "Convierte caracteres especiales en entidades HTML seguras"
+      ],
+      "correcta": 3,
+      "explicacion": "Así el navegador muestra el texto en lugar de ejecutarlo."
+    },
+    {
+      "id": "r3",
+      "pregunta": "El símbolo < codificado como entidad HTML se escribe…",
+      "opciones": [
+        "&lt;",
+        "%%",
+        "//",
+        "<>"
+      ],
+      "correcta": 0,
+      "explicacion": "&lt; se muestra como < pero no abre una etiqueta."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Qué es CSP (Content Security Policy)?",
+      "opciones": [
+        "Una política que limita qué scripts puede cargar la página",
+        "Un tipo de contraseña",
+        "Un antivirus",
+        "Un protocolo de correo"
+      ],
+      "correcta": 0,
+      "explicacion": "Aunque se cuele un script, CSP puede impedir que se ejecute."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Por qué cambiar mayúsculas y minúsculas evadía el filtro del nivel medio?",
+      "opciones": [
+        "El filtro buscaba una palabra exacta",
+        "La red era lenta",
+        "El navegador era viejo",
+        "El servidor estaba apagado"
+      ],
+      "correcta": 0,
+      "explicacion": "HTML no distingue mayúsculas en etiquetas; el filtro sí."
+    },
+    {
+      "id": "r6",
+      "pregunta": "'Codificación de salida contextual' significa…",
+      "opciones": [
+        "Escapar el dato según dónde se muestra (HTML, atributo, JavaScript)",
+        "Usar siempre el mismo filtro",
+        "Mostrar todo en mayúsculas",
+        "Traducir la página"
+      ],
+      "correcta": 0,
+      "explicacion": "Cada contexto tiene reglas de escape distintas."
+    },
+    {
+      "id": "r7",
+      "pregunta": "¿Por qué una lista blanca es mejor que una lista negra?",
+      "opciones": [
+        "Bloquea solo palabras feas",
+        "Es más bonita",
+        "Define lo permitido y rechaza todo lo demás",
+        "Es más larga"
+      ],
+      "correcta": 2,
+      "explicacion": "No depende de adivinar los ataques."
+    },
+    {
+      "id": "r8",
+      "pregunta": "Además de codificar la salida, ¿qué refuerza la defensa contra XSS?",
+      "opciones": [
+        "Validar la entrada en el servidor",
+        "Quitar el logo",
+        "Usar fuentes más grandes",
+        "Desactivar el CSS"
+      ],
+      "correcta": 0,
+      "explicacion": "Defensa en capas: entrada validada y salida codificada."
+    }
+  ],
+  "final": {
+    "pregunta": "Un filtro que solo borraba una palabra prohibida fue evadido. ¿Cuál es la defensa recomendada?",
+    "opciones": [
+      "Agregar cada vez más palabras a la lista negra",
+      "Esconder el formulario para que nadie lo encuentre",
+      "Codificar la salida según el contexto (htmlspecialchars) y aplicar CSP",
+      "Desactivar el teclado del usuario"
+    ],
+    "correcta": 2,
+    "explicacion": "La codificación de salida hace que el navegador muestre la entrada como texto y no como código ejecutable.",
+    "defensa": "Codificación de salida contextual + Content Security Policy + validación en el servidor."
+  },
+  "flag": "CAA{0UTPUT_ENC0DING}",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM..#P.......#C.N...U.#P.1....T#",
+    "#........#ND..DD......TER..#.DD.DD..#",
+    "#.D.D.D.................N..#..D.....#",
+    "#..KN...3....E..3.#.N...............#",
+    "#........#.DD.DD..#.R...R...E2...D..#",
+    "#TS....TT#.P...E..#........#........#",
+    "#..I..1..#..I...P.#..I.E...#......P.#",
+    "#############################..######",
+    "##########RMM.MMR.#.MMMMM..#C.....U.#",
+    "##########...X....#...R....#...P....#",
+    "##########T.......#.D.D.D..#..2.PR..#",
+    "##########...G....#.E............N..#",
+    "##########........L...........E..N..#",
+    "##########R...T...L.4.3..T.#........#",
+    "##########.ggggg..#.P......#........#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "File upload",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "El portal solo revisa la extensión del nombre del archivo. Evádelo.",
+    "objetivos": [
+      "Ver qué archivos se aceptan",
+      "Subir un archivo con doble extensión"
+    ],
+    "fs": {
+      "reporte.php": "<?php echo 'demo'; ?>",
+      "nota.txt": "El filtro solo mira la extension final del nombre."
+    },
+    "comandos": [
+      {
+        "match": [
+          "cat nota.txt",
+          "ls",
+          "cat reporte.php"
+        ],
+        "salida": "El filtro solo mira la extension final del nombre.",
+        "objetivo": 0,
+        "pista": "Lee nota.txt para entender el filtro"
+      },
+      {
+        "match": [
+          "cp reporte.php reporte.php.png",
+          "mv reporte.php reporte.php.png",
+          "curl -f archivo=@reporte.php.png http://10.10.10.7/subir",
+          "curl -f 'archivo=@reporte.php.png' http://10.10.10.7/subir"
+        ],
+        "salida": "Subiendo reporte.php.png ... filtro ve '.png' -> ACEPTADO\nFiltro evadido. Bandera: CTF{UPL04D_c8e7}",
+        "objetivo": 1,
+        "pista": "Renombra a reporte.php.png (doble extensión) y súbelo"
+      }
+    ],
+    "flag": "CTF{UPL04D_c8e7}",
+    "xp": 80
+  }
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}Ranking de agentes{% endblock %}
+{% block contenido %}
+<section class="screen center">
+  <div class="card page-card">
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" class="hud-logo big">
+    <h1 class="glow small-glow"> Ranking de agentes</h1>
+    <p class="hint">Solo cuentan las misiones validadas por el servidor ({{ total }} misiones disponibles).</p>
+    {% if filas %}
+    <table class="rank">
+      <thead><tr><th>#</th><th>Agente</th><th>Misiones</th><th>XP</th><th>Última misión</th></tr></thead>
+      <tbody>
+      {% for f in filas %}
+        <tr class="{{ 'top' if loop.index <= 3 }}"><td>{{ loop.index }}</td><td>{{ f.nombre }}</td>
+          <td>{{ f.misiones }} / {{ total }}</td><td>{{ f.xp }}</td><td>{{ (f.ultima or '')[:16]|replace('T',' ') }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>Todavía no hay agentes en el ranking. ¡Sé el primero!</p>
+    {% endif %}
+    <a class="btn primary" href="/">▶ Volver al juego</a>
+  </div>
+</section>
+{% endblock %}
