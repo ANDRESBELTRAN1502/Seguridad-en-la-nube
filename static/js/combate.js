@@ -1,4 +1,9 @@
-
+/* =========================================================
+   CyberAgent Academy — Combate por turnos (estilo Pokémon)
+   Creado por Andrés Felipe Beltrán Barrera
+   Cada respuesta correcta es un golpe al enemigo; cada error
+   le quita vida al agente. Las respuestas se validan en el servidor.
+   ========================================================= */
 (() => {
 "use strict";
 const C = window.CAA = window.CAA || {};
@@ -82,7 +87,7 @@ function animar(){
   if (ef && ef.tipo==="golpe" && k < 250) jx = -Math.sin(k/250*Math.PI)*8;
   y.fillStyle = "rgba(57,255,122,.22)"; y.beginPath(); y.ellipse(40, 66, 34, 7, 0, 0, 7); y.fill();
   y.save(); y.shadowColor = "rgba(57,255,122,.9)"; y.shadowBlur = 8;
-  C.dibujarPersona(y, 8+jx, 4+Math.round(Math.sin(now/450)), "up", null, 0, true, 0, "agente", 4);
+  C.dibujarPersona(y, 8+jx, 4+Math.round(Math.sin(now/450)), "up", null, 0, true, 0, C.spriteJugador || "agente", 4);
   y.restore();
   if (ef && ef.tipo==="ataque" && k < 300 && Math.floor(k/60)%2===0){ y.globalCompositeOperation="source-atop"; y.fillStyle="rgba(255,40,60,.7)"; y.fillRect(0,0,m.width,m.height); y.globalCompositeOperation="source-over"; }
   if (C.nivel.escudo){ y.strokeStyle=`rgba(96,165,250,${0.5+0.3*Math.sin(now/150)})`; y.lineWidth=3; y.beginPath(); y.arc(40,38,34,0,7); y.stroke(); }

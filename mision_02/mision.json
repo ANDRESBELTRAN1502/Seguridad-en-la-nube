@@ -1,10 +1,10 @@
 {
   "orden": 2,
-  "titulo": "Errores que hablan demasiado",
-  "sector": "Sector 02 · Sala de Errores",
-  "tema": "Errores comunes en autenticación",
+  "titulo": "Las huellas públicas",
+  "sector": "Sector 02 · Sala de Rastros",
+  "tema": "Búsqueda pasiva de información (OSINT)",
   "laboratorio": "Laboratorio SQL Injection — sección 'Errores comunes'",
-  "icono": "⚠️",
+  "icono": "🔎",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Identificar buenas prácticas para reducir el impacto de una inyección.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Ingeniero Bruno",
-    "color": "#60a5fa",
-    "sprite": "ingeniero_bruno",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Hola, agente. Soy Bruno, desarrollador del portal de la academia.",
-      "El informe del laboratorio de SQL Injection señaló cuatro errores en mi formulario: consultas armadas con texto, entradas sin validar, mensajes de error muy detallados y una cuenta de base de datos con demasiados permisos.",
-      "Los mensajes detallados le cuentan al atacante cómo está construido el sistema. Y una cuenta con permisos de administrador multiplica el daño.",
-      "Ayúdame a elegir la práctica correcta para corregirlo."
+      "En este nivel verás la BÚSQUEDA PASIVA (OSINT).",
+      "Aprenderás a recoger información que un sitio publica sin necesidad de atacarlo, usando curl para leer archivos como /robots.txt.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Un buen mensaje de error ayuda al usuario, pero no revela la consulta ni la estructura de la base de datos.",
-    "La aplicación solo debe tener los permisos que realmente necesita.",
-    "Este principio se llama 'privilegio mínimo'."
+    "BÚSQUEDA PASIVA (OSINT): sacar información sin atacar nada. Primero explora con ls qué archivos hay.",
+    "Un sitio publica pistas en /robots.txt. Entra a él desde la terminal:  curl http://10.10.10.7/robots.txt",
+    "robots.txt lista rutas 'Disallow' que el sitio NO quiere mostrar (ej. /gestion-interna/): justo las interesantes."
   ],
   "terminales": [
     {
@@ -87,111 +87,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "¿Por qué es peligroso mostrar el error SQL completo al usuario?",
+      "pregunta": "¿Qué es OSINT?",
       "opciones": [
-        "Gasta más tinta al imprimir",
-        "Hace la página más lenta",
-        "Revela cómo está construida la base de datos"
+        "Un antivirus",
+        "Recoger información pública sin atacar",
+        "Un lenguaje de programación"
       ],
-      "correcta": 2,
-      "explicacion": "Los errores detallados le dan un mapa del sistema al atacante."
+      "correcta": 1,
+      "explicacion": "OSINT es inteligencia de fuentes abiertas: información pública."
     },
     {
       "id": "r2",
-      "pregunta": "¿Qué significa 'privilegio mínimo'?",
+      "pregunta": "¿Qué archivo suele revelar rutas que el sitio no quiere mostrar?",
       "opciones": [
-        "Dar permisos de administrador a todos",
-        "No usar contraseñas",
-        "Dar a cada cuenta solo los permisos que necesita"
+        "/robots.txt",
+        "/estilo.css",
+        "/foto.png"
       ],
-      "correcta": 2,
-      "explicacion": "Si una cuenta tiene pocos permisos, el daño posible es menor."
+      "correcta": 0,
+      "explicacion": "robots.txt lista rutas 'Disallow' que suelen ser las interesantes."
     },
     {
       "id": "r3",
-      "pregunta": "¿Dónde deben quedar registrados los errores detallados?",
+      "pregunta": "¿Qué comando descarga un archivo de la web desde la terminal?",
       "opciones": [
-        "En los logs internos del servidor",
-        "En un correo público",
-        "En la pantalla del usuario"
+        "curl http://10.10.10.7/robots.txt",
+        "print robots",
+        "open web"
       ],
       "correcta": 0,
-      "explicacion": "El detalle es útil para el equipo, no para el visitante."
+      "explicacion": "curl descarga el contenido de una URL."
     },
     {
       "id": "r4",
-      "pregunta": "Validar con 'lista blanca' significa…",
+      "pregunta": "¿Por qué la búsqueda pasiva es 'silenciosa'?",
       "opciones": [
-        "Aceptar solo los formatos permitidos",
-        "Bloquear solo lo que ya conoces como malo",
-        "Aceptar cualquier dato"
+        "Porque no ataca ni alerta al objetivo",
+        "Porque borra registros",
+        "Porque apaga el servidor"
       ],
       "correcta": 0,
-      "explicacion": "La lista blanca define lo válido; todo lo demás se rechaza."
-    },
-    {
-      "id": "r5",
-      "pregunta": "Si la app usa la cuenta administradora de la BD y sufre una inyección…",
-      "opciones": [
-        "No pasa nada",
-        "El daño puede ser mucho mayor",
-        "La base de datos se protege sola"
-      ],
-      "correcta": 1,
-      "explicacion": "Con privilegios altos, el atacante hereda esos privilegios."
-    },
-    {
-      "id": "r6",
-      "pregunta": "¿Cuál es un buen mensaje de error en un login?",
-      "opciones": [
-        "“Error en la línea 42 de la tabla users”",
-        "“Usuario o contraseña incorrectos”",
-        "“La consulta fue: SELECT * FROM…”"
-      ],
-      "correcta": 1,
-      "explicacion": "Un mensaje genérico no revela información interna."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Qué riesgo tiene no validar las entradas de un formulario?",
-      "opciones": [
-        "Que lleguen datos maliciosos a la base de datos",
-        "Que la página cargue más rápido",
-        "Ninguno"
-      ],
-      "correcta": 0,
-      "explicacion": "Toda entrada se valida antes de usarse."
-    },
-    {
-      "id": "r8",
-      "pregunta": "¿Quién debería poder ver los logs detallados?",
-      "opciones": [
-        "Los buscadores de internet",
-        "Solo el equipo autorizado",
-        "Cualquier visitante"
-      ],
-      "correcta": 1,
-      "explicacion": "Los logs también son información sensible."
+      "explicacion": "Solo lees lo público; no generas ruido ni ataques."
     }
   ],
   "final": {
-    "pregunta": "¿Cuál de estas prácticas reduce el riesgo en un formulario de autenticación?",
+    "pregunta": "¿Dónde buscarías primero pistas públicas del sitio 10.10.10.7?",
     "opciones": [
-      "Mostrar en pantalla el error SQL completo para depurar más rápido",
-      "Conectar la aplicación con la cuenta administradora de la base de datos",
-      "Mostrar errores genéricos y usar una cuenta de base de datos con privilegio mínimo"
+      "En /robots.txt con curl",
+      "En el panel de admin a la fuerza",
+      "En la contraseña del wifi"
     ],
-    "correcta": 2,
-    "explicacion": "Los errores genéricos no filtran información interna y el privilegio mínimo limita lo que un atacante podría hacer.",
-    "defensa": "Mensajes de error genéricos, registro interno de errores (logs) y cuentas de BD con permisos mínimos."
+    "correcta": 0,
+    "explicacion": "robots.txt es la fuente pasiva más rápida.",
+    "defensa": "No poner información sensible en robots.txt ni en comentarios del HTML.",
+    "flag": "osint"
   },
-  "flag": "CAA{ERR0RES_GENERIC0S}",
+  "flag": "osint",
   "mapa": [
     "#####################################",
     "#P.......#PI......#P.......#U.....U.#",
     "#.DD.DD.....D.DD..#.D..DD...........#",
     "#.................#2...........H....#",
-    "#...K..3.#EE......#.....E..#E.......#",
+    "#......3.#EE......#.....E..#E.......#",
     "#..D.DD..#.DD.DD...E.D.DD..#..g.g...#",
     "#.S......#.1...............#U.....U.#",
     "#......P.#......P.#.I....P.#........#",
@@ -199,49 +156,81 @@
     "############################RMM...R.#",
     "############################...X....#",
     "############################........#",
-    "############################...G....#",
+    "############################...GK...#",
     "############################........#",
     "############################R.....R.#",
     "############################.ggggg..#",
     "#####################################"
   ],
   "consola": {
-    "categoria": "Búsqueda pasiva de información",
+    "categoria": "Búsqueda pasiva (OSINT)",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "El sitio http://10.10.10.7 publica información sin que haga falta atacarlo. Revísala.",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. Antes de atacar, un sitio suele publicar pistas gratis. El archivo /robots.txt lista rutas que el sitio NO quiere que veas, y por eso son las más interesantes. Paso 1: descárgalo con curl. Paso 2: fíjate en la ruta oculta que revela.",
     "objetivos": [
-      "Leer el archivo robots.txt",
-      "Buscar comentarios ocultos en la página"
+      "Explorar: mira qué archivos hay con ls",
+      "Entrar al directorio /robots.txt y leer la ruta oculta"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Entrar a robots.txt",
+        "h": "Entra al archivo /robots.txt del sitio con curl y lee la ruta oculta."
+      }
     ],
     "fs": {
-      "objetivo.txt": "http://10.10.10.7  — revisar robots.txt y el codigo fuente"
+      "objetivo.txt": "Revisar las pistas públicas del sitio:\ncurl http://10.10.10.7/robots.txt"
     },
     "comandos": [
       {
         "match": [
-          "curl http://10.10.10.7/robots.txt",
-          "curl 10.10.10.7/robots.txt",
-          "wget http://10.10.10.7/robots.txt"
+          "ls",
+          "ls -la",
+          "dir"
         ],
-        "salida": "User-agent: *\nDisallow: /gestion-interna/\n# nota: no indexar el panel\n# CTF{0S1NT_732d}",
+        "salida": "objetivo.txt   robots.txt   index.html\n(Para leer un archivo usa:  cat <archivo>)",
         "objetivo": 0,
-        "pista": "Pide el archivo robots.txt con curl"
+        "pista": "Primero explora los archivos:  ls"
       },
       {
         "match": [
-          "curl http://10.10.10.7/",
-          "curl 10.10.10.7",
-          "curl -s http://10.10.10.7/ | grep <!--",
-          "view-source"
+          "curl http://10.10.10.7/robots.txt",
+          "curl 10.10.10.7/robots.txt",
+          "wget http://10.10.10.7/robots.txt",
+          "curl http://10.10.10.7/robots",
+          "curl -s http://10.10.10.7/robots.txt"
         ],
-        "salida": "<html>...\n<!-- panel interno en /gestion-interna/ -->\n<!-- modulo de diagnostico en /diagnostico -->\n...</html>",
+        "salida": "User-agent: *\nDisallow: /gestion-interna/\n# nota del agente: no indexar el panel privado\nEncontraste una ruta oculta: /gestion-interna/\n>>> La bandera es la palabra: robots",
         "objetivo": 1,
-        "pista": "Descarga la página y busca comentarios <!-- -->"
+        "pista": "Entra al directorio /robots.txt:  curl (dirección atacada)/robots.txt"
       }
     ],
-    "flag": "CTF{0S1NT_732d}",
-    "xp": 60
+    "pista_final": "El archivo que acabas de leer se llama así. La bandera es: robots",
+    "flag": "robots",
+    "acepta": [
+      "robots",
+      "robots.txt"
+    ],
+    "monstruo": {
+      "nombre": "Rastreador Fantasma",
+      "color": "#a855f7",
+      "mensaje": "¡Leíste robots.txt y descubriste la ruta oculta /gestion-interna/!"
+    },
+    "xp": 60,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Entra al directorio /robots.txt del sitio con curl",
+      "3) Escribe la bandera:  robots"
+    ],
+    "aprendizajes": [
+      "Qué es la búsqueda pasiva (OSINT).",
+      "Leer robots.txt con curl.",
+      "Encontrar rutas ocultas sin atacar."
+    ],
+    "capacidad": "recolectar información pública de un sitio antes de atacarlo."
   }
 }

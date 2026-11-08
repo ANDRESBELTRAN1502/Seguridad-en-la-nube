@@ -8,16 +8,14 @@
     <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo Hacking Ético — Andrés Beltrán" class="logo">
     <h1 class="glow">CYBERAGENT<br><span>ACADEMY</span></h1>
     <p class="tag">RPG de hacking ético · enemigos · poderes · jefes</p>
-    <label class="name-label" for="agentName">Nombre del agente</label>
-    <input id="agentName" maxlength="24" placeholder="Escribe tu nombre de agente">
     <div class="title-buttons">
       <button id="btnStart" class="btn primary">▶ NUEVA PARTIDA</button>
       <button id="btnContinue" class="btn hidden">⟲ CONTINUAR</button>
     </div>
     <div class="links">
-      <a href="/ranking" class="srv-only"> Ranking</a>
-      <a href="/personajes" class="srv-only">Personajes</a>
-      <a href="/creditos" class="srv-only">Créditos</a>
+      <a href="/ranking" class="srv-only">🏆 Ranking</a>
+      <a href="/personajes" class="srv-only">👾 Personajes</a>
+      <a href="/creditos" class="srv-only">📜 Créditos</a>
     </div>
     <div id="loadError" class="error hidden"></div>
     <p class="credit">Creado por <strong>{{ AUTOR }}</strong><br>
@@ -117,7 +115,61 @@
       <li>Cuando caiga el último, se abre la sala del guardián</li>
       <li>Vence al guardián con la pregunta final y entra al portal 🌀</li>
     </ol>
-    <button id="btnBegin" class="btn primary">⚔ COMENZAR MISIÓN</button>
+    <p class="intro-controles">🎮 <b>Controles:</b> muévete con las <b>FLECHAS</b> o <b>WASD</b> · habla o actúa con <b>E</b> o <b>ESPACIO</b> · 💊 Parche tecla <b>3</b> · ⚡ Turbo tecla <b>4</b></p>
+    <div class="intro-botones">
+      <button id="btnIntroVolver" class="btn ghost">◀ Volver a elegir mundo</button>
+      <button id="btnBegin" class="btn primary">⚔ COMENZAR MISIÓN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======= BIENVENIDA (al abrir el juego) ======= -->
+<div id="welcome" class="modal hidden">
+  <div class="card welcome-card">
+    <h2 class="welcome-title">🛡️ ACADEMIA DE HACKING ÉTICO</h2>
+    <p class="welcome-sub">El conocimiento es tu mejor herramienta de defensa</p>
+    <div class="welcome-body">
+      <p><b>¡Bienvenido, futuro experto en ciberseguridad!</b></p>
+      <p>Estás a punto de comenzar una aventura en la que tus conocimientos, habilidades y capacidad de análisis serán puestos a prueba. En esta academia te convertirás en un aprendiz de hacking ético, donde descubrirás los secretos de la seguridad informática a través de retos, pistas, preguntas y desafíos interactivos.</p>
+      <p>Tu misión será superar diferentes niveles, explorar escenarios, resolver acertijos y demostrar que tienes lo necesario para proteger el mundo digital. Cada desafío te enseñará conceptos fundamentales sobre contraseñas seguras, redes, vulnerabilidades, amenazas informáticas, reconocimiento y protección de sistemas.</p>
+      <p>Pero recuerda: no todo consiste en encontrar vulnerabilidades, también debes aprender a utilizarlas de manera responsable.</p>
+      <p class="welcome-h">⚔️ Tu misión comienza aquí:</p>
+      <ul>
+        <li>Explora cada escenario y descubre las pistas.</li>
+        <li>Aprende nuevos conceptos de ciberseguridad.</li>
+        <li>Responde correctamente las preguntas para desbloquear el siguiente nivel.</li>
+        <li>Acumula conocimientos y conviértete en un verdadero guardián digital.</li>
+      </ul>
+      <p class="welcome-h">🏆 Tu objetivo final: superar los 10 niveles, completar todas las misiones y obtener el título de <b>MAESTRO DEL HACKING ÉTICO</b>.</p>
+      <p>¿Estás preparado para aceptar el desafío? ¡Que comience la aventura! 🔐</p>
+    </div>
+    <button id="btnWelcome" class="btn primary">Aceptar el desafío ▶</button>
+  </div>
+</div>
+
+<!-- ======= CREAR PERSONAJE (género → personaje → nombre) ======= -->
+<div id="crear" class="modal hidden">
+  <div class="card crear-card">
+    <h2 class="welcome-title">Crea tu agente</h2>
+    <div class="crear-paso">
+      <h3>1 · Elige tu género</h3>
+      <div class="genero-row">
+        <button class="gen-btn activo" data-gen="m">👨 Masculino</button>
+        <button class="gen-btn" data-gen="f">👩 Femenino</button>
+      </div>
+    </div>
+    <div class="crear-paso">
+      <h3>2 · Elige tu personaje</h3>
+      <div id="persGrid" class="pers-grid"></div>
+    </div>
+    <div class="crear-paso">
+      <h3>3 · Ponle un nombre</h3>
+      <input id="persNombre" maxlength="24" placeholder="Nombre de tu agente">
+    </div>
+    <div class="intro-botones">
+      <button id="btnCrearVolver" class="btn ghost">◀ Volver</button>
+      <button id="btnCrear" class="btn primary" disabled>¡Comenzar la aventura! ⚔️</button>
+    </div>
   </div>
 </div>
 
@@ -125,16 +177,47 @@
   <div class="card consola-card">
     <div class="consola-head"><h2 id="consolaCat">⌨️ Consola</h2><span id="consolaProg" class="pts"></span></div>
     <p class="consola-esc" id="consolaEsc"></p>
-    <ul class="consola-obj" id="consolaObj"></ul>
-    <div class="consola-out" id="consolaOut"></div>
-    <div class="consola-linea"><span class="consola-prompt">agente@objetivo:~$</span>
-      <input id="consolaInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="escribe un comando y pulsa Enter...">
+    <div class="consola-cols">
+      <div class="consola-left">
+        <ul class="consola-obj" id="consolaObj"></ul>
+        <div class="consola-out" id="consolaOut"></div>
+        <div class="consola-linea"><span class="consola-prompt" id="consolaPrompt">agente@objetivo:~$</span>
+          <input id="consolaInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="escribe un comando y pulsa Enter...">
+        </div>
+        <div id="consolaFlag" class="consola-flag hidden">🚩 Encontraste la bandera: escríbela arriba (una palabra) para validarla.</div>
+      </div>
+      <aside class="consola-help" id="consolaHelp">
+        <h3>🛠️ Pistas: qué hacer en cada paso</h3>
+        <div id="consolaCmds"></div>
+        <h3>🧩 Pistas</h3>
+        <div id="consolaHints"></div>
+      </aside>
     </div>
-    <div id="consolaFlag" class="consola-flag hidden">🚩 Encontraste una bandera: escríbela arriba (CTF{...}) para validarla.</div>
     <div class="consola-actions">
-      <button class="btn small ghost" id="consolaPista">💡 Pista</button>
+      <button class="btn small ghost" id="consolaPista">💡 Dame una pista</button>
       <button class="btn small ghost" id="consolaCerrar">Cerrar</button>
     </div>
+    <div class="quiz-credit">CyberAgent Academy · {{ AUTOR }}</div>
+  </div>
+</div>
+
+<div id="salaFinal" class="modal hidden">
+  <div class="card sala-card">
+    <div id="salaMsg" class="sala-msg">🚪 ¡La terminal abrió la última puerta!</div>
+    <div class="sala-stage"><canvas id="salaCanvas" width="640" height="420"></canvas>
+      <div id="salaReady" class="sala-ready hidden">
+        <h3>⚔️ ¡BATALLA FINAL!</h3>
+        <p id="salaReadyTxt">Resolviste la terminal y se abrió la última puerta. ¡Aparece un monstruo!</p>
+        <ul class="sala-controles">
+          <li>🕹️ <b>Moverte:</b> flechas ← → ↑ ↓ (o teclas W A S D)</li>
+          <li>⚡ <b>Atacar:</b> pulsa <kbd>ESPACIO</kbd> para lanzar tu poder</li>
+          <li>🎯 <b>Meta:</b> dale varias veces y esquiva sus disparos hasta derrotarlo</li>
+        </ul>
+        <button id="salaStart" class="btn primary">¡Comenzar batalla! ⚔️</button>
+      </div>
+      <div id="salaWin" class="sala-win hidden"></div></div>
+    <div class="sala-info" id="salaInfo">Muévete con ← → ↑ ↓ (o WASD) y pulsa <kbd>ESPACIO</kbd> para lanzar tu poder al monstruo</div>
+    <div class="sala-actions"><button id="salaNext" class="btn primary hidden">Continuar ▶</button></div>
     <div class="quiz-credit">CyberAgent Academy · {{ AUTOR }}</div>
   </div>
 </div>
@@ -237,5 +320,6 @@
 <script src="{{ url_for('static', filename='js/motor.js') }}"></script>
 <script src="{{ url_for('static', filename='js/combate.js') }}"></script>
 <script src="{{ url_for('static', filename='js/consola.js') }}"></script>
+<script src="{{ url_for('static', filename='js/salafinal.js') }}"></script>
 <script src="{{ url_for('static', filename='js/juego.js') }}"></script>
 {% endblock %}

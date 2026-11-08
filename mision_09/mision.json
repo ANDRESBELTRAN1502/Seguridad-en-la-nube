@@ -1,10 +1,10 @@
 {
   "orden": 9,
-  "titulo": "El archivo disfrazado",
-  "sector": "Sector 09 · Aduana de Archivos",
-  "tema": "Carga segura de archivos",
+  "titulo": "El espejo del navegador",
+  "sector": "Sector 09 · Galería de Espejos",
+  "tema": "Cross-Site Scripting (XSS reflejado)",
   "laboratorio": "Laboratorio Carga de archivos y ejecución — DVWA bajo y medio",
-  "icono": "📦",
+  "icono": "🪞",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Identificar las medidas correctas para una carga segura de archivos.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Custodia Elena",
-    "color": "#fb923c",
-    "sprite": "custodia_elena",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Soy Elena, custodia de la Aduana de Archivos.",
-      "En el nivel bajo, el servidor aceptaba cualquier archivo sin preguntar: confianza ciega.",
-      "En el nivel medio solo revisaba la 'etiqueta': el nombre y la extensión que enviaba el navegador. En el laboratorio se demostró que esa etiqueta se puede cambiar en el camino, y el archivo terminó ejecutándose en el servidor.",
-      "Un archivo disfrazado casi toma el control. ¿Cómo debería protegerse esta aduana?"
+      "En este nivel verás el XSS (Cross-Site Scripting).",
+      "Aprenderás cómo, si una web devuelve tu texto sin filtrarlo, puedes inyectar una etiqueta <script> para ejecutar código.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "El informe concluyó que validar solo la extensión o el tipo MIME del cliente es insuficiente.",
-    "La carpeta donde se guardan las cargas nunca debería ejecutar código.",
-    "También se recomienda renombrar los archivos subidos y, en imágenes, reprocesarlas o redimensionarlas."
+    "XSS REFLEJADO: si una web devuelve tu texto en la página sin filtrarlo, puedes inyectar código.",
+    "Prueba el buscador con texto normal:  curl http://10.10.10.7/buscar?q=hola",
+    "Inyecta una etiqueta de script:  curl http://10.10.10.7/buscar?q=<script>alert(1)</script>"
   ],
   "terminales": [
     {
@@ -109,120 +109,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "Validar solo la extensión del archivo es insuficiente porque…",
+      "pregunta": "¿Qué es un XSS reflejado?",
       "opciones": [
-        "Los archivos no tienen nombre",
-        "Las extensiones no existen",
-        "El nombre y el tipo enviados por el cliente se pueden falsificar",
-        "El servidor no lee nombres"
+        "Inyectar código que la web devuelve sin filtrar",
+        "Un escaneo de puertos",
+        "Una cookie firmada"
       ],
-      "correcta": 2,
-      "explicacion": "La etiqueta la pone quien envía el archivo."
+      "correcta": 0,
+      "explicacion": "La web refleja tu entrada y ejecuta el script inyectado."
     },
     {
       "id": "r2",
-      "pregunta": "¿Qué es el tipo MIME?",
+      "pregunta": "¿Qué etiqueta se inyecta típicamente?",
       "opciones": [
-        "Un virus",
-        "Una etiqueta que describe el tipo de contenido",
-        "Un mimo digital",
-        "Un protocolo de correo"
+        "<script>",
+        "<tabla>",
+        "<puerto>"
       ],
-      "correcta": 1,
-      "explicacion": "Ejemplo: image/png. También lo puede cambiar el cliente."
+      "correcta": 0,
+      "explicacion": "<script> permite ejecutar JavaScript en el navegador de la víctima."
     },
     {
       "id": "r3",
-      "pregunta": "¿Por qué conviene renombrar los archivos subidos?",
+      "pregunta": "¿Por qué ocurre el XSS?",
       "opciones": [
-        "Para ordenarlos alfabéticamente",
-        "Para que pesen menos",
-        "Por estética",
-        "Para que el atacante no controle el nombre ni la ruta"
+        "Porque no se filtra ni escapa la entrada del usuario",
+        "Porque el servidor es lento",
+        "Porque hay muchas imágenes"
       ],
-      "correcta": 3,
-      "explicacion": "Un nombre generado por el servidor evita sorpresas."
+      "correcta": 0,
+      "explicacion": "Reflejar la entrada sin escaparla permite inyectar código."
     },
     {
       "id": "r4",
-      "pregunta": "La carpeta donde se guardan las cargas debe…",
+      "pregunta": "¿Cómo se previene el XSS?",
       "opciones": [
-        "Ser pública y ejecutable",
-        "No tener permisos de ejecución",
-        "Compartirse sin contraseña",
-        "Estar en el escritorio del administrador"
-      ],
-      "correcta": 1,
-      "explicacion": "Si nada se ejecuta allí, un archivo malicioso pierde su poder."
-    },
-    {
-      "id": "r5",
-      "pregunta": "Una 'web shell' es…",
-      "opciones": [
-        "Un archivo malicioso que permite dar órdenes al servidor",
-        "Un navegador",
-        "Un antivirus web",
-        "Un caparazón de tortuga"
+        "Escapando/validando la salida y con CSP",
+        "Subiendo el brillo",
+        "Borrando cookies"
       ],
       "correcta": 0,
-      "explicacion": "Por eso una carga mal validada es tan crítica."
-    },
-    {
-      "id": "r6",
-      "pregunta": "Una 'lista blanca' de tipos de archivo significa…",
-      "opciones": [
-        "Aceptar todos menos .exe",
-        "Aceptar solo los formatos necesarios (por ejemplo JPG o PNG)",
-        "Rechazar todo",
-        "Aceptar solo archivos grandes"
-      ],
-      "correcta": 1,
-      "explicacion": "Se define lo permitido, no lo prohibido."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Dónde conviene guardar los archivos subidos?",
-      "opciones": [
-        "Fuera de la carpeta pública de la web",
-        "En la carpeta principal del sitio",
-        "En la página de inicio",
-        "En el escritorio del servidor"
-      ],
-      "correcta": 0,
-      "explicacion": "Así no se pueden pedir ni ejecutar directamente."
-    },
-    {
-      "id": "r8",
-      "pregunta": "Reprocesar o redimensionar una imagen subida ayuda a…",
-      "opciones": [
-        "Que pese más",
-        "Nada",
-        "Cambiar su color",
-        "Eliminar contenido oculto que no es imagen"
-      ],
-      "correcta": 3,
-      "explicacion": "Solo sobrevive lo que realmente es imagen."
+      "explicacion": "Escapar la salida y usar Content-Security-Policy mitiga el XSS."
     }
   ],
   "final": {
-    "pregunta": "Un filtro que solo revisaba la extensión fue evadido. ¿Qué combinación protege mejor la carga de archivos?",
+    "pregunta": "El buscador refleja tu texto. ¿Qué inyectas para lograr XSS?",
     "opciones": [
-      "Confiar en la extensión que envía el navegador",
-      "Permitir cualquier archivo siempre que pese poco",
-      "Validar el contenido real en el servidor, renombrar los archivos y desactivar la ejecución en la carpeta de cargas",
-      "Comprimir el archivo en ZIP antes de guardarlo"
+      "<script>alert(1)</script>",
+      "una imagen",
+      "un ping"
     ],
-    "correcta": 2,
-    "explicacion": "La defensa en capas revisa lo que el archivo realmente es y evita que se ejecute aunque logre subir.",
-    "defensa": "Lista blanca de tipos, inspección del contenido, renombrado, almacenamiento fuera de la raíz web y sin permisos de ejecución."
+    "correcta": 0,
+    "explicacion": "Una etiqueta <script> ejecuta código en el navegador.",
+    "defensa": "Escapar siempre la salida, validar la entrada y aplicar una CSP estricta.",
+    "flag": "xss"
   },
-  "flag": "CAA{UPL0AD_SEGUR0}",
+  "flag": "xss",
   "mapa": [
     "#####################################",
     "#C.....U.#C....NUE#U.1...U.#P.......#",
     "#.R......#.....R....2.......E.DND...#",
     "#.R.P.N..#3R...N.....2H.............#",
-    "#.N.K.N..#.R1..R..#......E.#.P......#",
+    "#.N...N..#.R1..R..#......E.#.P......#",
     "#..D..N...........#..g.g...#.DD.D...#",
     "#.S..........E....#U.P...C.#........#",
     "#..I.P...#...P.T..#D......D#..D...P.#",
@@ -238,33 +186,61 @@
     "#RMM...R.############################",
     "#...X....############################",
     "#........############################",
-    "#.N.G....############################",
+    "#.N.GK...############################",
     "#.....D..############################",
     "#R.....R.############################",
     "#.gggggN.############################",
     "#####################################"
   ],
   "consola": {
-    "categoria": "XSS",
+    "categoria": "XSS reflejado",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "El buscador refleja lo que escribes sin filtrarlo. Inyecta un script.",
+    "escenario": "🎯 Objetivo a atacar: el buscador de http://10.10.10.7. El buscador del sitio DEVUELVE en la página lo que escribas, sin filtrarlo. Eso permite inyectar código. Paso 1: prueba una búsqueda normal y mira cómo refleja tu texto. Paso 2: inyecta una etiqueta <script>.",
     "objetivos": [
-      "Probar una búsqueda normal",
-      "Inyectar un script que se ejecute"
+      "Explorar: mira qué archivos hay con ls",
+      "Probar el buscador con un texto normal",
+      "Inyectar una etiqueta <script> (XSS)"
     ],
-    "fs": {},
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Probar",
+        "h": "Prueba el buscador y mira cómo refleja tu texto."
+      },
+      {
+        "t": "Paso 3 · Inyectar",
+        "h": "Inyecta una etiqueta <script> para ejecutar código."
+      }
+    ],
+    "fs": {
+      "nota.txt": "El buscador refleja tu texto sin filtrar.\nPrueba:  curl http://10.10.10.7/buscar?q=hola\nLuego inyecta un <script>."
+    },
     "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "nota.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
       {
         "match": [
           "curl http://10.10.10.7/buscar?q=hola",
           "curl 'http://10.10.10.7/buscar?q=hola'",
-          "curl http://10.10.10.7/buscar?q=test"
+          "curl http://10.10.10.7/buscar?q=test",
+          "curl http://10.10.10.7/buscar?q=prueba"
         ],
-        "salida": "No se encontro: hola",
-        "objetivo": 0,
-        "pista": "Prueba el buscador: curl http://10.10.10.7/buscar?q=hola"
+        "salida": "No se encontro: hola\n(El buscador refleja tu texto SIN filtrar. Inyecta un <script>.)",
+        "objetivo": 1,
+        "pista": "Prueba el buscador:  curl (dirección atacada)/buscar?q=hola"
       },
       {
         "match": [
@@ -272,12 +248,34 @@
           "curl 'http://10.10.10.7/buscar?q=<script>alert(1)</script>'",
           "curl http://10.10.10.7/buscar?q=<script>alert('xss')</script>"
         ],
-        "salida": "El administrador reviso tu mensaje y el script se ejecuto.\nBandera: CTF{XSS_dbdf}",
-        "objetivo": 1,
-        "pista": "Inyecta <script>alert(1)</script> en q="
+        "salida": "El administrador abrió tu mensaje y el <script> se ejecutó.\n>>> La bandera es la palabra: script",
+        "objetivo": 2,
+        "pista": "Inyecta el script:  curl (dirección atacada)/buscar?q=<script>alert(1)</script>"
       }
     ],
-    "flag": "CTF{XSS_dbdf}",
-    "xp": 100
+    "pista_final": "Inyectaste una etiqueta... La bandera es: script",
+    "flag": "script",
+    "acepta": [
+      "script",
+      "xss"
+    ],
+    "monstruo": {
+      "nombre": "Eco Maligno",
+      "color": "#22d3ee",
+      "mensaje": "¡Inyectaste un <script> y lograste el XSS en el navegador!"
+    },
+    "xp": 100,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Prueba el buscador con curl (?q=hola) y mira cómo refleja tu texto",
+      "3) Ataca inyectando una etiqueta <script> en el buscador",
+      "4) Escribe la bandera:  script"
+    ],
+    "aprendizajes": [
+      "Qué es el XSS reflejado.",
+      "Por qué no reflejar la entrada sin filtrar.",
+      "Inyectar una etiqueta <script>."
+    ],
+    "capacidad": "detectar y aprovechar una vulnerabilidad XSS."
   }
 }

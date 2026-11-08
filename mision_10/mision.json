@@ -1,10 +1,10 @@
 {
   "orden": 10,
-  "titulo": "Agente Élite: el código ético",
+  "titulo": "El núcleo del contenedor",
   "sector": "Sector 10 · Torre de la Dirección",
-  "tema": "Ética, autorización y alcance",
+  "tema": "Linux, Docker y escalada de privilegios",
   "laboratorio": "Todos los laboratorios — entorno aislado 192.168.56.0/24",
-  "icono": "🏆",
+  "icono": "🐳",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Aplicar los principios del hacking ético: autorización, alcance y reporte responsable.",
   "colores": {
@@ -27,20 +27,21 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Directora Nova",
-    "color": "#e879f9",
-    "sprite": "directora_nova",
+    "nombre": "Ing. Esp. Fabián Gutiérrez",
+    "color": "#f59e0b",
+    "sprite": "profesor_fabian",
     "historia": [
-      "Llegaste a la Torre de la Dirección. Soy Nova, directora de CyberAgent Academy, la academia creada por Andrés Felipe Beltrán Barrera.",
-      "Todo lo que aprendiste se practicó en máquinas propias, aisladas en una red virtual, con permiso del profesor.",
-      "Tu último caso: navegando fuera del laboratorio, notas que la página de un comercio parece tener una de las fallas que estudiaste.",
-      "Esta decisión define si te gradúas como Agente Élite."
+      "Soy el Ing. Esp. Fabián Gutiérrez, su docente. Han llegado al último nivel, agentes.",
+      "Aquí verás LINUX y DOCKER: aprenderás a revisar permisos con sudo -l, leer archivos protegidos y encontrar secretos en las variables de un contenedor.",
+      "Demuestra todo lo aprendido en el semestre. ¡Este es el reto final!",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Saber hacer algo no te da permiso para hacerlo.",
-    "El hacking ético exige autorización por escrito y un alcance acordado.",
-    "Si encuentras algo fuera de tu alcance, lo correcto es avisar al responsable por un canal oficial, sin probarlo."
+    "ESCALADA EN LINUX: tras entrar, revisa qué permisos especiales tienes. 'sudo -l' lista lo que puedes hacer como root.",
+    "Si puedes usar cat como root, lee archivos protegidos:  sudo cat /opt/respaldo/flag.txt",
+    "En un contenedor Docker, los secretos suelen estar en variables de entorno:  env  (busca FLAG=...)."
   ],
   "terminales": [
     {
@@ -115,120 +116,79 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "Antes de realizar una prueba de seguridad se necesita…",
+      "pregunta": "¿Qué muestra 'sudo -l'?",
       "opciones": [
-        "Solo curiosidad",
-        "Autorización por escrito",
-        "Una VPN",
-        "Una cuenta falsa"
+        "Qué puedes ejecutar como root",
+        "La hora del sistema",
+        "El wifi"
       ],
-      "correcta": 1,
-      "explicacion": "Sin autorización no es hacking ético."
+      "correcta": 0,
+      "explicacion": "sudo -l lista los permisos que tienes como superusuario."
     },
     {
       "id": "r2",
-      "pregunta": "¿Qué es el 'alcance' de una prueba?",
+      "pregunta": "Si puedes usar cat como root, ¿cómo lees un archivo protegido?",
       "opciones": [
-        "Los sistemas y acciones acordados que se pueden probar",
-        "El número de computadores",
-        "La velocidad de internet",
-        "El horario de clase"
+        "sudo cat /opt/respaldo/flag.txt",
+        "rm flag.txt",
+        "ping flag"
       ],
       "correcta": 0,
-      "explicacion": "Salirse del alcance es salirse de la ética."
+      "explicacion": "Aprovechas el permiso sudo sobre cat."
     },
     {
       "id": "r3",
-      "pregunta": "Divulgación responsable significa…",
+      "pregunta": "¿Dónde guardan secretos muchos contenedores Docker?",
       "opciones": [
-        "Ignorarla",
-        "Publicar la falla de inmediato",
-        "Venderla",
-        "Avisar al dueño por un canal oficial y darle tiempo de corregir"
+        "En variables de entorno",
+        "En el teclado",
+        "En la pantalla"
       ],
-      "correcta": 3,
-      "explicacion": "Protege a los usuarios mientras se corrige."
+      "correcta": 0,
+      "explicacion": "Las variables de entorno suelen contener claves y flags."
     },
     {
       "id": "r4",
-      "pregunta": "¿Por qué los laboratorios usaban una red aislada?",
+      "pregunta": "¿Qué comando muestra las variables de entorno?",
       "opciones": [
-        "Para tener más velocidad",
-        "Para que las prácticas no afecten sistemas reales",
-        "Por casualidad",
-        "Para jugar en línea"
+        "env",
+        "color",
+        "mute"
       ],
-      "correcta": 1,
-      "explicacion": "El aislamiento es parte del método ético."
+      "correcta": 0,
+      "explicacion": "env (o printenv) lista las variables del entorno."
     },
     {
       "id": "r5",
-      "pregunta": "Un informe de laboratorio debe incluir…",
+      "pregunta": "¿Qué es la escalada de privilegios?",
       "opciones": [
-        "Solo capturas sin explicación",
-        "Nada, es opcional",
-        "Contraseñas reales de terceros",
-        "Hallazgos, evidencias, impacto y recomendaciones"
-      ],
-      "correcta": 3,
-      "explicacion": "El informe convierte la prueba en mejoras."
-    },
-    {
-      "id": "r6",
-      "pregunta": "Si durante una prueba autorizada encuentras datos personales…",
-      "opciones": [
-        "Los vendes",
-        "Los proteges, no los copias e informas al responsable",
-        "Los publicas",
-        "Los compartes con el grupo"
-      ],
-      "correcta": 1,
-      "explicacion": "La confidencialidad aplica también al auditor."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Qué es una prueba de penetración (pentest)?",
-      "opciones": [
-        "Un ataque a cualquier sistema",
-        "Una evaluación de seguridad autorizada y controlada",
-        "Un videojuego",
-        "Un virus"
-      ],
-      "correcta": 1,
-      "explicacion": "La autorización es lo que la hace ética."
-    },
-    {
-      "id": "r8",
-      "pregunta": "Al terminar una prueba autorizada se debe…",
-      "opciones": [
-        "Entregar el informe y no dejar accesos ni archivos",
-        "Contar los detalles a todo el mundo",
-        "Dejar una puerta trasera por si acaso",
-        "Borrar el informe"
+        "Pasar de usuario normal a más permisos",
+        "Subir el volumen",
+        "Cambiar el fondo"
       ],
       "correcta": 0,
-      "explicacion": "Se deja el sistema como estaba y se reporta."
+      "explicacion": "Es obtener más permisos de los que te corresponden."
     }
   ],
   "final": {
-    "pregunta": "Notas una posible falla en un sistema que no pertenece a tu laboratorio. ¿Qué debes hacer?",
+    "pregunta": "Reto final: ¿cómo ves la variable con la bandera del contenedor?",
     "opciones": [
-      "Probarla “solo un poco” para confirmar que existe",
-      "No probarla; trabajar solo con autorización y alcance definido, y avisar por un canal responsable",
-      "Publicarla en redes sociales para ganar reputación",
-      "Esperar a que otro la pruebe primero"
+      "env",
+      "sudo reboot",
+      "ping docker"
     ],
-    "correcta": 1,
-    "explicacion": "Un agente ético nunca prueba sistemas ajenos sin permiso y reporta de forma responsable.",
-    "defensa": "Autorización escrita, alcance definido, laboratorios aislados y divulgación responsable."
+    "correcta": 0,
+    "explicacion": "env revela las variables del contenedor, incluida la bandera.",
+    "defensa": "No guardar secretos en variables de entorno, limitar sudo y endurecer el contenedor.",
+    "flag": "docker"
   },
-  "flag": "CAA{AGENTE_ELITE_ETIC0}",
+  "flag": "docker",
   "mapa": [
     "#####################################",
     "#.MMMMM.I#N.NIN.N.#P...R...#N.N.N.NE#",
     "#.D...3..#P.Ek....#....DD..#D..k....#",
     "#.D.DTD..#...k....#.N...T.E#...kP..P#",
-    "#...K......Ekkkk...........#kkkkkkk.#",
+    "#..........Ekkkk...........#kkkkkkk.#",
     "#............k.2.....D..D4.....k....#",
     "#TS....T.#R..k.DU.#......3........U.#",
     "#.....D..#.....P..#......P.#........#",
@@ -244,46 +204,74 @@
     "#P...I...#RMM.MMR.###################",
     "#....DD..#...X.P..###################",
     "#D.......L........###################",
-    "#..EP....L...G....###################",
+    "#..EP....L...GK...###################",
     "#.DD.DD..#........###################",
     "#.T......#RP.P..R.###################",
     "#......P.#.ggggg..###################",
     "#####################################"
   ],
   "consola": {
-    "categoria": "Linux y Docker",
+    "categoria": "Linux y Docker (privilegios)",
     "host": "objetivo",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "Entraste por SSH al contenedor. Combina Linux y Docker para la bandera final.",
+    "escenario": "🎯 Objetivo a atacar: el contenedor (ya estás dentro por SSH). Entraste por SSH a un contenedor. Hay que escalar y encontrar el secreto final en 3 pasos. Paso 1: mira qué puedes hacer como root (sudo -l). Paso 2: lee el respaldo protegido con ese permiso. Paso 3: revisa las variables del contenedor Docker.",
     "objetivos": [
-      "Ver tus permisos sudo",
-      "Leer el respaldo protegido",
-      "Revisar las variables del contenedor"
+      "Explorar: mira qué archivos hay con ls",
+      "Ver tus permisos con sudo -l",
+      "Leer el respaldo protegido con sudo cat",
+      "Ver las variables del contenedor con env"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Permisos",
+        "h": "Revisa qué puedes ejecutar como root con sudo -l."
+      },
+      {
+        "t": "Paso 3 · Leer",
+        "h": "Lee el respaldo protegido con sudo cat."
+      },
+      {
+        "t": "Paso 4 · Contenedor",
+        "h": "Mira las variables del contenedor Docker con env."
+      }
     ],
     "fs": {
-      "leeme.txt": "Pista: revisa 'sudo -l' y luego 'env'."
+      "leeme.txt": "Pasos:\n1) sudo -l\n2) sudo cat /opt/respaldo/flag.txt\n3) env"
     },
     "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "leeme.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
       {
         "match": [
           "sudo -l",
           "whoami"
         ],
-        "salida": "Usuario agente puede ejecutar: (root) NOPASSWD: /bin/cat",
-        "objetivo": 0,
-        "pista": "Mira qué puedes ejecutar como root: sudo -l"
+        "salida": "El usuario agente puede ejecutar: (root) NOPASSWD: /bin/cat\nUsa ese permiso:  sudo cat /opt/respaldo/flag.txt",
+        "objetivo": 1,
+        "pista": "Mira tus permisos root:  sudo -l"
       },
       {
         "match": [
           "sudo cat /opt/respaldo/flag.txt",
-          "sudo cat /opt/respaldo/10_linux.flag",
           "cat /opt/respaldo/flag.txt",
           "sudo /bin/cat /opt/respaldo/flag.txt"
         ],
-        "salida": "Parte 1: CTF{L1NUX_1f79}",
-        "objetivo": 1,
-        "pista": "Usa el permiso sudo: sudo cat /opt/respaldo/flag.txt"
+        "salida": "Respaldo leído correctamente.\nAhora mira las variables del contenedor:  env",
+        "objetivo": 2,
+        "pista": "Lee el respaldo protegido:  sudo cat /opt/respaldo/flag.txt"
       },
       {
         "match": [
@@ -292,19 +280,36 @@
           "env | grep -i flag",
           "printenv"
         ],
-        "salida": "PATH=/usr/bin\nHOSTNAME=objetivo-ctf\nFLAG_DOCKER=CTF{D0CK3R_02ef}\nParte 2 lista.",
-        "objetivo": 2,
-        "pista": "Lista las variables de entorno del contenedor: env"
+        "salida": "PATH=/usr/bin\nHOSTNAME=objetivo-ctf\nFLAG=contenedor\n>>> La bandera es la palabra: contenedor",
+        "objetivo": 3,
+        "pista": "Mira las variables del contenedor:  env"
       }
     ],
-    "pregunta": {
-      "texto": "Junta las dos partes: escribe la bandera final del contenedor (la de Docker).",
-      "acepta": [
-        "ctf{d0ck3r_02ef}"
-      ],
-      "xp": 30
+    "pista_final": "La bandera estaba en la variable del... Docker. La bandera es: contenedor",
+    "flag": "contenedor",
+    "acepta": [
+      "contenedor",
+      "docker",
+      "container"
+    ],
+    "monstruo": {
+      "nombre": "Núcleo del Contenedor",
+      "color": "#e879f9",
+      "mensaje": "¡Combinaste Linux y Docker: sudo, el respaldo y las variables del contenedor!"
     },
-    "flag": "CTF{D0CK3R_02ef}",
-    "xp": 110
+    "xp": 110,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Mira tus permisos de root con  sudo -l",
+      "3) Lee el archivo protegido /opt/respaldo/flag.txt con sudo cat",
+      "4) Mira las variables del contenedor con  env",
+      "5) Escribe la bandera:  contenedor"
+    ],
+    "aprendizajes": [
+      "Enumerar permisos sudo en Linux.",
+      "Leer archivos protegidos por una mala configuración.",
+      "Inspeccionar variables de un contenedor Docker."
+    ],
+    "capacidad": "enumerar un sistema Linux y un contenedor Docker para encontrar secretos."
   }
 }

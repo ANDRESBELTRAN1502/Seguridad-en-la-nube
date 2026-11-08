@@ -1,10 +1,10 @@
 {
   "orden": 7,
-  "titulo": "El candado de cristal",
-  "sector": "Sector 07 · Taller del Cliente",
-  "tema": "Validaciones del lado del cliente",
+  "titulo": "La orden encadenada",
+  "sector": "Sector 07 · Sala de Comandos",
+  "tema": "Inyección de comandos",
   "laboratorio": "Laboratorio XSS — campo maxlength en DVWA medio",
-  "icono": "🔍",
+  "icono": "⛓️",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Reconocer que los controles del navegador no son un mecanismo de seguridad.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Diseñadora Valentina",
-    "color": "#a3e635",
-    "sprite": "disenadora_valentina",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "¡Hola! Soy Valentina, diseño las interfaces de la academia.",
-      "Yo pensaba que con poner maxlength=\"10\" en el campo 'Name' nadie podría escribir textos largos.",
-      "Pero en el laboratorio bastó abrir el inspector del navegador y cambiar el número para que el campo aceptara mucho más.",
-      "Mi candado era de cristal. ¿Qué aprendimos?"
+      "En este nivel verás la INYECCIÓN DE COMANDOS.",
+      "Aprenderás cómo, si una web pasa tu texto a la shell del sistema, puedes encadenar tus propios comandos con ';'.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Todo lo que llega al navegador puede ser modificado por quien lo usa.",
-    "La verificación que realmente cuenta ocurre en otro lugar.",
-    "La validación en el cliente mejora la experiencia; la del servidor protege."
+    "INYECCIÓN DE COMANDOS: si una web pasa tu texto a la shell del sistema, puedes colar comandos propios.",
+    "Prueba la herramienta de ping con algo normal:  ping 127.0.0.1",
+    "Encadena un segundo comando con ';' para leer un archivo:  127.0.0.1; cat flag.txt"
   ],
   "terminales": [
     {
@@ -103,120 +103,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "¿Quién controla el código HTML cuando ya llegó al navegador?",
+      "pregunta": "¿Qué es la inyección de comandos?",
       "opciones": [
-        "El usuario",
-        "Nadie",
-        "El proveedor de internet",
-        "Solo el servidor"
+        "Colar comandos del sistema a través de una entrada",
+        "Un tipo de cookie",
+        "Una imagen oculta"
       ],
       "correcta": 0,
-      "explicacion": "El usuario puede verlo y modificarlo a su gusto."
+      "explicacion": "Ocurre cuando la entrada del usuario llega a la shell del sistema."
     },
     {
       "id": "r2",
-      "pregunta": "¿Para qué sirve la validación en el cliente?",
+      "pregunta": "¿Qué símbolo encadena un segundo comando?",
       "opciones": [
-        "Para cifrar la base de datos",
-        "Para mejorar la experiencia del usuario",
-        "Para proteger el servidor por sí sola",
-        "Para evitar todos los ataques"
+        ";",
+        "@",
+        "#"
       ],
-      "correcta": 1,
-      "explicacion": "Avisa rápido de errores, pero no es una barrera de seguridad."
+      "correcta": 0,
+      "explicacion": "El ';' separa y encadena comandos en la shell."
     },
     {
       "id": "r3",
-      "pregunta": "¿Qué permite modificar el HTML de una página en tu navegador?",
+      "pregunta": "¿Qué comando leería un archivo tras el ping?",
       "opciones": [
-        "La BIOS",
-        "Las herramientas de desarrollador (inspector)",
-        "El router",
-        "El cargador del portátil"
+        "127.0.0.1; cat flag.txt",
+        "solo ping",
+        "reboot"
       ],
-      "correcta": 1,
-      "explicacion": "Con F12 se puede editar cualquier atributo de la página."
+      "correcta": 0,
+      "explicacion": "Tras el ping, '; cat flag.txt' ejecuta un segundo comando."
     },
     {
       "id": "r4",
-      "pregunta": "¿Qué debe revisar el servidor de cada dato recibido?",
+      "pregunta": "¿Cómo se evita esta vulnerabilidad?",
       "opciones": [
-        "La hora del PC del usuario",
-        "Longitud, tipo y formato",
-        "Solo el color",
-        "Nada si el cliente ya validó"
+        "No pasar la entrada del usuario a la shell",
+        "Usando más colores",
+        "Reiniciando"
       ],
-      "correcta": 1,
-      "explicacion": "El servidor repite todas las validaciones importantes."
-    },
-    {
-      "id": "r5",
-      "pregunta": "Un campo oculto (hidden) de un formulario…",
-      "opciones": [
-        "No se envía al servidor",
-        "También puede ser modificado por el usuario",
-        "Es imposible de cambiar",
-        "Siempre está cifrado"
-      ],
-      "correcta": 1,
-      "explicacion": "Oculto no significa protegido."
-    },
-    {
-      "id": "r6",
-      "pregunta": "Principio clave de este nivel:",
-      "opciones": [
-        "JavaScript no se puede leer",
-        "Nunca confiar en los datos que llegan del cliente",
-        "El HTML es secreto",
-        "Confiar siempre en el navegador"
-      ],
-      "correcta": 1,
-      "explicacion": "Todo lo que viene del cliente se trata como no confiable."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Qué atributo HTML limita la longitud de un campo en el navegador?",
-      "opciones": [
-        "alt",
-        "maxlength",
-        "href",
-        "color"
-      ],
-      "correcta": 1,
-      "explicacion": "Es útil para el usuario, pero se puede cambiar."
-    },
-    {
-      "id": "r8",
-      "pregunta": "Si el servidor recibe un texto más largo de lo permitido debe…",
-      "opciones": [
-        "Ejecutarlo",
-        "Rechazarlo o recortarlo según la regla",
-        "Mostrar el código fuente",
-        "Guardarlo igual"
-      ],
-      "correcta": 1,
-      "explicacion": "La regla del servidor es la que vale."
+      "correcta": 0,
+      "explicacion": "Nunca se debe construir comandos del sistema con entrada sin validar."
     }
   ],
   "final": {
-    "pregunta": "El campo tenía maxlength=\"10\", pero se modificó desde el inspector. ¿Qué enseña esto?",
+    "pregunta": "La web hace ping a lo que escribas. ¿Cómo lees flag.txt?",
     "opciones": [
-      "Que el HTML del navegador siempre es seguro",
-      "Que las validaciones del cliente se pueden modificar; hay que validar en el servidor",
-      "Que basta con usar campos todavía más cortos",
-      "Que JavaScript siempre protege el formulario"
+      "127.0.0.1; cat flag.txt",
+      "ping 127.0.0.1",
+      "curl -I"
     ],
-    "correcta": 1,
-    "explicacion": "Nunca se debe confiar en el cliente: longitud, tipo y formato deben verificarse de nuevo en el servidor.",
-    "defensa": "Validación en el servidor de longitud, tipo y formato, aunque también exista en el cliente."
+    "correcta": 0,
+    "explicacion": "Encadenas un comando con ';' porque la entrada no se filtra.",
+    "defensa": "Usar funciones seguras, listas blancas y evitar construir comandos con entrada del usuario.",
+    "flag": "comando"
   },
-  "flag": "CAA{VALIDA_EN_SERVID0R}",
+  "flag": "comando",
   "mapa": [
     "#####################################",
     "#C.....U.#.MMMMM..#C.....UT#P.......#",
     "#.N...R..#...D..E.#.....D..#.DD.DD..#",
     "#.....R.T#.D.D.D..#.R...R..#.....3..#",
-    "#.R.K..........E........R..#........#",
+    "#.R............E........R..#........#",
     "#P....R.................R.......D...#",
     "#.S......#T.....T.#............EN...#",
     "#........#...D....#....I..E#I...T.P.#",
@@ -224,7 +172,7 @@
     "#RMM.MMR.#.MMMMM..#NMMMMM..#P2..P2..#",
     "#...X....L........#.............DD.4#",
     "#T.......L...D.D..#.D.DPD...........#",
-    "#...G....#.................#.1..E.P.#",
+    "#...GK...#.................#.1..E.P.#",
     "#.......N#..N....E....3..3.#.DD.D...#",
     "#R.....R.#TP..1.T.#TE....T.#........#",
     "#.ggggg..#........#....I...#......P.#",
@@ -235,13 +183,23 @@
     "host": "objetivo",
     "user": "www-data",
     "ip": "10.10.10.7",
-    "escenario": "La herramienta de diagnóstico hace ping a lo que escribas, pero no filtra nada.",
+    "escenario": "🎯 Objetivo a atacar: la herramienta de ping de http://10.10.10.7. Hay una herramienta que hace ping a lo que escribas, pero NO filtra la entrada. Paso 1: pruébala con un ping normal. Paso 2: encadena un segundo comando con ';' para leer el archivo de la bandera.",
     "objetivos": [
-      "Probar el ping normal",
-      "Encadenar un comando para leer la bandera"
+      "Probar la herramienta con un ping normal",
+      "Encadenar ; cat para leer el archivo flag.txt"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Probar",
+        "h": "Prueba la herramienta con un ping normal a 127.0.0.1."
+      },
+      {
+        "t": "Paso 2 · Inyectar",
+        "h": "Encadena un comando con ';' para leer flag.txt."
+      }
     ],
     "fs": {
-      "flag_oculta.txt": "CTF{CMD1NJ_de0f}"
+      "flag.txt": "la bandera es: inyeccion"
     },
     "comandos": [
       {
@@ -250,24 +208,47 @@
           "ping -c 1 127.0.0.1",
           "ping -c1 127.0.0.1"
         ],
-        "salida": "PING 127.0.0.1: 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.03 ms",
+        "salida": "PING 127.0.0.1: 64 bytes, time=0.03 ms.\nFunciona. Ahora encadena:  127.0.0.1; cat flag.txt",
         "objetivo": 0,
-        "pista": "Primero prueba un ping normal: ping 127.0.0.1"
+        "pista": "Prueba un ping normal:  ping 127.0.0.1"
       },
       {
         "match": [
-          "127.0.0.1; cat flag_oculta.txt",
-          "ping 127.0.0.1; cat flag_oculta.txt",
-          "127.0.0.1 && cat flag_oculta.txt",
-          "127.0.0.1; cat flag_oculta.txt #",
-          "127.0.0.1 | cat flag_oculta.txt"
+          "127.0.0.1; cat flag.txt",
+          "ping 127.0.0.1; cat flag.txt",
+          "127.0.0.1 && cat flag.txt",
+          "127.0.0.1 | cat flag.txt",
+          "127.0.0.1;cat flag.txt",
+          "127.0.0.1 ; cat flag.txt"
         ],
-        "salida": "64 bytes from 127.0.0.1: time=0.03 ms\nCTF{CMD1NJ_de0f}",
+        "salida": "64 bytes from 127.0.0.1: time=0.03 ms\nla bandera es: inyeccion\n>>> La bandera es la palabra: inyeccion",
         "objetivo": 1,
-        "pista": "Agrega un segundo comando: 127.0.0.1; cat flag_oculta.txt"
+        "pista": "Encadena un comando con ;  ->  127.0.0.1; cat flag.txt"
       }
     ],
-    "flag": "CTF{CMD1NJ_de0f}",
-    "xp": 90
+    "pista_final": "Lograste una... de comandos. La bandera es: inyeccion",
+    "flag": "inyeccion",
+    "acepta": [
+      "inyeccion",
+      "inyección",
+      "injection"
+    ],
+    "monstruo": {
+      "nombre": "Shell Salvaje",
+      "color": "#dc2626",
+      "mensaje": "¡Encadenaste un comando con ; y leíste la bandera del servidor!"
+    },
+    "xp": 90,
+    "pasos": [
+      "1) Prueba la herramienta con un ping normal:  ping 127.0.0.1",
+      "2) Ataca encadenando un comando con ; para leer flag.txt",
+      "3) Escribe la bandera:  inyeccion"
+    ],
+    "aprendizajes": [
+      "Qué es la inyección de comandos.",
+      "Encadenar comandos con ';'.",
+      "Por qué no se debe pasar la entrada del usuario a la shell."
+    ],
+    "capacidad": "detectar y explotar una inyección de comandos."
   }
 }

@@ -1,4 +1,13 @@
+/* =========================================================
+   CyberAgent Academy — Música chiptune original
+   Compuesta y programada para el juego de Andrés Felipe Beltrán Barrera.
+   Se sintetiza en vivo con Web Audio (no usa archivos).
 
+   ¿Quieres tu propia música? Pon archivos MP3 en static/musica/ con estos
+   nombres y el juego los usará en lugar de la chiptune:
+     titulo.mp3 · exploracion.mp3 · combate.mp3 · jefe.mp3 · victoria.mp3 · derrota.mp3
+   (usa solo música propia o con licencia libre)
+   ========================================================= */
 (() => {
 "use strict";
 const C = window.CAA = window.CAA || {};
@@ -37,18 +46,14 @@ const PISTAS = {
            A1 - - - A2 - - - A1 - - - A2 - - -  F1 - - - F2 - - - G1 - - - G2 - - -`,
     kick: "x . . . . . . . x . . . . . . .", snare: ". . . . x . . . . . . . x . . .", hat: "x . x . x . x . x . x . x . x ." },
 
-  exploracion: { bpm: 108, loop: true,
-    lead: `E5 - - - D5 - C5 - D5 - E5 - - - . .  C5 - - - A4 - - - C5 - D5 - C5 - A4 -
-           G4 - - - C5 - E5 - G5 - - - E5 - D5 -  D5 - - - B4 - - - G4 - - - . . . .
-           A5 - - - G5 - E5 - - - D5 - E5 - - -  F5 - - - E5 - C5 - - - A4 - C5 - - -
-           E5 - - - G5 - - - E5 - D5 - C5 - - -  B4 - - - D5 - - - G5 - - - - - - -`,
-    arp:  `${rep("A4 C5 E5 C5",4)} ${rep("F4 A4 C5 A4",4)} ${rep("C5 E5 G5 E5",4)} ${rep("G4 B4 D5 B4",4)}
-           ${rep("A4 C5 E5 C5",4)} ${rep("F4 A4 C5 A4",4)} ${rep("C5 E5 G5 E5",4)} ${rep("G4 B4 D5 B4",4)}`,
-    bass: `${rep("A2 - A2 - A3 - A2 - A2 - A3 - A2 - G2 -",1)} ${rep("F2 - F2 - F3 - F2 - F2 - F3 - F2 - E2 -",1)}
-           ${rep("C2 - C2 - C3 - C2 - C2 - C3 - C2 - D2 -",1)} ${rep("G2 - G2 - G3 - G2 - G2 - G3 - G2 - G2 -",1)}
-           ${rep("A2 - A2 - A3 - A2 - A2 - A3 - A2 - G2 -",1)} ${rep("F2 - F2 - F3 - F2 - F2 - F3 - F2 - E2 -",1)}
-           ${rep("C2 - C2 - C3 - C2 - C2 - C3 - C2 - D2 -",1)} ${rep("G2 - G2 - G3 - G2 - G2 - G3 - G2 - G2 -",1)}`,
-    kick: "x . . . . . . . x . x . . . . .", snare: ". . . . x . . . . . . . x . . .", hat: ". . x . . . x . . . x . . . x ." },
+  exploracion: { bpm: 132, loop: true, rock: true,
+    lead: `E4 - E5 - E4 - G4 - E4 - E5 - D5 - B4 -  E4 - E5 - E4 - G4 - A4 - B4 - D5 - - -
+           C4 - C5 - C4 - E4 - G4 - E4 - C5 - - -  D4 - D5 - D4 - F#4 - A4 - D5 - A4 - - -
+           E4 - E5 - E4 - G4 - E4 - E5 - D5 - B4 -  G4 - B4 - D5 - B4 - E5 - D5 - B4 - G4 -
+           A4 - A5 - A4 - C5 - E5 - C5 - A4 - - -  B4 - D5 - F#5 - D5 - B4 - - - - - - -`,
+    arp:  `${rep("E3 B3 E4 B3",4)} ${rep("C3 G3 C4 G3",4)} ${rep("D3 A3 D4 A3",4)} ${rep("E3 B3 E4 B3",2)} ${rep("G3 D4 G4 D4",2)}`,
+    bass: `${rep("E2 E2 E2 G2 E2 E2 D2 E2",2)} ${rep("C2 C2 C2 E2 C2 C2 G1 C2",2)} ${rep("D2 D2 D2 F#2 D2 D2 A1 D2",2)} ${rep("E2 E2 E2 G2 A2 A2 B1 B1",2)}`,
+    kick: "x . . . x . x . x . . . x . x .", snare: ". . . . x . . . . . . . x . . .", hat: "x . x . x . x . x . x . x . x ." },
 
   combate: { bpm: 150, loop: true,
     lead: `E5 - - B4 E5 - G5 - F#5 - E5 - D5 - B4 -  C5 - - - E5 - G5 - - - E5 - G5 - C6 -
@@ -142,10 +147,11 @@ function programar(){
   while (estado.t < ctx.currentTime + 0.15){
     const paso = estado.paso, t = estado.t, i = paso % p.pasos;
     if (!p.loop && paso >= p.pasos){ detenerSecuencia(); return; }
-    const tr = estado.trans;
-    p._lead.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur, "pulso", 0.075, true); });
-    p._arp.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur*0.9, "square", 0.022); });
-    p._bass.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur*0.95, "triangle", 0.16); });
+    const tr = estado.trans, rock = p.rock;
+    const tLead = rock ? "sawtooth" : "pulso", tBass = rock ? "sawtooth" : "triangle";
+    p._lead.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur, tLead, rock ? 0.09 : 0.075, true); });
+    p._arp.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur*0.9, "square", rock ? 0.03 : 0.022); });
+    p._bass.ev.forEach(e=>{ if (e.paso===i) nota(t, freq(e.nota,tr), e.largo*dur*0.95, tBass, 0.16); });
     const k = i % 16;
     if (p._kick[k]==="x") bombo(t);
     if (p._snare[k]==="x") ruidoGolpe(t, 0.12, "bandpass", 1800, 0.18);

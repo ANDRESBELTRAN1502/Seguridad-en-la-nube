@@ -1,10 +1,10 @@
 {
   "orden": 8,
-  "titulo": "La galleta de sesión",
-  "sector": "Sector 08 · Oficina del Detective",
-  "tema": "Cookies, HttpOnly e ingeniería social (BeEF)",
+  "titulo": "La imagen que esconde secretos",
+  "sector": "Sector 08 · Cámara Oculta",
+  "tema": "Esteganografía",
   "laboratorio": "Laboratorio BeEF — impacto de un XSS",
-  "icono": "🍪",
+  "icono": "🖼️",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Identificar la bandera de cookie que protege la sesión frente a scripts.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Detective Gabriel",
-    "color": "#38bdf8",
-    "sprite": "detective_gabriel",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Detective Gabriel, a sus órdenes.",
-      "El laboratorio de BeEF mostró que un XSS no es solo una ventanita molesta: es la puerta a controlar el navegador de la víctima.",
-      "En el entorno de pruebas aparecieron formularios de login falsos, barras de 'actualización' falsas y ventanas que pedían la contraseña otra vez. La víctima confió porque parecían del sistema.",
-      "Lo más grave: la cookie de sesión podía leerse desde JavaScript. Con ella, alguien podría hacerse pasar por el usuario. ¿Qué la habría protegido?"
+      "En este nivel verás la ESTEGANOGRAFÍA.",
+      "Aprenderás a encontrar datos escondidos dentro de otros archivos, sacando el texto oculto de una imagen con strings.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Es una bandera que hace que la cookie solo viaje en las peticiones HTTP.",
-    "Con ella activa, el resultado de leer la cookie desde un script sale vacío.",
-    "Se complementa con la bandera Secure, que obliga a enviar la cookie solo por HTTPS."
+    "ESTEGANOGRAFÍA: esconder datos dentro de otro archivo (ej. texto dentro de una imagen).",
+    "Listar los archivos para ver la imagen:  ls",
+    "Sacar el texto legible escondido en un binario:  strings agente_secreto.png"
   ],
   "terminales": [
     {
@@ -109,120 +109,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "¿Para qué sirve una cookie de sesión?",
+      "pregunta": "¿Qué es la esteganografía?",
       "opciones": [
-        "Para imprimir",
-        "Para que el servidor recuerde que ya iniciaste sesión",
-        "Para acelerar el wifi",
-        "Para guardar fotos"
+        "Esconder datos dentro de otro archivo",
+        "Cifrar con contraseña",
+        "Borrar metadatos"
       ],
-      "correcta": 1,
-      "explicacion": "Es como un pase temporal de identidad."
+      "correcta": 0,
+      "explicacion": "Es ocultar información dentro de otro medio (ej. una imagen)."
     },
     {
       "id": "r2",
-      "pregunta": "Si alguien roba tu cookie de sesión podría…",
+      "pregunta": "¿Qué comando muestra el texto legible de un binario?",
       "opciones": [
-        "Hacerse pasar por ti sin tu contraseña",
-        "Apagar tu computador",
-        "Cambiar tu teclado",
-        "Nada"
+        "strings",
+        "chmod",
+        "ping"
       ],
       "correcta": 0,
-      "explicacion": "Esto se llama secuestro de sesión."
+      "explicacion": "strings extrae las cadenas de texto de un archivo."
     },
     {
       "id": "r3",
-      "pregunta": "La bandera 'Secure' en una cookie…",
+      "pregunta": "¿Qué comando lista los archivos?",
       "opciones": [
-        "La borra al cerrar",
-        "La hace visible para JavaScript",
-        "Hace que solo viaje por HTTPS",
-        "La comparte con otros sitios"
+        "ls",
+        "go",
+        "up"
       ],
-      "correcta": 2,
-      "explicacion": "Evita que viaje sin cifrar."
+      "correcta": 0,
+      "explicacion": "ls lista los archivos del directorio."
     },
     {
       "id": "r4",
-      "pregunta": "La bandera 'SameSite' ayuda a…",
+      "pregunta": "¿Dónde más puede esconderse información en un archivo?",
       "opciones": [
-        "Aumentar su tamaño",
-        "Cifrar el disco",
-        "Limitar el envío de la cookie desde otros sitios",
-        "Mostrarla en pantalla"
-      ],
-      "correcta": 2,
-      "explicacion": "Reduce ataques que abusan de peticiones entre sitios."
-    },
-    {
-      "id": "r5",
-      "pregunta": "Un login falso que aparece dentro de una página legítima es un ataque de…",
-      "opciones": [
-        "Ingeniería social",
-        "Compresión",
-        "Red eléctrica",
-        "Hardware"
+        "En los metadatos (EXIF)",
+        "En el nombre del wifi",
+        "En la batería"
       ],
       "correcta": 0,
-      "explicacion": "Engaña a la persona, no a la máquina."
-    },
-    {
-      "id": "r6",
-      "pregunta": "¿Qué conclusión dejó el laboratorio de BeEF?",
-      "opciones": [
-        "BeEF es un antivirus",
-        "Los navegadores son inmunes",
-        "Un XSS puede llevar a controlar el navegador de la víctima",
-        "Un XSS solo muestra ventanitas inofensivas"
-      ],
-      "correcta": 2,
-      "explicacion": "El impacto de un XSS va mucho más allá de una alerta."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Qué hacía el 'hook' en el laboratorio de BeEF?",
-      "opciones": [
-        "Aceleraba internet",
-        "Reparaba el navegador",
-        "Actualizaba el antivirus",
-        "Conectaba el navegador de prueba al panel de control"
-      ],
-      "correcta": 3,
-      "explicacion": "Mostró el impacto real de un XSS."
-    },
-    {
-      "id": "r8",
-      "pregunta": "¿Qué ayuda a que las personas no caigan en ventanas falsas?",
-      "opciones": [
-        "Desactivar el sonido",
-        "Pantallas más grandes",
-        "Usar modo oscuro",
-        "Capacitación en ingeniería social"
-      ],
-      "correcta": 3,
-      "explicacion": "La persona también es parte de la defensa."
+      "explicacion": "Los metadatos EXIF pueden contener datos ocultos."
     }
   ],
   "final": {
-    "pregunta": "¿Qué bandera impide que JavaScript lea la cookie de sesión?",
+    "pregunta": "Tienes agente_secreto.png. ¿Cómo sacas el texto escondido?",
     "opciones": [
-      "HttpOnly",
-      "Expires",
-      "Path",
-      "SameDomain"
+      "strings agente_secreto.png",
+      "ping imagen",
+      "reboot"
     ],
     "correcta": 0,
-    "explicacion": "Con HttpOnly el navegador no entrega la cookie a los scripts, lo que dificulta el secuestro de sesión.",
-    "defensa": "Cookies HttpOnly + Secure + SameSite, CSP para bloquear scripts externos y capacitación contra ingeniería social."
+    "explicacion": "strings muestra el texto oculto dentro del binario.",
+    "defensa": "Limpiar metadatos y no confiar secretos a 'ocultarlos' dentro de archivos.",
+    "flag": "stego"
   },
-  "flag": "CAA{HTTP0NLY}",
+  "flag": "stego",
   "mapa": [
     "#####################################",
     "#C4I...U.#C....TU.#N.N.N.N.#C.....U.#",
     "#.....R..#........#..Ek........2.N3.#",
     "#.R...N...E..H....#...k............P#",
-    "#PN.K.......1.....#kkkkkkk.#TR...R1.#",
+    "#PN.........1.....#kkkkkkk.#TR...R1.#",
     "#.....R..#..g.g.......k....#.....R..#",
     "#.S.....T#UD........3.k..UE#........#",
     "#........#.....E..#...N.T..#...E....#",
@@ -230,7 +178,7 @@
     "#RMM.MMR.#.MMMMM.I#C..E..U.#C.....CI#",
     "#...X....#1.D..2..#...P.............#",
     "#.......T#.D.D.D.E#...H........H....#",
-    "#...G....#.T......#........#......E.#",
+    "#...GK...#.T......#........#......E.#",
     "#........L...........g.g..2#..gTg...#",
     "#R..P....L..............DU.#C.....U.#",
     "#.ggggg..#........#....3...#.......R#",
@@ -241,10 +189,25 @@
     "host": "kali",
     "user": "agente",
     "ip": "",
-    "escenario": "Descargaste una imagen sospechosa (agente_secreto.png). Esconde una bandera.",
+    "escenario": "🎯 Objetivo a atacar: los archivos locales del caso. Descargaste una imagen (agente_secreto.png) que esconde un mensaje de texto dentro de sus bytes. Paso 1: lista los archivos. Paso 2: saca el texto oculto con la herramienta strings.",
     "objetivos": [
-      "Listar los archivos",
-      "Extraer los datos ocultos de la imagen"
+      "Explorar: mira qué archivos hay con ls",
+      "Listar los archivos para ver la imagen",
+      "Extraer el texto oculto con strings"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Listar",
+        "h": "Lista los archivos para ver la imagen con ls."
+      },
+      {
+        "t": "Paso 3 · Extraer",
+        "h": "Saca el texto oculto de la imagen con strings."
+      }
     ],
     "fs": {
       "agente_secreto.png": "(imagen binaria del agente)"
@@ -254,26 +217,56 @@
         "match": [
           "ls",
           "ls -la",
+          "dir"
+        ],
+        "salida": "agente_secreto.png\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "ls",
+          "ls -la",
           "file agente_secreto.png"
         ],
-        "salida": "agente_secreto.png",
-        "objetivo": 0,
-        "pista": "Lista los archivos con ls"
+        "salida": "agente_secreto.png\nSaca el texto oculto con:  strings agente_secreto.png",
+        "objetivo": 1,
+        "pista": "Lista los archivos:  ls"
       },
       {
         "match": [
           "strings agente_secreto.png",
-          "strings agente_secreto.png | grep ctf",
+          "strings agente_secreto.png | grep flag",
           "binwalk agente_secreto.png",
           "exiftool agente_secreto.png",
-          "strings agente_secreto.png | grep flag"
+          "strings agente_secreto.png | grep ban"
         ],
-        "salida": "IHDR...IDAT...IEND\nComentario: datos ocultos ->\nFLAG=CTF{ST3G0_05c9}",
-        "objetivo": 1,
-        "pista": "Usa strings o exiftool sobre la imagen"
+        "salida": "IHDR...IDAT...IEND\nComentario oculto -> strings\n>>> La bandera es la palabra: strings",
+        "objetivo": 2,
+        "pista": "Extrae el texto oculto:  strings agente_secreto.png"
       }
     ],
-    "flag": "CTF{ST3G0_05c9}",
-    "xp": 90
+    "pista_final": "El comando que usaste para ver el texto oculto se llama... La bandera es: strings",
+    "flag": "strings",
+    "acepta": [
+      "strings"
+    ],
+    "monstruo": {
+      "nombre": "Imagen Poseída",
+      "color": "#ec4899",
+      "mensaje": "¡Usaste strings y sacaste el mensaje escondido en la imagen!"
+    },
+    "xp": 90,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Ataca el archivo agente_secreto.png sacando su texto oculto con strings",
+      "3) Escribe la bandera:  strings"
+    ],
+    "aprendizajes": [
+      "Qué es la esteganografía.",
+      "Inspeccionar datos ocultos en archivos.",
+      "Usar strings sobre un binario."
+    ],
+    "capacidad": "encontrar datos escondidos dentro de archivos."
   }
 }

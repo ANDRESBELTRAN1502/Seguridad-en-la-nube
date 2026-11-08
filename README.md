@@ -68,14 +68,6 @@ CyberAgent-Academy/
 
 Si no quieres usar Python, abre `datos/JUGAR_CyberAgent_Academy.html` con doble clic. Ese archivo trae todo adentro, pero no tiene ranking.
 
-## Publicar en GitHub y Render
-
-1. Sube esta carpeta a un repositorio de GitHub.
-2. En Render, selecciona **New → Blueprint** y conecta ese repositorio. Render detectará `render.yaml` y publicará la aplicación.
-3. Al terminar el despliegue, abre la URL que Render asigna al servicio.
-
-El servicio usa Waitress en producción y el puerto proporcionado por Render. La base SQLite está excluida del repositorio; en Render gratuito sus datos pueden perderse cuando el servicio se reinicia o se vuelve a desplegar.
-
 ## Novedades v5 — Consola de comandos (práctica tipo CTF)
 
 Cada nivel tiene una **estación de consola** (el equipo con el cartel **CONSOLA** en el centro de la sala inicial): **písala para abrirla**, o usa el botón ⌨️ / la tecla **C**. Ahí escribes **comandos reales** y ves la respuesta simulada, igual que en un laboratorio de hacking ético. Practicas las categorías del curso y ganas **banderas CTF{...}** y XP extra:

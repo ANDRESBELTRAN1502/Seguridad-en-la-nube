@@ -1,10 +1,10 @@
 {
   "orden": 3,
-  "titulo": "Tres caminos de inyección",
-  "sector": "Sector 03 · Laberinto de Consultas",
-  "tema": "SQLi por POST, GET y Blind",
+  "titulo": "El laberinto de directorios ocultos",
+  "sector": "Sector 03 · Laberinto de Rutas",
+  "tema": "Enumeración web de directorios con Gobuster",
   "laboratorio": "Laboratorio SQL Injection — conclusiones POST / GET / Blind",
-  "icono": "🧭",
+  "icono": "🗂️",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Diferenciar las variantes de SQL Injection y su nivel de detección.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Analista Sofía",
-    "color": "#f472b6",
-    "sprite": "analista_sofia",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Soy Sofía, analista del Centro de Operaciones.",
-      "En el laboratorio comparamos tres variantes: POST, que se esconde en los formularios; GET, que queda expuesta en la URL y en los logs; y Blind, la ciega.",
-      "La variante ciega no muestra ningún error. El atacante solo observa si la página responde distinto o tarda más.",
-      "Que un sistema no muestre errores no significa que sea seguro. ¿Sabes cuál es la más difícil de detectar?"
+      "En este nivel verás la ENUMERACIÓN WEB.",
+      "Aprenderás a descubrir páginas y carpetas que no están enlazadas, probando nombres de un diccionario con gobuster.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Una de ellas se deduce por respuestas de verdadero/falso o por tiempos de espera.",
-    "Su nombre en español es 'ciega'.",
-    "El informe la llama 'un riesgo silencioso de exfiltración de datos'."
+    "ENUMERACIÓN WEB: buscar páginas y carpetas que no están enlazadas, probando nombres de un diccionario.",
+    "Enumerar directorios con gobuster:  gobuster dir -u http://10.10.10.7 -w wordlist.txt",
+    "Los que dan Status 200 existen; abre el oculto con:  curl http://10.10.10.7/gestion-interna/"
   ],
   "terminales": [
     {
@@ -87,111 +87,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "En una SQL Injection por GET, ¿dónde viaja el dato manipulado?",
+      "pregunta": "¿Qué hace la enumeración web?",
       "opciones": [
-        "En la URL",
-        "En la cookie de idioma",
-        "En el cable de poder"
+        "Descubre rutas ocultas no enlazadas",
+        "Cambia el color del sitio",
+        "Borra la base de datos"
       ],
       "correcta": 0,
-      "explicacion": "Los parámetros GET forman parte de la dirección."
+      "explicacion": "Enumerar es encontrar recursos que no aparecen en los enlaces."
     },
     {
       "id": "r2",
-      "pregunta": "¿Por qué la SQLi por GET deja más rastro?",
+      "pregunta": "¿Qué herramienta prueba rutas con un diccionario?",
       "opciones": [
-        "Usa más electricidad",
-        "La URL queda en el historial y en los logs del servidor",
-        "Se imprime automáticamente"
+        "gobuster",
+        "notepad",
+        "chrome"
       ],
-      "correcta": 1,
-      "explicacion": "Todo lo que va en la URL suele quedar registrado."
+      "correcta": 0,
+      "explicacion": "gobuster prueba muchas rutas de una wordlist."
     },
     {
       "id": "r3",
-      "pregunta": "En la SQLi por POST, los datos van…",
+      "pregunta": "¿Qué es una 'wordlist'?",
       "opciones": [
-        "Solo en la URL",
-        "En el cuerpo de la petición",
-        "En el nombre del dominio"
+        "Un diccionario de posibles nombres de rutas",
+        "Una lista de contraseñas del wifi",
+        "Un juego"
       ],
-      "correcta": 1,
-      "explicacion": "POST envía los datos en el body, por eso se necesita un proxy para verlos."
+      "correcta": 0,
+      "explicacion": "Es la lista de nombres que la herramienta va probando."
     },
     {
       "id": "r4",
-      "pregunta": "La SQLi ciega basada en tiempo se detecta observando…",
+      "pregunta": "Un directorio con Status 200 significa que…",
       "opciones": [
-        "El color de la página",
-        "Cuánto tarda en responder el servidor",
-        "El tamaño del logo"
-      ],
-      "correcta": 1,
-      "explicacion": "Una demora anómala puede indicar una inyección basada en tiempo."
-    },
-    {
-      "id": "r5",
-      "pregunta": "Que una página no muestre errores significa que…",
-      "opciones": [
-        "No necesariamente es segura",
-        "Es totalmente segura",
-        "No tiene base de datos"
+        "Existe y responde",
+        "No existe",
+        "Está prohibido"
       ],
       "correcta": 0,
-      "explicacion": "La inyección ciega funciona justamente sin errores visibles."
-    },
-    {
-      "id": "r6",
-      "pregunta": "¿Qué capa adicional ayuda a detectar patrones de inyección?",
-      "opciones": [
-        "Un WAF (firewall de aplicaciones web)",
-        "Un teclado nuevo",
-        "Un protector de pantalla"
-      ],
-      "correcta": 0,
-      "explicacion": "El WAF complementa, pero no reemplaza, las consultas parametrizadas."
-    },
-    {
-      "id": "r7",
-      "pregunta": "Si una página responde distinto ante condiciones verdaderas y falsas, puede indicar…",
-      "opciones": [
-        "Que el servidor es muy rápido",
-        "Una SQL Injection ciega booleana",
-        "Que no hay base de datos"
-      ],
-      "correcta": 1,
-      "explicacion": "La diferencia de respuesta filtra información bit a bit."
-    },
-    {
-      "id": "r8",
-      "pregunta": "¿Qué variante necesita un proxy como Burp Suite para ver el dato enviado?",
-      "opciones": [
-        "Ninguna",
-        "POST",
-        "GET"
-      ],
-      "correcta": 1,
-      "explicacion": "En POST el dato va en el cuerpo, no en la URL."
+      "explicacion": "200 = OK: el recurso existe."
     }
   ],
   "final": {
-    "pregunta": "¿Qué variante de SQL Injection es la más difícil de detectar porque no muestra errores y depende de respuestas lógicas o tiempos?",
+    "pregunta": "¿Con qué herramienta enumerarías los directorios de http://10.10.10.7?",
     "opciones": [
-      "SQL Injection Blind (ciega)",
-      "SQL Injection por GET",
-      "SQL Injection por POST"
+      "gobuster",
+      "ping",
+      "reboot"
     ],
     "correcta": 0,
-    "explicacion": "La inyección ciega no depende de errores visibles, por eso pasa desapercibida con más facilidad.",
-    "defensa": "Consultas parametrizadas, monitoreo de tiempos de respuesta anómalos y un WAF como capa adicional."
+    "explicacion": "gobuster con un diccionario revela los directorios ocultos.",
+    "defensa": "No dejar paneles sensibles sin autenticación y vigilar accesos por fuerza bruta.",
+    "flag": "gobuster"
   },
-  "flag": "CAA{BL1ND_SQLI}",
+  "flag": "gobuster",
   "mapa": [
     "#####################################",
     "#PI.....2#C.....C.#.MMMMM..#U...PIC.#",
     "#.DD.DD..#..R..............#.E3.....#",
     "#........#...H.E...3..D.D......H....#",
-    "#...K....#........#D................#",
+    "#........#........#D................#",
     "#..D.DD.....g.g.E.#.......E#.4g.g...#",
     "#.S..P..........U.#T.....T.#U.....U.#",
     "#......P.#........#...E..1.#........#",
@@ -199,21 +156,36 @@
     "############################RMM...R.#",
     "############################...X....#",
     "############################........#",
-    "############################...G....#",
+    "############################...GK...#",
     "############################........#",
     "############################R.....RR#",
     "############################.ggggg..#",
     "#####################################"
   ],
   "consola": {
-    "categoria": "Enumeración web",
+    "categoria": "Enumeración web (Gobuster)",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "Hay un directorio que no está enlazado en ninguna página. Encuéntralo por fuerza bruta.",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. Hay un directorio que no está enlazado en ninguna página; solo se encuentra PROBANDO nombres con un diccionario. Paso 1: enumera los directorios con gobuster. Paso 2: entra al que aparezca como oculto.",
     "objetivos": [
-      "Enumerar directorios ocultos",
-      "Abrir el directorio encontrado"
+      "Explorar: mira qué archivos hay con ls",
+      "Enumerar los directorios del sitio con gobuster",
+      "Entrar al directorio oculto que encuentres"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Enumerar",
+        "h": "Busca directorios ocultos con gobuster y el diccionario wordlist.txt."
+      },
+      {
+        "t": "Paso 3 · Entrar",
+        "h": "Abre con curl el directorio oculto que descubriste."
+      }
     ],
     "fs": {
       "wordlist.txt": "admin\nbackup\nlogin\ngestion-interna\ndev"
@@ -221,14 +193,26 @@
     "comandos": [
       {
         "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "wordlist.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
           "gobuster dir -u http://10.10.10.7 -w wordlist.txt",
           "gobuster dir -u http://10.10.10.7",
           "dirb http://10.10.10.7",
-          "gobuster -u http://10.10.10.7 -w wordlist.txt"
+          "gobuster -u http://10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u 10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u http://10.10.10.7 -w /usr/share/wordlists/dirb/common.txt"
         ],
-        "salida": "/admin           (Status: 403)\n/login           (Status: 200)\n/gestion-interna (Status: 200)  <-- oculto\n",
-        "objetivo": 0,
-        "pista": "Usa gobuster dir -u http://10.10.10.7 -w wordlist.txt"
+        "salida": "/admin            (Status: 403)\n/login            (Status: 200)\n/gestion-interna  (Status: 200)  <-- OCULTO\nEntra con:  curl http://10.10.10.7/gestion-interna/",
+        "objetivo": 1,
+        "pista": "Enumera directorios:  gobuster dir -u (dirección atacada) -w wordlist.txt"
       },
       {
         "match": [
@@ -236,12 +220,34 @@
           "curl 10.10.10.7/gestion-interna/",
           "curl http://10.10.10.7/gestion-interna"
         ],
-        "salida": "<h1>Gestion interna</h1>\nAcceso no autorizado detectado. Bandera: CTF{3NUM_a59e}",
-        "objetivo": 1,
-        "pista": "Abre /gestion-interna/ con curl"
+        "salida": "<h1>Gestion interna</h1>\nAcceso al panel privado detectado.\n>>> La bandera es la palabra: oculto",
+        "objetivo": 2,
+        "pista": "Abre el directorio encontrado:  curl (dirección atacada)/gestion-interna/"
       }
     ],
-    "flag": "CTF{3NUM_a59e}",
-    "xp": 70
+    "pista_final": "El directorio que encontraste no estaba enlazado, estaba... La bandera es: oculto",
+    "flag": "oculto",
+    "acepta": [
+      "oculto",
+      "gestion-interna"
+    ],
+    "monstruo": {
+      "nombre": "Guardián de Puertas",
+      "color": "#f97316",
+      "mensaje": "¡Con gobuster encontraste el directorio oculto /gestion-interna/!"
+    },
+    "xp": 70,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Enumera los directorios del sitio con gobuster y el diccionario wordlist.txt",
+      "3) Entra al directorio oculto /gestion-interna/ con curl",
+      "4) Escribe la bandera:  oculto"
+    ],
+    "aprendizajes": [
+      "Qué es la enumeración web.",
+      "Usar gobuster con un diccionario.",
+      "Descubrir recursos no enlazados."
+    ],
+    "capacidad": "descubrir páginas y directorios ocultos de un sitio web."
   }
 }

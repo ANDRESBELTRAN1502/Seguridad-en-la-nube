@@ -1,4 +1,7 @@
-
+/* =========================================================
+   CyberAgent Academy — Motor: mapa, jugador, enemigos, efectos y render
+   Creado por Andrés Felipe Beltrán Barrera
+   ========================================================= */
 (() => {
 "use strict";
 const C = window.CAA = window.CAA || {};
@@ -444,11 +447,11 @@ C.render = function(now){
   if (lv.portalAnim){ // absorción por el portal
     const k = Math.min(1,(now-lv.portalAnim)/700);
     cx.save(); cx.translate(px+16, py+16); cx.rotate(k*12); cx.scale(1-k, 1-k); cx.globalAlpha = 1-k*0.6;
-    C.dibujarPersona(cx, -16, -16, p.dir, null, 0, true, 0, "agente"); cx.restore();
+    C.dibujarPersona(cx, -16, -16, p.dir, null, 0, true, 0, C.spriteJugador || "agente"); cx.restore();
   } else if (!blink) {
     luz(px+16, py+14, "rgb(57,255,122)", 22, .22);
     cx.save(); cx.shadowColor = "rgba(57,255,122,.9)"; cx.shadowBlur = 6;
-    C.dibujarPersona(cx, px, py, p.dir, null, cuadro, true, resp, "agente");
+    C.dibujarPersona(cx, px, py, p.dir, null, cuadro, true, resp, C.spriteJugador || "agente");
     cx.restore();
   }
   if (lv.escudo){ cx.strokeStyle=`rgba(96,165,250,${0.6+0.3*Math.sin(now/150)})`; cx.lineWidth=2; cx.beginPath(); cx.arc(px+16, py+16, 18, 0, 7); cx.stroke(); }

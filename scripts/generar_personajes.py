@@ -148,6 +148,9 @@ def persona(pal, dir_, cuadro):
                 if pal.get("lentes"):
                     r(5, hy + 3, 3, 1, (180, 220, 255, 255)); r(8, hy + 3, 3, 1, (180, 220, 255, 255))
                     r(6, hy + 3, 1, 1, ojo); r(9, hy + 3, 1, 1, ojo)
+                if pal.get("barba"):
+                    r(5, hy + 5, 6, 2, pelo); r(5, hy + 4, 1, 2, pelo); r(10, hy + 4, 1, 2, pelo)
+                    r(6, hy + 5, 4, 1, piel)   # boca entre la barba
             elif dir_ == "left":
                 r(5, hy + 3, 1, 1, ojo); r(7, hy + 3, 1, 1, ojo); r(11, hy + 1, 1, 4, pelo)
             else:
@@ -311,6 +314,27 @@ def main():
                    "sprite": "sprites/agente.png", "retrato": "galeria/00 - Agente (jugador).png",
                    "descripcion": "Tú: el agente de capucha negra y ojos verdes."})
 
+    # ---- personajes SELECCIONABLES por el jugador (género + estilo) ----
+    OPCIONES = [
+        {"id": "jug_m1", "nombre": "Encapuchado", "genero": "m",
+         "pal": {"jugador": True, "ropa": (24, 24, 24, 255), "pelo": (10, 10, 10, 255), "piel": (224, 162, 122, 255), "pantalon": (31, 41, 55, 255)}},
+        {"id": "jug_m2", "nombre": "Analista", "genero": "m",
+         "pal": {"ropa": (37, 99, 235, 255), "pelo": (40, 28, 18, 255), "piel": (224, 162, 122, 255), "pantalon": (30, 41, 59, 255), "estilo": "corto", "lentes": True}},
+        {"id": "jug_m3", "nombre": "Técnico", "genero": "m",
+         "pal": {"ropa": (16, 185, 129, 255), "pelo": (20, 20, 20, 255), "piel": (198, 134, 96, 255), "pantalon": (40, 40, 40, 255), "estilo": "gorra", "gorra": (10, 80, 50, 255)}},
+        {"id": "jug_f1", "nombre": "Encapuchada", "genero": "f",
+         "pal": {"jugador": True, "ropa": (124, 58, 237, 255), "pelo": (30, 20, 40, 255), "piel": (240, 190, 150, 255), "pantalon": (31, 41, 55, 255)}},
+        {"id": "jug_f2", "nombre": "Analista", "genero": "f",
+         "pal": {"ropa": (13, 148, 136, 255), "pelo": (60, 36, 18, 255), "piel": (224, 162, 122, 255), "pantalon": (30, 41, 59, 255), "estilo": "largo", "lentes": True}},
+        {"id": "jug_f3", "nombre": "Técnica", "genero": "f",
+         "pal": {"ropa": (236, 72, 153, 255), "pelo": (200, 160, 80, 255), "piel": (240, 190, 150, 255), "pantalon": (40, 40, 40, 255), "estilo": "largo"}},
+    ]
+    for op in OPCIONES:
+        hoja = hoja_persona(op["pal"]); hoja.save(OUT / "sprites" / f"{op['id']}.png")
+        indice.append({"id": op["id"], "nombre": op["nombre"], "tipo": "jugador_opcion",
+                       "genero": op["genero"], "sprite": f"sprites/{op['id']}.png",
+                       "descripcion": f"Personaje seleccionable ({'masculino' if op['genero']=='m' else 'femenino'})."})
+
     pelos = [(59, 36, 18, 255), (20, 20, 20, 255), (120, 72, 30, 255), (200, 160, 80, 255), (90, 50, 40, 255), (230, 230, 230, 255)]
     pieles = [(224, 162, 122, 255), (198, 134, 96, 255), (240, 190, 150, 255), (160, 105, 72, 255)]
     estilos = ["corto", "largo", "mono", "gorra", "corto", "largo"]
@@ -325,6 +349,9 @@ def main():
         pal = {"ropa": hexrgb(g["color"]), "pelo": pelos[h % len(pelos)], "piel": pieles[(h >> 4) % len(pieles)],
                "pantalon": (40, 44, 60, 255), "estilo": estilos[(h >> 8) % len(estilos)], "gorra": tono(hexrgb(g["color"]), 0.6),
                "lentes": (h >> 12) % 3 == 0, "insignia": True}
+        if gid == "profesor_fabian":   # el docente: gafas, barba y bata, para que se reconozca
+            pal.update({"lentes": True, "barba": True, "estilo": "corto",
+                        "pelo": (38, 28, 20, 255), "ropa": (235, 240, 245, 255), "piel": (232, 180, 140, 255)})
         hoja = hoja_persona(pal); hoja.save(OUT / "sprites" / f"{gid}.png")
         archivo = f"galeria/guardianes/Nivel {n:02d} - {g['nombre']}.png"
         rt = retrato(hoja.crop((0, 0, 16, 16)), g["nombre"], f"Guardián · Nivel {n:02d}", m["titulo"], g["color"])

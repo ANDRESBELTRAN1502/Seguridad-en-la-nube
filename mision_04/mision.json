@@ -1,10 +1,10 @@
 {
   "orden": 4,
-  "titulo": "La bóveda del volcado",
-  "sector": "Sector 04 · Bóveda de Datos",
-  "tema": "Exposición de bases de datos y hashing",
+  "titulo": "El mensaje en las cabeceras",
+  "sector": "Sector 04 · Bóveda de Cabeceras",
+  "tema": "Análisis de cabeceras HTTP y Base64",
   "laboratorio": "Laboratorios SQLMAP y Base de datos DVWA",
-  "icono": "🗄️",
+  "icono": "🧾",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Reconocer cómo proteger las contraseñas almacenadas.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Guardián Tomás",
-    "color": "#fbbf24",
-    "sprite": "guardian_tomas",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Alto ahí. Soy Tomás, guardián de la bóveda de datos.",
-      "En el laboratorio, una herramienta automatizada demostró en minutos que una aplicación vulnerable podía mostrar las bases de datos, sus tablas y la tabla de usuarios completa.",
-      "El impacto es crítico: suplantación de identidad, escalada de privilegios y movimiento lateral si la gente repite contraseñas.",
-      "Pero aun si alguien llega a ver la tabla, todavía queda una última línea de defensa. ¿Cuál es?"
+      "En este nivel verás el ANÁLISIS HTTP.",
+      "Aprenderás a leer las CABECERAS de una respuesta web con curl -I y a decodificar datos ocultos en Base64.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Una contraseña nunca debe guardarse tal como la escribe el usuario.",
-    "Se usa una función de una sola vía, combinada con un valor aleatorio único por usuario.",
-    "Ese valor aleatorio se llama 'salt'. Algoritmos recomendados: bcrypt o Argon2."
+    "CABECERAS HTTP: toda respuesta web trae cabeceras con información del servidor. A veces esconden datos.",
+    "Ver SOLO las cabeceras:  curl -I http://10.10.10.7/   (busca una cabecera X-... con un valor raro).",
+    "Si el valor parece Base64, decodifícalo:  echo YmFzZTY0 | base64 -d"
   ],
   "terminales": [
     {
@@ -97,110 +97,67 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "¿Qué hace una herramienta como sqlmap en un laboratorio autorizado?",
+      "pregunta": "¿Qué son las cabeceras HTTP?",
       "opciones": [
-        "Diseña páginas web",
-        "Compone música",
-        "Automatiza la detección de inyecciones SQL"
+        "Datos extra que el servidor envía con cada respuesta",
+        "El logo de la página",
+        "La contraseña del admin"
       ],
-      "correcta": 2,
-      "explicacion": "Automatiza lo que manualmente tomaría mucho tiempo, por eso el impacto es rápido."
+      "correcta": 0,
+      "explicacion": "Las cabeceras llevan metadatos de la respuesta (servidor, tipo, etc.)."
     },
     {
       "id": "r2",
-      "pregunta": "¿Qué es un hash de contraseña?",
+      "pregunta": "¿Qué comando muestra SOLO las cabeceras?",
       "opciones": [
-        "La contraseña escrita al revés",
-        "Una transformación de una sola vía",
-        "Una copia en texto plano"
+        "curl -I http://10.10.10.7/",
+        "cat cabeceras",
+        "ls -l"
       ],
-      "correcta": 1,
-      "explicacion": "Del hash no se puede volver directamente a la contraseña."
+      "correcta": 0,
+      "explicacion": "curl -I pide únicamente las cabeceras."
     },
     {
       "id": "r3",
-      "pregunta": "¿Para qué sirve el 'salt'?",
+      "pregunta": "¿Qué es Base64?",
       "opciones": [
-        "Para que dos contraseñas iguales tengan hashes distintos",
-        "Para acelerar el login",
-        "Para cifrar el disco duro"
+        "Una forma de codificar datos como texto",
+        "Un virus",
+        "Un puerto"
       ],
       "correcta": 0,
-      "explicacion": "El salt es un valor aleatorio único por usuario."
+      "explicacion": "Base64 representa datos binarios como texto ASCII."
     },
     {
       "id": "r4",
-      "pregunta": "¿Qué algoritmo es adecuado para guardar contraseñas?",
+      "pregunta": "¿Qué comando decodifica Base64?",
       "opciones": [
-        "MD5 sin salt",
-        "Base64",
-        "bcrypt o Argon2"
-      ],
-      "correcta": 2,
-      "explicacion": "Son lentos a propósito, lo que dificulta adivinar contraseñas."
-    },
-    {
-      "id": "r5",
-      "pregunta": "¿Por qué es peligroso reutilizar contraseñas?",
-      "opciones": [
-        "No es peligroso",
-        "Se olvidan más rápido",
-        "Una filtración permite entrar a otros servicios"
-      ],
-      "correcta": 2,
-      "explicacion": "Una sola filtración se multiplica en muchas cuentas."
-    },
-    {
-      "id": "r6",
-      "pregunta": "'Movimiento lateral' significa…",
-      "opciones": [
-        "Mover el mouse a la izquierda",
-        "Cambiarse de oficina",
-        "Usar un acceso para llegar a otros sistemas de la red"
-      ],
-      "correcta": 2,
-      "explicacion": "Por eso una cuenta comprometida puede afectar toda la red."
-    },
-    {
-      "id": "r7",
-      "pregunta": "Si una base de datos se filtró, ¿qué deben hacer los usuarios?",
-      "opciones": [
-        "Nada",
-        "Publicar sus contraseñas",
-        "Cambiar sus contraseñas, empezando por las repetidas"
-      ],
-      "correcta": 2,
-      "explicacion": "Así se corta el efecto en cadena."
-    },
-    {
-      "id": "r8",
-      "pregunta": "¿Qué limita lo que se puede leer aunque exista una inyección?",
-      "opciones": [
-        "El privilegio mínimo de la cuenta de la BD",
-        "Codificar en Base64",
-        "Ocultar la URL"
+        "base64 -d",
+        "unzip",
+        "sudo"
       ],
       "correcta": 0,
-      "explicacion": "Con pocos permisos, el daño es menor."
+      "explicacion": "base64 -d decodifica el texto."
     }
   ],
   "final": {
-    "pregunta": "Si un atacante llega a ver la tabla de usuarios, ¿qué es la última línea de defensa para las contraseñas?",
+    "pregunta": "Encontraste 'YmFzZTY0' en una cabecera. ¿Cómo lo lees?",
     "opciones": [
-      "Guardarlas en texto plano para poder recuperarlas rápido",
-      "Almacenarlas con un algoritmo de hash robusto y salt",
-      "Cambiarle el nombre a la tabla 'users'"
+      "echo YmFzZTY0 | base64 -d",
+      "lo borro",
+      "reinicio el PC"
     ],
-    "correcta": 1,
-    "explicacion": "Un hash robusto con salt hace muy costoso descubrir las contraseñas originales aunque se filtre la tabla.",
-    "defensa": "Hash con bcrypt/Argon2 y salt, consultas preparadas y privilegio mínimo en la BD."
+    "correcta": 0,
+    "explicacion": "Se decodifica con base64 -d.",
+    "defensa": "No enviar información sensible en cabeceras ni confiar en que Base64 'oculta' algo (no cifra).",
+    "flag": "cabecera"
   },
-  "flag": "CAA{HASH_C0N_SALT}",
+  "flag": "cabecera",
   "mapa": [
     "#####################################",
     "#N.N.N.NI#P....I.1#P....1..#N.N.N.N.#",
     "#...k.......DPDD..#.D..DD......k....#",
-    "#.NKk.........E3..#...2........k....#",
+    "#.N.k.........E3..#...2........k....#",
     "#kkkkkkk.#......E..E..D....#kkkkkkk.#",
     "#...k..2.#.DD3DD.....D..D.E#E.Dk....#",
     "#RS.k..U.#........#........#R.....U.#",
@@ -209,24 +166,51 @@
     "###################RMM.MMRR#P......T#",
     "###################...X....#.D...D..#",
     "###################........#........#",
-    "###################...G....L........#",
+    "###################...GK...L........#",
     "###################........L..D.DD..#",
     "###################R.....R.#........#",
     "###################.ggggg..#.4.E..P.#",
     "#####################################"
   ],
   "consola": {
-    "categoria": "Análisis HTTP",
+    "categoria": "Análisis HTTP + Base64",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "El servidor esconde algo en sus cabeceras HTTP. Analízalas.",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. El servidor esconde un dato en sus CABECERAS HTTP. Paso 1: mira solo las cabeceras con curl -I. Paso 2: verás una cabecera con un valor raro en Base64; decodifícalo.",
     "objetivos": [
-      "Ver solo las cabeceras HTTP",
-      "Decodificar la cabecera en Base64"
+      "Explorar: mira qué archivos hay con ls",
+      "Ver las cabeceras HTTP del servidor con curl -I",
+      "Decodificar el valor en Base64 que aparece"
     ],
-    "fs": {},
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Cabeceras",
+        "h": "Mira solo las cabeceras HTTP del servidor con curl -I."
+      },
+      {
+        "t": "Paso 3 · Decodificar",
+        "h": "El valor sospechoso está en Base64: decodifícalo con base64 -d."
+      }
+    ],
+    "fs": {
+      "nota.txt": "Mira las cabeceras:  curl -I http://10.10.10.7/\nLuego decodifica el valor raro con base64 -d"
+    },
     "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "nota.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
       {
         "match": [
           "curl -i http://10.10.10.7/",
@@ -234,23 +218,45 @@
           "curl --head http://10.10.10.7/",
           "curl -i http://10.10.10.7"
         ],
-        "salida": "HTTP/1.1 200 OK\nServer: Apache\nX-Powered-By: CyberAgent/1.0\nX-Agente-Flag: Q1RGe0hUVFBfYjA0M30=\nContent-Type: text/html",
-        "objetivo": 0,
-        "pista": "Mira solo las cabeceras: curl -I http://10.10.10.7/"
+        "salida": "HTTP/1.1 200 OK\nServer: Apache\nX-Powered-By: CyberAgent/1.0\nX-Agente-Flag: YmFzZTY0\nContent-Type: text/html\nDecodifica el valor:  echo YmFzZTY0 | base64 -d",
+        "objetivo": 1,
+        "pista": "Ver solo las cabeceras:  curl -I (dirección atacada)/"
       },
       {
         "match": [
-          "echo q1rfe0huvvbfyja0m30= | base64 -d",
+          "echo ymfzzty0 | base64 -d",
           "base64 -d",
-          "echo 'q1rge0huvfbfyja0m30=' | base64 -d",
-          "echo q1rge0huvfbfyja0m30= | base64 -d"
+          "echo 'ymfzzty0' | base64 -d",
+          "echo ymfzzty0= | base64 -d",
+          "echo ymfzzty0 | base64 --decode"
         ],
-        "salida": "CTF{HTTP_8ad6}",
-        "objetivo": 1,
-        "pista": "Decodifica el valor con: echo <valor> | base64 -d"
+        "salida": "base64\n>>> La bandera es la palabra: base64",
+        "objetivo": 2,
+        "pista": "Decodifica el valor:  echo YmFzZTY0 | base64 -d"
       }
     ],
-    "flag": "CTF{HTTP_8ad6}",
-    "xp": 70
+    "pista_final": "El valor venía codificado en... La bandera es: base64",
+    "flag": "base64",
+    "acepta": [
+      "base64"
+    ],
+    "monstruo": {
+      "nombre": "Cifra Enmascarada",
+      "color": "#eab308",
+      "mensaje": "¡Analizaste las cabeceras HTTP y decodificaste el Base64!"
+    },
+    "xp": 70,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Mira las cabeceras del sitio con curl -I",
+      "3) Decodifica el valor en Base64 con base64 -d",
+      "4) Escribe la bandera:  base64"
+    ],
+    "aprendizajes": [
+      "Analizar cabeceras HTTP con curl -I.",
+      "Reconocer datos en Base64.",
+      "Decodificar con base64 -d."
+    ],
+    "capacidad": "analizar las cabeceras HTTP y decodificar datos ocultos."
   }
 }

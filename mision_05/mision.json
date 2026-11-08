@@ -1,10 +1,10 @@
 {
   "orden": 5,
-  "titulo": "El eco reflejado y el eco guardado",
-  "sector": "Sector 05 · Biblioteca de Ecos",
-  "tema": "XSS reflejado vs. XSS almacenado",
+  "titulo": "La galleta del administrador",
+  "sector": "Sector 05 · Sala de Sesiones",
+  "tema": "Gestión de sesiones y cookies",
   "laboratorio": "Laboratorio XSS — DVWA y Mutillidae, nivel bajo",
-  "icono": "📚",
+  "icono": "🍪",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Diferenciar el XSS reflejado del XSS almacenado por su impacto.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Bibliotecaria Lía",
-    "color": "#34d399",
-    "sprite": "bibliotecaria_lia",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Shhh… estás en la Biblioteca de Ecos. Soy Lía.",
-      "En el laboratorio de XSS, el agente probó dos tipos de eco. El reflejado viaja en la URL y solo afecta a quien abre ese enlace.",
-      "El almacenado se queda guardado en el servidor, por ejemplo en un libro de visitas, y se ejecuta para cada persona que entra.",
-      "Uno es un riesgo focalizado; el otro es un riesgo sistémico. ¿Cuál es cuál?"
+      "En este nivel verás la GESTIÓN DE SESIONES.",
+      "Aprenderás cómo tu identidad viaja en COOKIES y por qué, si el rol va sin firmar, se puede manipular con curl.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "Uno de ellos necesita que la víctima haga clic en un enlace preparado.",
-    "El otro persiste en la base de datos y no requiere ninguna acción extra de la víctima.",
-    "'Stored' en inglés significa 'guardado'."
+    "SESIONES: tras iniciar sesión, tu identidad viaja en cookies. Si el rol va sin firmar, se puede manipular.",
+    "Ver tus cookies:  cat cookies.txt   → verás rol=invitado.",
+    "Enviar la cookie cambiada a admin:  curl -b rol=admin http://10.10.10.7/panel"
   ],
   "terminales": [
     {
@@ -97,120 +97,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "¿Qué significa XSS?",
+      "pregunta": "¿Qué es una cookie de sesión?",
       "opciones": [
-        "Extra Secure System",
-        "Cross-Site Scripting",
-        "Cross Server Storage",
-        "XML Super Server"
+        "Un dato que guarda tu identidad entre páginas",
+        "Un archivo de música",
+        "Un puerto abierto"
       ],
-      "correcta": 1,
-      "explicacion": "Es la inyección de scripts en páginas que ven otras personas."
+      "correcta": 0,
+      "explicacion": "La cookie mantiene tu sesión identificada en el sitio."
     },
     {
       "id": "r2",
-      "pregunta": "El XSS ocurre cuando…",
+      "pregunta": "¿Por qué es inseguro guardar el rol en una cookie sin firmar?",
       "opciones": [
-        "Se apaga el router",
-        "Se borra una tabla",
-        "Se cae el servidor de correo",
-        "El navegador ejecuta código inyectado en una página"
+        "Porque el usuario puede cambiarlo a 'admin'",
+        "Porque pesa mucho",
+        "Porque es bonita"
       ],
-      "correcta": 3,
-      "explicacion": "El navegador no distingue el script inyectado del legítimo."
+      "correcta": 0,
+      "explicacion": "Si no está firmada, se puede alterar el valor del rol."
     },
     {
       "id": "r3",
-      "pregunta": "Un libro de visitas que guarda comentarios sin filtrar es riesgo de…",
+      "pregunta": "¿Qué opción de curl envía una cookie?",
       "opciones": [
-        "Ataque físico",
-        "Fuerza bruta",
-        "XSS almacenado",
-        "Phishing por SMS"
+        "-b",
+        "-rm",
+        "-9"
       ],
-      "correcta": 2,
-      "explicacion": "Lo guardado se muestra a cada visitante."
+      "correcta": 0,
+      "explicacion": "curl -b envía cookies en la petición."
     },
     {
       "id": "r4",
-      "pregunta": "El XSS reflejado normalmente necesita que la víctima…",
+      "pregunta": "¿Cómo se protege una cookie de sesión?",
       "opciones": [
-        "Desinstale el antivirus",
-        "Cambie de navegador",
-        "Abra un enlace preparado",
-        "Reinicie el computador"
-      ],
-      "correcta": 2,
-      "explicacion": "El código viaja en el enlace y vuelve reflejado en la respuesta."
-    },
-    {
-      "id": "r5",
-      "pregunta": "¿Dónde se ejecuta el código de un XSS?",
-      "opciones": [
-        "En la impresora",
-        "En el navegador de la víctima",
-        "En el disco duro del servidor",
-        "En la BIOS"
-      ],
-      "correcta": 1,
-      "explicacion": "Por eso puede leer lo que la página ve, como cookies sin protección."
-    },
-    {
-      "id": "r6",
-      "pregunta": "Tras un XSS almacenado, ¿qué ayuda a recuperar el contenido limpio?",
-      "opciones": [
-        "Las copias de seguridad",
-        "Reiniciar el monitor",
-        "Cambiar el logo",
-        "Borrar el historial"
+        "Firmándola y con flags HttpOnly/Secure",
+        "Haciéndola más larga",
+        "Borrando el servidor"
       ],
       "correcta": 0,
-      "explicacion": "El informe recomendó backups para restaurar contenido alterado."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Qué información puede leer un script inyectado?",
-      "opciones": [
-        "La contraseña del wifi del vecino",
-        "Lo que la página ve, como cookies sin HttpOnly",
-        "La BIOS del servidor",
-        "Nada"
-      ],
-      "correcta": 1,
-      "explicacion": "El script corre con los permisos de la página."
-    },
-    {
-      "id": "r8",
-      "pregunta": "¿Dónde se debe escapar un comentario antes de mostrarlo?",
-      "opciones": [
-        "En el servidor, al generar la página",
-        "En el router",
-        "En la impresora",
-        "Solo en el navegador del autor"
-      ],
-      "correcta": 0,
-      "explicacion": "El servidor controla lo que se entrega a todos."
+      "explicacion": "Firmar la cookie y usar HttpOnly/Secure evita manipulación y robo."
     }
   ],
   "final": {
-    "pregunta": "¿Qué tipo de XSS queda guardado en el servidor y afecta a todos los usuarios que visitan la página?",
+    "pregunta": "Tu cookie dice rol=invitado. ¿Cómo pides el panel como admin?",
     "opciones": [
-      "XSS almacenado (Stored)",
-      "XSS reflejado (Reflected)",
-      "Ninguno: los dos son siempre temporales",
-      "Ninguno, el XSS no existe en servidores reales"
+      "curl -b rol=admin http://10.10.10.7/panel",
+      "curl -I",
+      "ping admin"
     ],
     "correcta": 0,
-    "explicacion": "El XSS almacenado persiste en el servidor y puede comprometer a toda la base de usuarios con una sola inyección.",
-    "defensa": "Escapar la salida, validar lo que se guarda y tener copias de seguridad para restaurar contenido alterado."
+    "explicacion": "Envías la cookie modificada con curl -b.",
+    "defensa": "Firmar las cookies en el servidor y nunca confiar el rol al cliente.",
+    "flag": "cookie"
   },
-  "flag": "CAA{XSS_ST0RED}",
+  "flag": "cookie",
   "mapa": [
     "#####################################",
     "#.MMMMM..#.MMMMM..#N.N.NEN.#C..4..U.#",
     "#1................#...k....#.R...N..#",
     "#.D.D.D....E.D.D..#...k....#.....RT.#",
-    "#...K.2..#...........kkkkk.#.R...R..#",
+    "#.....2..#...........kkkkk.#.R...R..#",
     "#R.......#.....E.....3k..........E.2#",
     "#TS....T.#T..R..T.#R..k3............#",
     "#...I....#...I....#....E.1P#........#",
@@ -218,35 +166,59 @@
     "###################RMM.MMR.#C.....U.#",
     "###################...X....#........#",
     "###################........L...H....#",
-    "###################...G....L.......P#",
+    "###################...GK...L.......P#",
     "###################........#..g.g...#",
     "###################R....TR.#C..E..C.#",
     "###################.ggggg..#...I....#",
     "#####################################"
   ],
   "consola": {
-    "categoria": "Gestión de sesiones",
+    "categoria": "Gestión de sesiones (cookies)",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "Entraste como invitado. Tu rol viaja en una cookie sin firmar. Hazte administrador.",
+    "escenario": "🎯 Objetivo a atacar: el panel de http://10.10.10.7. Entraste como invitado y tu ROL viaja en una cookie sin firmar: eso se puede manipular. Paso 1: mira tu cookie de rol. Paso 2: pide el panel enviando la cookie con rol de administrador.",
     "objetivos": [
-      "Ver tus cookies",
-      "Pedir el panel con el rol de administrador"
+      "Explorar: mira qué archivos hay con ls",
+      "Ver tu cookie de rol actual",
+      "Pedir el panel enviando la cookie como admin"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Cookies",
+        "h": "Mira tu cookie de rol: está como 'invitado'."
+      },
+      {
+        "t": "Paso 3 · Elevar",
+        "h": "Pide el panel enviando la cookie con rol=admin."
+      }
     ],
     "fs": {
-      "cookies.txt": "sesion=abc123\nrol=invitado"
+      "cookies.txt": "sesion=abc123\nrol=invitado   (se puede cambiar a admin)"
     },
     "comandos": [
       {
         "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "cookies.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
           "cat cookies.txt",
-          "curl -v http://10.10.10.7/panel",
           "cat cookies"
         ],
-        "salida": "sesion=abc123\nrol=invitado   <-- se puede cambiar",
-        "objetivo": 0,
-        "pista": "Mira el archivo cookies.txt"
+        "salida": "sesion=abc123\nrol=invitado   <-- cámbialo a admin y pide el panel:\ncurl -b rol=admin http://10.10.10.7/panel",
+        "objetivo": 1,
+        "pista": "Mira tu cookie de rol:  cat cookies.txt"
       },
       {
         "match": [
@@ -255,12 +227,34 @@
           "curl -b 'rol=admin' http://10.10.10.7/panel",
           "curl -b rol=admin 10.10.10.7/panel"
         ],
-        "salida": "Panel de administrador\nRol: admin\nBandera: CTF{S3SS10N_d966}",
-        "objetivo": 1,
-        "pista": "Envía la cookie modificada: curl -b rol=admin http://10.10.10.7/panel"
+        "salida": "Panel de administrador\nRol: admin — acceso concedido\n>>> La bandera es la palabra: admin",
+        "objetivo": 2,
+        "pista": "Envía la cookie modificada:  curl -b rol=admin (dirección atacada)/panel"
       }
     ],
-    "flag": "CTF{S3SS10N_d966}",
-    "xp": 80
+    "pista_final": "El rol al que subiste era... La bandera es: admin",
+    "flag": "admin",
+    "acepta": [
+      "admin",
+      "administrador"
+    ],
+    "monstruo": {
+      "nombre": "Ladrón de Sesiones",
+      "color": "#38bdf8",
+      "mensaje": "¡Cambiaste la cookie de rol y entraste como administrador!"
+    },
+    "xp": 80,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Lee tu cookie de rol con  cat cookies.txt  (verás rol=invitado)",
+      "3) Ataca el /panel enviando la cookie rol=admin con curl -b",
+      "4) Escribe la bandera:  admin"
+    ],
+    "aprendizajes": [
+      "Cómo funcionan las cookies de sesión.",
+      "Por qué el rol no debe viajar sin firmar.",
+      "Elevar privilegios con una cookie (curl -b)."
+    ],
+    "capacidad": "detectar y aprovechar una gestión de sesiones insegura."
   }
 }

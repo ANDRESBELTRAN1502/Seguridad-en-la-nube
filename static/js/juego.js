@@ -1,5 +1,7 @@
-
-  
+/* =========================================================
+   CyberAgent Academy — Flujo del juego, pantallas y controles
+   Creado por Andrés Felipe Beltrán Barrera
+   ========================================================= */
 (() => {
 "use strict";
 const C = window.CAA = window.CAA || {};
@@ -15,7 +17,7 @@ if (!est.flagsCTF) est.flagsCTF = {};
 
 function nuevoEstado(nombre){
   return { flagsCTF:{}, agente: (crypto.randomUUID ? crypto.randomUUID() : "a"+Date.now()+Math.random().toString(16).slice(2)),
-           nombre: nombre||"Agente", completadas:{}, inicio: Date.now() };
+           nombre: nombre||"Agente", genero:"m", sprite:"agente", completadas:{}, inicio: Date.now() };
 }
 function cargar(){
   try { const s = JSON.parse(localStorage.getItem(SAVE)); if (s && s.agente) return s; } catch(e){}
@@ -48,19 +50,59 @@ async function iniciarApp(){
     return;
   }
   if (!misiones.length){ $("loadError").classList.remove("hidden"); $("loadError").textContent = "No hay carpetas mision_XX con mision.json."; }
-  if (tienePartida() || est.nombre !== "Agente"){ $("btnContinue").classList.remove("hidden"); $("agentName").value = est.nombre; }
+  if (tienePartida() || est.nombre !== "Agente"){ $("btnContinue").classList.remove("hidden"); }
 }
 $("btnStart").onclick = () => {
   if (tienePartida() && !confirm("Ya tienes una partida guardada. ¿Empezar de cero?")) return;
-  const n = ($("agentName").value.trim()||"Agente").slice(0,24);
-  Object.assign(est, nuevoEstado(n)); guardar(); irMundo();
+  $("persNombre").value = "";
+  $("welcome").classList.remove("hidden");
 };
-$("btnContinue").onclick = () => { est.nombre = ($("agentName").value.trim()||est.nombre).slice(0,24); guardar(); irMundo(); };
-$("agentName").addEventListener("keydown", e=>{ if (e.key==="Enter") (tienePartida()?$("btnContinue"):$("btnStart")).click(); });
+$("btnContinue").onclick = () => { C.spriteJugador = est.sprite || "agente"; guardar(); irMundo(); };
+
+/* ---------- Bienvenida + creación de personaje ---------- */
+$("btnWelcome").onclick = () => { $("welcome").classList.add("hidden"); abrirCrear(); };
+const PERSONAJES = [
+  {id:"jug_m1", label:"Encapuchado", gen:"m"}, {id:"jug_m2", label:"Analista", gen:"m"}, {id:"jug_m3", label:"Técnico", gen:"m"},
+  {id:"jug_f1", label:"Encapuchada", gen:"f"}, {id:"jug_f2", label:"Analista", gen:"f"}, {id:"jug_f3", label:"Técnica", gen:"f"},
+];
+let crearGen = "m", crearSprite = null;
+function urlSprite(id){ return (C.spriteUrl ? C.spriteUrl(id) : "/static/img/personajes/sprites/"+id+".png"); }
+function pintarPersonajes(){
+  const g = $("persGrid"); g.innerHTML = "";
+  PERSONAJES.filter(p=>p.gen===crearGen).forEach(p=>{
+    const b = document.createElement("button"); b.className = "pers-opt" + (crearSprite===p.id?" sel":"");
+    b.innerHTML = '<span class="pers-mini" style="background-image:url('+urlSprite(p.id)+')"></span><span class="pers-lbl">'+p.label+'</span>';
+    b.onclick = () => { crearSprite = p.id; pintarPersonajes(); validarCrear(); };
+    g.appendChild(b);
+  });
+}
+function validarCrear(){ $("btnCrear").disabled = !(crearSprite && $("persNombre").value.trim()); }
+function abrirCrear(){
+  crearGen = "m"; crearSprite = null;
+  document.querySelectorAll(".gen-btn").forEach(x=>x.classList.toggle("activo", x.dataset.gen==="m"));
+  pintarPersonajes(); validarCrear();
+  $("crear").classList.remove("hidden"); setTimeout(()=>$("persNombre").focus(), 60);
+}
+document.querySelectorAll(".gen-btn").forEach(b=> b.onclick = () => {
+  crearGen = b.dataset.gen; crearSprite = null;
+  document.querySelectorAll(".gen-btn").forEach(x=>x.classList.toggle("activo", x===b));
+  pintarPersonajes(); validarCrear();
+});
+$("persNombre").addEventListener("input", validarCrear);
+$("persNombre").addEventListener("keydown", e=>{ if (e.key==="Enter" && !$("btnCrear").disabled) $("btnCrear").click(); });
+$("btnCrearVolver").onclick = () => { $("crear").classList.add("hidden"); $("welcome").classList.remove("hidden"); };
+$("btnCrear").onclick = () => {
+  const n = ($("persNombre").value.trim()||"Agente").slice(0,24);
+  Object.assign(est, nuevoEstado(n)); est.genero = crearGen; est.sprite = crearSprite || "agente";
+  C.spriteJugador = est.sprite; guardar();
+  $("crear").classList.add("hidden"); irMundo();
+};
+$("btnIntroVolver").onclick = () => { $("intro").classList.add("hidden"); modo = "mundo"; };
 
 /* ---------------- Mapa de niveles ---------------- */
 const musica = (n, nv) => C.musica && C.musica.tocar(n, nv);
 function irMundo(){
+  C.spriteJugador = est.sprite || "agente";
   modo = "mundo"; mostrar("world"); musica("titulo");
   $("wName").textContent = est.nombre.toUpperCase();
   $("wRank").textContent = "★ "+rango();
@@ -147,6 +189,7 @@ function hud(){
 }
 C.hooks.onHud = hud;
 if (C.initConsola) C.initConsola();
+if (C.initSalaFinal) C.initSalaFinal();
 
 const NOMBRE_PODER = { "1":["escudo","🛡 Escudo","Úsalo en combate: bloquea el próximo golpe."],
   "2":["escaner","🔍 Escáner","Úsalo en combate: tacha una respuesta incorrecta."],
@@ -163,9 +206,8 @@ C.hooks.onLlegar = () => {
   }
   if (lv.consolaPos && p.x===lv.consolaPos.x && p.y===lv.consolaPos.y && modo==="juego"){ abrirConsola(); return; }
   if (lv.portal && p.x===lv.portal.x && p.y===lv.portal.y){
-    if (lv.finalOk && !lv.portalAnim){ lv.portalAnim = performance.now(); modo = "fin"; C.sfx.door();
-      C.fx.chispas(p.x, p.y, "#39ff7a", 30); setTimeout(completarNivel, 800); }
-    else if (!lv.finalOk) toast("🌀 El portal está apagado. Supera al guardián para activarlo.");
+    if (lv.terminalLista) toast("💻 Resuelve la TERMINAL junto al guardián para pasar al siguiente nivel.");
+    else toast("🌀 Primero vence a los enemigos y al guardián.");
   }
   actualizarAviso();
 };
@@ -196,11 +238,14 @@ function transicion(fn){
   const t = $("trans"); t.classList.remove("hidden","go"); void t.offsetWidth; t.classList.add("go");
   setTimeout(()=>{ fn(); }, 520); setTimeout(()=>t.classList.add("hidden"), 900);
 }
+function cercaConsola(){ const lv=C.nivel; return lv && lv.consolaPos && (Math.abs(lv.player.x-lv.consolaPos.x)+Math.abs(lv.player.y-lv.consolaPos.y))<=1; }
 function actualizarAviso(){
   const lv = C.nivel; if (!lv) return;
+  const nearC = lv.terminalLista && cercaConsola();
   const g = lv.guardian && C.junto(lv.guardian), t = C.terminalCerca();
-  $("prompt").innerHTML = g ? "Pulsa <kbd>E</kbd> para hablar" : "Pulsa <kbd>E</kbd> para leer la terminal";
-  $("prompt").classList.toggle("hidden", !(modo==="juego" && (g || t)));
+  $("prompt").innerHTML = nearC ? "Pulsa <kbd>E</kbd> para abrir la TERMINAL 💻"
+    : (g ? "Pulsa <kbd>E</kbd> para hablar" : "Pulsa <kbd>E</kbd> para leer la terminal");
+  $("prompt").classList.toggle("hidden", !(modo==="juego" && (nearC || g || t)));
 }
 
 function hablar(){
@@ -215,9 +260,10 @@ function hablar(){
     });
     return;
   }
+  if (lv.terminalLista && cercaConsola()){ abrirConsola(); return; }
   if (!C.junto(lv.guardian)) return;
   const g = lv.m.guardian;
-  if (lv.finalOk){ dialogo(g.nombre, ["Lo lograste, agente. El portal 🌀 ya está activo: entra para terminar el sector."]); return; }
+  if (lv.finalOk){ dialogo(g.nombre, ["Tu TERMINAL está lista aquí a mi lado. Písala o pulsa E sobre ella para resolverla y pasar de nivel."]); return; }
   dialogo(g.nombre, g.historia.concat([
     "Tienes "+lv.pistas.length+" de "+lv.m.pistas.length+" pistas. Te pondré a prueba: si fallas, pierdes "+lv.m.dificultad.dano_guardian+" de vida."
   ]), () => {
@@ -225,9 +271,16 @@ function hablar(){
     transicion(() => C.iniciarCombate(lv.guardian, true, resultado => {
       modo = "juego"; hud(); musica("exploracion", idxNivel+1);
       if (lv.hp <= 0) return gameOver();
-      if (resultado === "victoria"){ C.sfx.door(); C.temblor(500, 6); C.fx.chispas(lv.portal.x, lv.portal.y, "#39ff7a", 40);
+      if (resultado === "victoria"){ C.sfx.door(); C.temblor(500, 6);
         C.fx.explosion(lv.guardian.x, lv.guardian.y, "#ffd166");
-        toast("🌀 ¡Portal activado! Camina hacia él para salir del sector."); }
+        lv.terminalLista = true;
+        const con = lv.m.consola;
+        dialogo(lv.m.guardian.nombre, [
+          "¡Bien hecho, agente! Ahora viene tu PRUEBA FINAL.",
+          "Aquí a mi lado tienes la TERMINAL. " + (con ? con.escenario : "Resuelve el reto de la terminal."),
+          "Mira las pistas del panel derecho (te dicen qué hacer, tú armas el comando). Al resolverla, pasarás al siguiente nivel. ¡A por ello!"
+        ], () => { toast("💻 Usa la terminal junto a " + lv.m.guardian.nombre + ": písala o pulsa E sobre ella."); actualizarAviso(); });
+      }
     }));
   });
 }
@@ -246,16 +299,17 @@ function usarTurbo(){
 function abrirConsola(){
   if (modo!=="juego" || !C.nivel) return;
   const id = C.nivel.m.id, ya = !!(est.flagsCTF[id]);
+  if (!C.nivel.terminalLista && !ya){ toast("Primero vence a los enemigos y habla con el guardián: él te explicará la terminal."); return; }
   modo = "consola"; C.keys.clear(); $("prompt").classList.add("hidden");
   C.abrirConsola(C.nivel.m, ya, (res) => {
     modo = "juego";
     if (res && res.completada){
       const lv = C.nivel;
-      if (!est.flagsCTF[id]){ est.flagsCTF[id] = res.flag; guardar(); }
-      lv.xp += res.xp || 0; lv.consolaHecha = true;
-      C.fx.texto(lv.player.x, lv.player.y, "+"+(res.xp||0)+" XP", "#ffd166");
-      toast("⌨️ Consola completada · bandera "+res.flag+" · +"+(res.xp||0)+" XP");
+      est.flagsCTF[id] = res.flag; guardar();
+      lv.xp += res.xp || 0; lv.consolaHecha = true; lv.flagConsola = res.flag;
       hud();
+      completarNivel();   // resolver la terminal completa el nivel
+      return;
     }
     actualizarAviso();
   });
@@ -316,16 +370,15 @@ $("btnExit").onclick = () => { if (modo==="juego" && confirm("¿Salir al mapa de
 function completarNivel(){
   const lv = C.nivel, id = lv.m.id, previo = est.completadas[id];
   modo = "fin"; musica("victoria");
-  est.completadas[id] = { xp: Math.max(lv.xp, previo ? previo.xp : 0), flag: lv.flag, fecha: new Date().toISOString() };
+  est.completadas[id] = { xp: Math.max(lv.xp, previo ? previo.xp : 0), flag: (lv.flagConsola || lv.flag), fecha: new Date().toISOString() };
   guardar();
   $("ldTitle").textContent = "¡"+lv.m.titulo+" completada!";
   $("ldStats").innerHTML = [["👾 Enemigos", lv.derrotados], ["✓ Aciertos", lv.aciertos], ["✕ Errores", lv.fallos],
     ["❤ Vida final", lv.hp], ["⭐ XP del nivel", lv.xp], ["🧩 Pistas", lv.pistas.length+"/"+lv.m.pistas.length],
     ["💻 Terminales", lv.leidas+"/"+lv.terminales.length]]
     .map(([a,b])=>`<div>${a}<b>${b}</b></div>`).join("");
-  $("ldFlag").textContent = "🚩 "+(lv.flag||"");
-  const cf = est.flagsCTF[lv.m.id];
-  $("ldStats").insertAdjacentHTML("beforeend", cf ? `<div>⌨️ Consola CTF<b style="font-size:12px">${cf}</b></div>` : `<div>⌨️ Consola CTF<b style="font-size:12px;color:#7fb894">pendiente (botón ⌨️)</b></div>`);
+  const flagTerm = lv.flagConsola || est.flagsCTF[lv.m.id] || lv.flag;
+  $("ldFlag").textContent = "🚩 Bandera de la terminal: " + flagTerm;
   const hay = idxNivel+1 < misiones.length;
   $("btnLdNext").textContent = hay ? "Siguiente nivel ▶" : "🏆 Ver certificado";
   $("levelDone").classList.remove("hidden");
@@ -366,6 +419,7 @@ window.addEventListener("keydown", e=>{
   const k = e.key;
   if (modo==="titulo" || modo==="mundo") return;
   if (modo==="consola") return;
+  if (C.SALA) return;
   if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(k)) e.preventDefault();
   if (modo==="intro" && (k==="Enter"||k===" ")){ $("btnBegin").click(); return; }
   if (modo==="dialogo" && (k===" "||k==="Enter"||k==="e"||k==="E")){ avanzar(); return; }

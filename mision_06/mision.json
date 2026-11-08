@@ -1,10 +1,10 @@
 {
   "orden": 6,
-  "titulo": "El filtro de palabras prohibidas",
-  "sector": "Sector 06 · Puesto del Centinela",
-  "tema": "Filtros de lista negra y codificación de salida",
+  "titulo": "El archivo disfrazado",
+  "sector": "Sector 06 · Aduana de Archivos",
+  "tema": "Subida de archivos insegura (file upload)",
   "laboratorio": "Laboratorio XSS — DVWA nivel medio",
-  "icono": "🛡️",
+  "icono": "📤",
   "autor": "Andrés Felipe Beltrán Barrera",
   "objetivo": "Entender por qué las listas negras fallan y cuál es la defensa correcta contra XSS.",
   "colores": {
@@ -27,20 +27,20 @@
     "terminal": 5
   },
   "guardian": {
-    "nombre": "Centinela Marco",
-    "color": "#f87171",
-    "sprite": "centinela_marco",
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
     "historia": [
-      "Soy Marco, centinela del sector seis.",
-      "En el nivel medio de DVWA, los desarrolladores pusieron un filtro que borraba una palabra exacta. El laboratorio demostró que se podía evadir con variaciones de mayúsculas y minúsculas.",
-      "La conclusión del informe fue clara: la seguridad que depende de adivinar el ataque es vulnerable por diseño.",
-      "Dime, agente: ¿cuál es la defensa moderna?"
+      "En este nivel verás la SUBIDA DE ARCHIVOS insegura.",
+      "Aprenderás por qué validar solo la extensión final es débil y cómo se evade con una doble extensión (.php.png).",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
     ]
   },
   "pistas": [
-    "En vez de borrar lo peligroso, se convierte en texto inofensivo.",
-    "Por ejemplo, el símbolo < se transforma en &lt; antes de mostrarlo.",
-    "En PHP se usa htmlspecialchars(), y se complementa con una Content Security Policy (CSP)."
+    "SUBIDA DE ARCHIVOS: si el servidor solo revisa la extensión final del nombre, el filtro es débil.",
+    "Evasión con doble extensión: renombra el archivo peligroso como imagen →  cp reporte.php reporte.php.png",
+    "El filtro ve '.png' y lo acepta, pero el servidor ejecuta el .php (una web shell)."
   ],
   "terminales": [
     {
@@ -103,120 +103,68 @@
   "retos": [
     {
       "id": "r1",
-      "pregunta": "Una 'lista negra' de seguridad…",
+      "pregunta": "¿Por qué es débil revisar solo la extensión final?",
       "opciones": [
-        "Cifra los datos",
-        "Permite solo formatos válidos",
-        "Bloquea solo lo que alguien pensó de antemano",
-        "Elimina las cookies"
+        "Porque se engaña con doble extensión",
+        "Porque es lento",
+        "Porque gasta memoria"
       ],
-      "correcta": 2,
-      "explicacion": "Todo lo que no está en la lista pasa, por eso falla."
+      "correcta": 0,
+      "explicacion": "Un .php.png pasa el filtro de '.png' pero sigue siendo ejecutable."
     },
     {
       "id": "r2",
-      "pregunta": "¿Qué hace htmlspecialchars() en PHP?",
+      "pregunta": "¿Qué es una web shell?",
       "opciones": [
-        "Comprime imágenes",
-        "Envía correos",
-        "Borra la base de datos",
-        "Convierte caracteres especiales en entidades HTML seguras"
+        "Un archivo que da control del servidor",
+        "Una imagen normal",
+        "Un antivirus"
       ],
-      "correcta": 3,
-      "explicacion": "Así el navegador muestra el texto en lugar de ejecutarlo."
+      "correcta": 0,
+      "explicacion": "Una web shell permite ejecutar comandos en el servidor."
     },
     {
       "id": "r3",
-      "pregunta": "El símbolo < codificado como entidad HTML se escribe…",
+      "pregunta": "¿Cómo se evade el filtro del ejemplo?",
       "opciones": [
-        "&lt;",
-        "%%",
-        "//",
-        "<>"
+        "reporte.php.png",
+        "reporte.txt",
+        "reporte.mp3"
       ],
       "correcta": 0,
-      "explicacion": "&lt; se muestra como < pero no abre una etiqueta."
+      "explicacion": "La doble extensión engaña la validación por extensión final."
     },
     {
       "id": "r4",
-      "pregunta": "¿Qué es CSP (Content Security Policy)?",
+      "pregunta": "¿Cómo se valida bien una subida?",
       "opciones": [
-        "Una política que limita qué scripts puede cargar la página",
-        "Un tipo de contraseña",
-        "Un antivirus",
-        "Un protocolo de correo"
+        "Por tipo real (MIME), tamaño y renombrando",
+        "Solo por el nombre",
+        "No se valida"
       ],
       "correcta": 0,
-      "explicacion": "Aunque se cuele un script, CSP puede impedir que se ejecute."
-    },
-    {
-      "id": "r5",
-      "pregunta": "¿Por qué cambiar mayúsculas y minúsculas evadía el filtro del nivel medio?",
-      "opciones": [
-        "El filtro buscaba una palabra exacta",
-        "La red era lenta",
-        "El navegador era viejo",
-        "El servidor estaba apagado"
-      ],
-      "correcta": 0,
-      "explicacion": "HTML no distingue mayúsculas en etiquetas; el filtro sí."
-    },
-    {
-      "id": "r6",
-      "pregunta": "'Codificación de salida contextual' significa…",
-      "opciones": [
-        "Escapar el dato según dónde se muestra (HTML, atributo, JavaScript)",
-        "Usar siempre el mismo filtro",
-        "Mostrar todo en mayúsculas",
-        "Traducir la página"
-      ],
-      "correcta": 0,
-      "explicacion": "Cada contexto tiene reglas de escape distintas."
-    },
-    {
-      "id": "r7",
-      "pregunta": "¿Por qué una lista blanca es mejor que una lista negra?",
-      "opciones": [
-        "Bloquea solo palabras feas",
-        "Es más bonita",
-        "Define lo permitido y rechaza todo lo demás",
-        "Es más larga"
-      ],
-      "correcta": 2,
-      "explicacion": "No depende de adivinar los ataques."
-    },
-    {
-      "id": "r8",
-      "pregunta": "Además de codificar la salida, ¿qué refuerza la defensa contra XSS?",
-      "opciones": [
-        "Validar la entrada en el servidor",
-        "Quitar el logo",
-        "Usar fuentes más grandes",
-        "Desactivar el CSS"
-      ],
-      "correcta": 0,
-      "explicacion": "Defensa en capas: entrada validada y salida codificada."
+      "explicacion": "Hay que comprobar el contenido real, no solo el nombre."
     }
   ],
   "final": {
-    "pregunta": "Un filtro que solo borraba una palabra prohibida fue evadido. ¿Cuál es la defensa recomendada?",
+    "pregunta": "¿Qué nombre usarías para colar un .php evadiendo el filtro de extensión?",
     "opciones": [
-      "Agregar cada vez más palabras a la lista negra",
-      "Esconder el formulario para que nadie lo encuentre",
-      "Codificar la salida según el contexto (htmlspecialchars) y aplicar CSP",
-      "Desactivar el teclado del usuario"
+      "reporte.php.png",
+      "reporte.png",
+      "reporte.doc"
     ],
-    "correcta": 2,
-    "explicacion": "La codificación de salida hace que el navegador muestre la entrada como texto y no como código ejecutable.",
-    "defensa": "Codificación de salida contextual + Content Security Policy + validación en el servidor."
+    "correcta": 0,
+    "explicacion": "La doble extensión evade un filtro que solo mira la extensión final.",
+    "defensa": "Validar el tipo real del archivo, renombrarlo y guardarlo fuera de la raíz web.",
+    "flag": "upload"
   },
-  "flag": "CAA{0UTPUT_ENC0DING}",
+  "flag": "upload",
   "mapa": [
     "#####################################",
     "#.MMMMM..#P.......#C.N...U.#P.1....T#",
     "#........#ND..DD......TER..#.DD.DD..#",
     "#.D.D.D.................N..#..D.....#",
-    "#..KN...3....E..3.#.N...............#",
+    "#...N...3....E..3.#.N...............#",
     "#........#.DD.DD..#.R...R...E2...D..#",
     "#TS....TT#.P...E..#........#........#",
     "#..I..1..#..I...P.#..I.E...#......P.#",
@@ -224,36 +172,61 @@
     "##########RMM.MMR.#.MMMMM..#C.....U.#",
     "##########...X....#...R....#...P....#",
     "##########T.......#.D.D.D..#..2.PR..#",
-    "##########...G....#.E............N..#",
+    "##########...GK...#.E............N..#",
     "##########........L...........E..N..#",
     "##########R...T...L.4.3..T.#........#",
     "##########.ggggg..#.P......#........#",
     "#####################################"
   ],
   "consola": {
-    "categoria": "File upload",
+    "categoria": "Subida de archivos (file upload)",
     "host": "kali",
     "user": "agente",
     "ip": "10.10.10.7",
-    "escenario": "El portal solo revisa la extensión del nombre del archivo. Evádelo.",
+    "escenario": "🎯 Objetivo a atacar: el portal de http://10.10.10.7. El portal deja subir archivos pero solo revisa la EXTENSIÓN FINAL del nombre. Eso se evade con una doble extensión. Paso 1: lee la nota para entender el filtro. Paso 2: renombra el archivo peligroso como .php.png para colarlo.",
     "objetivos": [
-      "Ver qué archivos se aceptan",
-      "Subir un archivo con doble extensión"
+      "Explorar: mira qué archivos hay con ls",
+      "Entender por qué el filtro es débil",
+      "Subir un archivo con doble extensión (.php.png)"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · El filtro",
+        "h": "Lee la nota: el filtro solo mira la extensión FINAL del nombre."
+      },
+      {
+        "t": "Paso 3 · Subir",
+        "h": "Renombra el archivo como .php.png para evadir el filtro."
+      }
     ],
     "fs": {
       "reporte.php": "<?php echo 'demo'; ?>",
-      "nota.txt": "El filtro solo mira la extension final del nombre."
+      "nota.txt": "El filtro solo mira la extension FINAL del nombre (.png, .jpg).\nTruco: reporte.php.png"
     },
     "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "reporte.php   nota.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
       {
         "match": [
           "cat nota.txt",
           "ls",
           "cat reporte.php"
         ],
-        "salida": "El filtro solo mira la extension final del nombre.",
-        "objetivo": 0,
-        "pista": "Lee nota.txt para entender el filtro"
+        "salida": "El filtro solo mira la extension FINAL del nombre.\nTruco: renombra a reporte.php.png -> cp reporte.php reporte.php.png",
+        "objetivo": 1,
+        "pista": "Lee la nota del filtro:  cat nota.txt"
       },
       {
         "match": [
@@ -262,12 +235,35 @@
           "curl -f archivo=@reporte.php.png http://10.10.10.7/subir",
           "curl -f 'archivo=@reporte.php.png' http://10.10.10.7/subir"
         ],
-        "salida": "Subiendo reporte.php.png ... filtro ve '.png' -> ACEPTADO\nFiltro evadido. Bandera: CTF{UPL04D_c8e7}",
-        "objetivo": 1,
-        "pista": "Renombra a reporte.php.png (doble extensión) y súbelo"
+        "salida": "Subiendo reporte.php.png ... el filtro ve '.png' -> ACEPTADO\nSe subió una web shell.\n>>> La bandera es la palabra: shell",
+        "objetivo": 2,
+        "pista": "Renombra con doble extensión:  cp reporte.php reporte.php.png"
       }
     ],
-    "flag": "CTF{UPL04D_c8e7}",
-    "xp": 80
+    "pista_final": "Un archivo malicioso que da control del servidor se llama una web... La bandera es: shell",
+    "flag": "shell",
+    "acepta": [
+      "shell",
+      "webshell",
+      "web shell"
+    ],
+    "monstruo": {
+      "nombre": "Aduanero Corrupto",
+      "color": "#fb923c",
+      "mensaje": "¡Evadiste el filtro con doble extensión y subiste la web shell!"
+    },
+    "xp": 80,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Lee la nota del filtro con  cat nota.txt  (entiende por qué es débil)",
+      "3) Ataca el archivo reporte.php renombrándolo a reporte.php.png con cp",
+      "4) Escribe la bandera:  shell"
+    ],
+    "aprendizajes": [
+      "Por qué validar solo la extensión es inseguro.",
+      "Evadir filtros con doble extensión.",
+      "El riesgo de una web shell."
+    ],
+    "capacidad": "evadir un filtro de subida de archivos débil."
   }
 }
