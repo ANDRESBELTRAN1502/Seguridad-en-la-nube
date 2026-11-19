@@ -1,0 +1,272 @@
+{
+  "orden": 8,
+  "titulo": "La imagen que esconde secretos",
+  "sector": "Sector 08 · Cámara Oculta",
+  "tema": "Esteganografía",
+  "laboratorio": "Laboratorio BeEF — impacto de un XSS",
+  "icono": "🖼️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar la bandera de cookie que protege la sesión frente a scripts.",
+  "colores": {
+    "piso_a": "#13304a",
+    "piso_b": "#10293f"
+  },
+  "dificultad": {
+    "estrellas": 4,
+    "vida_enemigo": 2,
+    "dano": 24,
+    "tiempo": 24,
+    "persigue": true,
+    "radio": 4,
+    "velocidad_ms": 560,
+    "dano_guardian": 36
+  },
+  "xp": {
+    "por_golpe": 26,
+    "final": 130,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás la ESTEGANOGRAFÍA.",
+      "Aprenderás a encontrar datos escondidos dentro de otros archivos, sacando el texto oculto de una imagen con strings.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "ESTEGANOGRAFÍA: esconder datos dentro de otro archivo (ej. texto dentro de una imagen).",
+    "Listar los archivos para ver la imagen:  ls",
+    "Sacar el texto legible escondido en un binario:  strings agente_secreto.png"
+  ],
+  "terminales": [
+    {
+      "titulo": "Panel de pruebas",
+      "texto": "En el laboratorio, un XSS permitió conectar el navegador de prueba a un panel de control."
+    },
+    {
+      "titulo": "Ingeniería social",
+      "texto": "Aparecieron logins y actualizaciones falsas. Parecían del sistema y por eso engañaban."
+    },
+    {
+      "titulo": "Cookies seguras",
+      "texto": "HttpOnly evita que los scripts lean la cookie. Secure obliga a usar HTTPS. SameSite limita su envío."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Ladrón de Galletas",
+      "color": "#d97706",
+      "sprite": "ladron_de_galletas",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Gancho del Navegador",
+      "color": "#ef4444",
+      "sprite": "gancho_del_navegador",
+      "frase": "Ese login es auténtico… créeme."
+    },
+    {
+      "nombre": "Login Falso",
+      "color": "#a855f7",
+      "sprite": "login_falso",
+      "frase": "Tu navegador ya está enganchado."
+    },
+    {
+      "nombre": "Barra Falsa",
+      "color": "#f97316",
+      "sprite": "barra_falsa",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Ventana Impostora",
+      "color": "#ec4899",
+      "sprite": "ventana_impostora",
+      "frase": "Ese login es auténtico… créeme."
+    },
+    {
+      "nombre": "Sesión Robada",
+      "color": "#eab308",
+      "sprite": "sesion_robada",
+      "frase": "Tu navegador ya está enganchado."
+    },
+    {
+      "nombre": "Notificación Trampa",
+      "color": "#22d3ee",
+      "sprite": "notificacion_trampa",
+      "frase": "¡Dame tu galleta de sesión!"
+    },
+    {
+      "nombre": "Pop-up Mentiroso",
+      "color": "#a3e635",
+      "sprite": "pop_up_mentiroso",
+      "frase": "Ese login es auténtico… créeme."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué es la esteganografía?",
+      "opciones": [
+        "Esconder datos dentro de otro archivo",
+        "Cifrar con contraseña",
+        "Borrar metadatos"
+      ],
+      "correcta": 0,
+      "explicacion": "Es ocultar información dentro de otro medio (ej. una imagen)."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué comando muestra el texto legible de un binario?",
+      "opciones": [
+        "strings",
+        "chmod",
+        "ping"
+      ],
+      "correcta": 0,
+      "explicacion": "strings extrae las cadenas de texto de un archivo."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué comando lista los archivos?",
+      "opciones": [
+        "ls",
+        "go",
+        "up"
+      ],
+      "correcta": 0,
+      "explicacion": "ls lista los archivos del directorio."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Dónde más puede esconderse información en un archivo?",
+      "opciones": [
+        "En los metadatos (EXIF)",
+        "En el nombre del wifi",
+        "En la batería"
+      ],
+      "correcta": 0,
+      "explicacion": "Los metadatos EXIF pueden contener datos ocultos."
+    }
+  ],
+  "final": {
+    "pregunta": "Tienes agente_secreto.png. ¿Cómo sacas el texto escondido?",
+    "opciones": [
+      "strings agente_secreto.png",
+      "ping imagen",
+      "reboot"
+    ],
+    "correcta": 0,
+    "explicacion": "strings muestra el texto oculto dentro del binario.",
+    "defensa": "Limpiar metadatos y no confiar secretos a 'ocultarlos' dentro de archivos.",
+    "flag": "stego"
+  },
+  "flag": "stego",
+  "mapa": [
+    "#####################################",
+    "#C4I...U.#C....TU.#N.N.N.N.#C.....U.#",
+    "#.....R..#........#..Ek........2.N3.#",
+    "#.R...N...E..H....#...k............P#",
+    "#PN.........1.....#kkkkkkk.#TR...R1.#",
+    "#.....R..#..g.g.......k....#.....R..#",
+    "#.S.....T#UD........3.k..UE#........#",
+    "#........#.....E..#...N.T..#...E....#",
+    "################################..###",
+    "#RMM.MMR.#.MMMMM.I#C..E..U.#C.....CI#",
+    "#...X....#1.D..2..#...P.............#",
+    "#.......T#.D.D.D.E#...H........H....#",
+    "#...GK...#.T......#........#......E.#",
+    "#........L...........g.g..2#..gTg...#",
+    "#R..P....L..............DU.#C.....U.#",
+    "#.ggggg..#........#....3...#.......R#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Esteganografía",
+    "host": "kali",
+    "user": "agente",
+    "ip": "",
+    "escenario": "🎯 Objetivo a atacar: los archivos locales del caso. Descargaste una imagen (agente_secreto.png) que esconde un mensaje de texto dentro de sus bytes. Paso 1: lista los archivos. Paso 2: saca el texto oculto con la herramienta strings.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Listar los archivos para ver la imagen",
+      "Extraer el texto oculto con strings"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Listar",
+        "h": "Lista los archivos para ver la imagen con ls."
+      },
+      {
+        "t": "Paso 3 · Extraer",
+        "h": "Saca el texto oculto de la imagen con strings."
+      }
+    ],
+    "fs": {
+      "agente_secreto.png": "(imagen binaria del agente)"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "agente_secreto.png\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "file agente_secreto.png"
+        ],
+        "salida": "agente_secreto.png\nSaca el texto oculto con:  strings agente_secreto.png",
+        "objetivo": 1,
+        "pista": "Lista los archivos:  ls"
+      },
+      {
+        "match": [
+          "strings agente_secreto.png",
+          "strings agente_secreto.png | grep flag",
+          "binwalk agente_secreto.png",
+          "exiftool agente_secreto.png",
+          "strings agente_secreto.png | grep ban"
+        ],
+        "salida": "IHDR...IDAT...IEND\nComentario oculto -> strings\n>>> La bandera es la palabra: strings",
+        "objetivo": 2,
+        "pista": "Extrae el texto oculto:  strings agente_secreto.png"
+      }
+    ],
+    "pista_final": "El comando que usaste para ver el texto oculto se llama... La bandera es: strings",
+    "flag": "strings",
+    "acepta": [
+      "strings"
+    ],
+    "monstruo": {
+      "nombre": "Imagen Poseída",
+      "color": "#ec4899",
+      "mensaje": "¡Usaste strings y sacaste el mensaje escondido en la imagen!"
+    },
+    "xp": 90,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Ataca el archivo agente_secreto.png sacando su texto oculto con strings",
+      "3) Escribe la bandera:  strings"
+    ],
+    "aprendizajes": [
+      "Qué es la esteganografía.",
+      "Inspeccionar datos ocultos en archivos.",
+      "Usar strings sobre un binario."
+    ],
+    "capacidad": "encontrar datos escondidos dentro de archivos."
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "orden": 3,
+  "titulo": "El laberinto de directorios ocultos",
+  "sector": "Sector 03 · Laberinto de Rutas",
+  "tema": "Enumeración web de directorios con Gobuster",
+  "laboratorio": "Laboratorio SQL Injection — conclusiones POST / GET / Blind",
+  "icono": "🗂️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Diferenciar las variantes de SQL Injection y su nivel de detección.",
+  "colores": {
+    "piso_a": "#3a1c33",
+    "piso_b": "#32182c"
+  },
+  "dificultad": {
+    "estrellas": 2,
+    "vida_enemigo": 1,
+    "dano": 14,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 820,
+    "dano_guardian": 21
+  },
+  "xp": {
+    "por_golpe": 16,
+    "final": 110,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás la ENUMERACIÓN WEB.",
+      "Aprenderás a descubrir páginas y carpetas que no están enlazadas, probando nombres de un diccionario con gobuster.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "ENUMERACIÓN WEB: buscar páginas y carpetas que no están enlazadas, probando nombres de un diccionario.",
+    "Enumerar directorios con gobuster:  gobuster dir -u http://10.10.10.7 -w wordlist.txt",
+    "Los que dan Status 200 existen; abre el oculto con:  curl http://10.10.10.7/gestion-interna/"
+  ],
+  "terminales": [
+    {
+      "titulo": "Comparativa de variantes",
+      "texto": "POST: oculta en el cuerpo. GET: visible en la URL y en los logs. Blind: sin errores, se deduce por respuestas o tiempos."
+    },
+    {
+      "titulo": "Alerta del SOC",
+      "texto": "Respuestas que tardan exactamente lo mismo una y otra vez pueden indicar una inyección basada en tiempo."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Sombra Booleana",
+      "color": "#8b5cf6",
+      "sprite": "sombra_booleana",
+      "frase": "No me verás venir… soy silencioso."
+    },
+    {
+      "nombre": "URL Chismosa",
+      "color": "#f97316",
+      "sprite": "url_chismosa",
+      "frase": "Verdadero o falso: vas a perder."
+    },
+    {
+      "nombre": "Formulario Fantasma",
+      "color": "#94a3b8",
+      "sprite": "formulario_fantasma",
+      "frase": "Mi URL lo cuenta todo."
+    },
+    {
+      "nombre": "Ciego del Tiempo",
+      "color": "#ef4444",
+      "sprite": "ciego_del_tiempo",
+      "frase": "No me verás venir… soy silencioso."
+    },
+    {
+      "nombre": "Retardo Sospechoso",
+      "color": "#22d3ee",
+      "sprite": "retardo_sospechoso",
+      "frase": "Verdadero o falso: vas a perder."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué hace la enumeración web?",
+      "opciones": [
+        "Descubre rutas ocultas no enlazadas",
+        "Cambia el color del sitio",
+        "Borra la base de datos"
+      ],
+      "correcta": 0,
+      "explicacion": "Enumerar es encontrar recursos que no aparecen en los enlaces."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué herramienta prueba rutas con un diccionario?",
+      "opciones": [
+        "gobuster",
+        "notepad",
+        "chrome"
+      ],
+      "correcta": 0,
+      "explicacion": "gobuster prueba muchas rutas de una wordlist."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué es una 'wordlist'?",
+      "opciones": [
+        "Un diccionario de posibles nombres de rutas",
+        "Una lista de contraseñas del wifi",
+        "Un juego"
+      ],
+      "correcta": 0,
+      "explicacion": "Es la lista de nombres que la herramienta va probando."
+    },
+    {
+      "id": "r4",
+      "pregunta": "Un directorio con Status 200 significa que…",
+      "opciones": [
+        "Existe y responde",
+        "No existe",
+        "Está prohibido"
+      ],
+      "correcta": 0,
+      "explicacion": "200 = OK: el recurso existe."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Con qué herramienta enumerarías los directorios de http://10.10.10.7?",
+    "opciones": [
+      "gobuster",
+      "ping",
+      "reboot"
+    ],
+    "correcta": 0,
+    "explicacion": "gobuster con un diccionario revela los directorios ocultos.",
+    "defensa": "No dejar paneles sensibles sin autenticación y vigilar accesos por fuerza bruta.",
+    "flag": "gobuster"
+  },
+  "flag": "gobuster",
+  "mapa": [
+    "#####################################",
+    "#PI.....2#C.....C.#.MMMMM..#U...PIC.#",
+    "#.DD.DD..#..R..............#.E3.....#",
+    "#........#...H.E...3..D.D......H....#",
+    "#........#........#D................#",
+    "#..D.DD.....g.g.E.#.......E#.4g.g...#",
+    "#.S..P..........U.#T.....T.#U.....U.#",
+    "#......P.#........#...E..1.#........#",
+    "################################LL###",
+    "############################RMM...R.#",
+    "############################...X....#",
+    "############################........#",
+    "############################...GK...#",
+    "############################........#",
+    "############################R.....RR#",
+    "############################.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Enumeración web (Gobuster)",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. Hay un directorio que no está enlazado en ninguna página; solo se encuentra PROBANDO nombres con un diccionario. Paso 1: enumera los directorios con gobuster. Paso 2: entra al que aparezca como oculto.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Enumerar los directorios del sitio con gobuster",
+      "Entrar al directorio oculto que encuentres"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Enumerar",
+        "h": "Busca directorios ocultos con gobuster y el diccionario wordlist.txt."
+      },
+      {
+        "t": "Paso 3 · Entrar",
+        "h": "Abre con curl el directorio oculto que descubriste."
+      }
+    ],
+    "fs": {
+      "wordlist.txt": "admin\nbackup\nlogin\ngestion-interna\ndev"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "wordlist.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "gobuster dir -u http://10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u http://10.10.10.7",
+          "dirb http://10.10.10.7",
+          "gobuster -u http://10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u 10.10.10.7 -w wordlist.txt",
+          "gobuster dir -u http://10.10.10.7 -w /usr/share/wordlists/dirb/common.txt"
+        ],
+        "salida": "/admin            (Status: 403)\n/login            (Status: 200)\n/gestion-interna  (Status: 200)  <-- OCULTO\nEntra con:  curl http://10.10.10.7/gestion-interna/",
+        "objetivo": 1,
+        "pista": "Enumera directorios:  gobuster dir -u (dirección atacada) -w wordlist.txt"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/gestion-interna/",
+          "curl 10.10.10.7/gestion-interna/",
+          "curl http://10.10.10.7/gestion-interna"
+        ],
+        "salida": "<h1>Gestion interna</h1>\nAcceso al panel privado detectado.\n>>> La bandera es la palabra: oculto",
+        "objetivo": 2,
+        "pista": "Abre el directorio encontrado:  curl (dirección atacada)/gestion-interna/"
+      }
+    ],
+    "pista_final": "El directorio que encontraste no estaba enlazado, estaba... La bandera es: oculto",
+    "flag": "oculto",
+    "acepta": [
+      "oculto",
+      "gestion-interna"
+    ],
+    "monstruo": {
+      "nombre": "Guardián de Puertas",
+      "color": "#f97316",
+      "mensaje": "¡Con gobuster encontraste el directorio oculto /gestion-interna/!"
+    },
+    "xp": 70,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Enumera los directorios del sitio con gobuster y el diccionario wordlist.txt",
+      "3) Entra al directorio oculto /gestion-interna/ con curl",
+      "4) Escribe la bandera:  oculto"
+    ],
+    "aprendizajes": [
+      "Qué es la enumeración web.",
+      "Usar gobuster con un diccionario.",
+      "Descubrir recursos no enlazados."
+    ],
+    "capacidad": "descubrir páginas y directorios ocultos de un sitio web."
+  }
+}

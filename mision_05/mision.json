@@ -1,0 +1,260 @@
+{
+  "orden": 5,
+  "titulo": "La galleta del administrador",
+  "sector": "Sector 05 · Sala de Sesiones",
+  "tema": "Gestión de sesiones y cookies",
+  "laboratorio": "Laboratorio XSS — DVWA y Mutillidae, nivel bajo",
+  "icono": "🍪",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Diferenciar el XSS reflejado del XSS almacenado por su impacto.",
+  "colores": {
+    "piso_a": "#143a36",
+    "piso_b": "#11322e"
+  },
+  "dificultad": {
+    "estrellas": 3,
+    "vida_enemigo": 2,
+    "dano": 18,
+    "tiempo": 35,
+    "persigue": true,
+    "radio": 3,
+    "velocidad_ms": 720,
+    "dano_guardian": 27
+  },
+  "xp": {
+    "por_golpe": 20,
+    "final": 120,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás la GESTIÓN DE SESIONES.",
+      "Aprenderás cómo tu identidad viaja en COOKIES y por qué, si el rol va sin firmar, se puede manipular con curl.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "SESIONES: tras iniciar sesión, tu identidad viaja en cookies. Si el rol va sin firmar, se puede manipular.",
+    "Ver tus cookies:  cat cookies.txt   → verás rol=invitado.",
+    "Enviar la cookie cambiada a admin:  curl -b rol=admin http://10.10.10.7/panel"
+  ],
+  "terminales": [
+    {
+      "titulo": "Libro de visitas",
+      "texto": "Los comentarios se guardaban sin escapar y se mostraban a todos: XSS almacenado."
+    },
+    {
+      "titulo": "Enlace sospechoso",
+      "texto": "El XSS reflejado viaja en la URL: solo afecta a quien abre el enlace preparado."
+    },
+    {
+      "titulo": "Plan de recuperación",
+      "texto": "Las copias de seguridad permiten restaurar el contenido limpio después de un incidente."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Eco Reflejado",
+      "color": "#22d3ee",
+      "sprite": "eco_reflejado",
+      "frase": "¡Me quedaré guardado para siempre!"
+    },
+    {
+      "nombre": "Eco Guardado",
+      "color": "#a855f7",
+      "sprite": "eco_guardado",
+      "frase": "Solo un clic en mi enlace…"
+    },
+    {
+      "nombre": "Comentario Tóxico",
+      "color": "#ef4444",
+      "sprite": "comentario_toxico",
+      "frase": "Tu navegador me obedece."
+    },
+    {
+      "nombre": "Enlace Trampa",
+      "color": "#f97316",
+      "sprite": "enlace_trampa",
+      "frase": "¡Me quedaré guardado para siempre!"
+    },
+    {
+      "nombre": "Script Errante",
+      "color": "#eab308",
+      "sprite": "script_errante",
+      "frase": "Solo un clic en mi enlace…"
+    },
+    {
+      "nombre": "Comentario Eterno",
+      "color": "#ec4899",
+      "sprite": "comentario_eterno",
+      "frase": "Tu navegador me obedece."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué es una cookie de sesión?",
+      "opciones": [
+        "Un dato que guarda tu identidad entre páginas",
+        "Un archivo de música",
+        "Un puerto abierto"
+      ],
+      "correcta": 0,
+      "explicacion": "La cookie mantiene tu sesión identificada en el sitio."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Por qué es inseguro guardar el rol en una cookie sin firmar?",
+      "opciones": [
+        "Porque el usuario puede cambiarlo a 'admin'",
+        "Porque pesa mucho",
+        "Porque es bonita"
+      ],
+      "correcta": 0,
+      "explicacion": "Si no está firmada, se puede alterar el valor del rol."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué opción de curl envía una cookie?",
+      "opciones": [
+        "-b",
+        "-rm",
+        "-9"
+      ],
+      "correcta": 0,
+      "explicacion": "curl -b envía cookies en la petición."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Cómo se protege una cookie de sesión?",
+      "opciones": [
+        "Firmándola y con flags HttpOnly/Secure",
+        "Haciéndola más larga",
+        "Borrando el servidor"
+      ],
+      "correcta": 0,
+      "explicacion": "Firmar la cookie y usar HttpOnly/Secure evita manipulación y robo."
+    }
+  ],
+  "final": {
+    "pregunta": "Tu cookie dice rol=invitado. ¿Cómo pides el panel como admin?",
+    "opciones": [
+      "curl -b rol=admin http://10.10.10.7/panel",
+      "curl -I",
+      "ping admin"
+    ],
+    "correcta": 0,
+    "explicacion": "Envías la cookie modificada con curl -b.",
+    "defensa": "Firmar las cookies en el servidor y nunca confiar el rol al cliente.",
+    "flag": "cookie"
+  },
+  "flag": "cookie",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM..#.MMMMM..#N.N.NEN.#C..4..U.#",
+    "#1................#...k....#.R...N..#",
+    "#.D.D.D....E.D.D..#...k....#.....RT.#",
+    "#.....2..#...........kkkkk.#.R...R..#",
+    "#R.......#.....E.....3k..........E.2#",
+    "#TS....T.#T..R..T.#R..k3............#",
+    "#...I....#...I....#....E.1P#........#",
+    "################################..###",
+    "###################RMM.MMR.#C.....U.#",
+    "###################...X....#........#",
+    "###################........L...H....#",
+    "###################...GK...L.......P#",
+    "###################........#..g.g...#",
+    "###################R....TR.#C..E..C.#",
+    "###################.ggggg..#...I....#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Gestión de sesiones (cookies)",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el panel de http://10.10.10.7. Entraste como invitado y tu ROL viaja en una cookie sin firmar: eso se puede manipular. Paso 1: mira tu cookie de rol. Paso 2: pide el panel enviando la cookie con rol de administrador.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Ver tu cookie de rol actual",
+      "Pedir el panel enviando la cookie como admin"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Cookies",
+        "h": "Mira tu cookie de rol: está como 'invitado'."
+      },
+      {
+        "t": "Paso 3 · Elevar",
+        "h": "Pide el panel enviando la cookie con rol=admin."
+      }
+    ],
+    "fs": {
+      "cookies.txt": "sesion=abc123\nrol=invitado   (se puede cambiar a admin)"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "cookies.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "cat cookies.txt",
+          "cat cookies"
+        ],
+        "salida": "sesion=abc123\nrol=invitado   <-- cámbialo a admin y pide el panel:\ncurl -b rol=admin http://10.10.10.7/panel",
+        "objetivo": 1,
+        "pista": "Mira tu cookie de rol:  cat cookies.txt"
+      },
+      {
+        "match": [
+          "curl -b rol=admin http://10.10.10.7/panel",
+          "curl --cookie rol=admin http://10.10.10.7/panel",
+          "curl -b 'rol=admin' http://10.10.10.7/panel",
+          "curl -b rol=admin 10.10.10.7/panel"
+        ],
+        "salida": "Panel de administrador\nRol: admin — acceso concedido\n>>> La bandera es la palabra: admin",
+        "objetivo": 2,
+        "pista": "Envía la cookie modificada:  curl -b rol=admin (dirección atacada)/panel"
+      }
+    ],
+    "pista_final": "El rol al que subiste era... La bandera es: admin",
+    "flag": "admin",
+    "acepta": [
+      "admin",
+      "administrador"
+    ],
+    "monstruo": {
+      "nombre": "Ladrón de Sesiones",
+      "color": "#38bdf8",
+      "mensaje": "¡Cambiaste la cookie de rol y entraste como administrador!"
+    },
+    "xp": 80,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Lee tu cookie de rol con  cat cookies.txt  (verás rol=invitado)",
+      "3) Ataca el /panel enviando la cookie rol=admin con curl -b",
+      "4) Escribe la bandera:  admin"
+    ],
+    "aprendizajes": [
+      "Cómo funcionan las cookies de sesión.",
+      "Por qué el rol no debe viajar sin firmar.",
+      "Elevar privilegios con una cookie (curl -b)."
+    ],
+    "capacidad": "detectar y aprovechar una gestión de sesiones insegura."
+  }
+}

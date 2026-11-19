@@ -1,0 +1,236 @@
+{
+  "orden": 2,
+  "titulo": "Las huellas públicas",
+  "sector": "Sector 02 · Sala de Rastros",
+  "tema": "Búsqueda pasiva de información (OSINT)",
+  "laboratorio": "Laboratorio SQL Injection — sección 'Errores comunes'",
+  "icono": "🔎",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar buenas prácticas para reducir el impacto de una inyección.",
+  "colores": {
+    "piso_a": "#1d2a44",
+    "piso_b": "#18233a"
+  },
+  "dificultad": {
+    "estrellas": 1,
+    "vida_enemigo": 1,
+    "dano": 12,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 880,
+    "dano_guardian": 18
+  },
+  "xp": {
+    "por_golpe": 14,
+    "final": 100,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás la BÚSQUEDA PASIVA (OSINT).",
+      "Aprenderás a recoger información que un sitio publica sin necesidad de atacarlo, usando curl para leer archivos como /robots.txt.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "BÚSQUEDA PASIVA (OSINT): sacar información sin atacar nada. Primero explora con ls qué archivos hay.",
+    "Un sitio publica pistas en /robots.txt. Entra a él desde la terminal:  curl http://10.10.10.7/robots.txt",
+    "robots.txt lista rutas 'Disallow' que el sitio NO quiere mostrar (ej. /gestion-interna/): justo las interesantes."
+  ],
+  "terminales": [
+    {
+      "titulo": "Bitácora de errores",
+      "texto": "La página mostraba el error SQL completo. Eso revelaba nombres de tablas y columnas."
+    },
+    {
+      "titulo": "Política de cuentas",
+      "texto": "La aplicación usaba la cuenta administradora de la base de datos. Corrección: una cuenta solo con los permisos necesarios."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Error 500",
+      "color": "#ef4444",
+      "sprite": "error_500",
+      "frase": "¡Mis errores lo revelan todo!"
+    },
+    {
+      "nombre": "Admin Descuidado",
+      "color": "#a855f7",
+      "sprite": "admin_descuidado",
+      "frase": "Con permisos de admin soy imparable."
+    },
+    {
+      "nombre": "Log Fugitivo",
+      "color": "#f97316",
+      "sprite": "log_fugitivo",
+      "frase": "¡Te mostraré la tabla entera!"
+    },
+    {
+      "nombre": "Traza Chismosa",
+      "color": "#eab308",
+      "sprite": "traza_chismosa",
+      "frase": "¡Mis errores lo revelan todo!"
+    },
+    {
+      "nombre": "Consulta Abierta",
+      "color": "#ec4899",
+      "sprite": "consulta_abierta",
+      "frase": "Con permisos de admin soy imparable."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué es OSINT?",
+      "opciones": [
+        "Un antivirus",
+        "Recoger información pública sin atacar",
+        "Un lenguaje de programación"
+      ],
+      "correcta": 1,
+      "explicacion": "OSINT es inteligencia de fuentes abiertas: información pública."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué archivo suele revelar rutas que el sitio no quiere mostrar?",
+      "opciones": [
+        "/robots.txt",
+        "/estilo.css",
+        "/foto.png"
+      ],
+      "correcta": 0,
+      "explicacion": "robots.txt lista rutas 'Disallow' que suelen ser las interesantes."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué comando descarga un archivo de la web desde la terminal?",
+      "opciones": [
+        "curl http://10.10.10.7/robots.txt",
+        "print robots",
+        "open web"
+      ],
+      "correcta": 0,
+      "explicacion": "curl descarga el contenido de una URL."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Por qué la búsqueda pasiva es 'silenciosa'?",
+      "opciones": [
+        "Porque no ataca ni alerta al objetivo",
+        "Porque borra registros",
+        "Porque apaga el servidor"
+      ],
+      "correcta": 0,
+      "explicacion": "Solo lees lo público; no generas ruido ni ataques."
+    }
+  ],
+  "final": {
+    "pregunta": "¿Dónde buscarías primero pistas públicas del sitio 10.10.10.7?",
+    "opciones": [
+      "En /robots.txt con curl",
+      "En el panel de admin a la fuerza",
+      "En la contraseña del wifi"
+    ],
+    "correcta": 0,
+    "explicacion": "robots.txt es la fuente pasiva más rápida.",
+    "defensa": "No poner información sensible en robots.txt ni en comentarios del HTML.",
+    "flag": "osint"
+  },
+  "flag": "osint",
+  "mapa": [
+    "#####################################",
+    "#P.......#PI......#P.......#U.....U.#",
+    "#.DD.DD.....D.DD..#.D..DD...........#",
+    "#.................#2...........H....#",
+    "#......3.#EE......#.....E..#E.......#",
+    "#..D.DD..#.DD.DD...E.D.DD..#..g.g...#",
+    "#.S......#.1...............#U.....U.#",
+    "#......P.#......P.#.I....P.#........#",
+    "################################LL###",
+    "############################RMM...R.#",
+    "############################...X....#",
+    "############################........#",
+    "############################...GK...#",
+    "############################........#",
+    "############################R.....R.#",
+    "############################.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Búsqueda pasiva (OSINT)",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. Antes de atacar, un sitio suele publicar pistas gratis. El archivo /robots.txt lista rutas que el sitio NO quiere que veas, y por eso son las más interesantes. Paso 1: descárgalo con curl. Paso 2: fíjate en la ruta oculta que revela.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Entrar al directorio /robots.txt y leer la ruta oculta"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Entrar a robots.txt",
+        "h": "Entra al archivo /robots.txt del sitio con curl y lee la ruta oculta."
+      }
+    ],
+    "fs": {
+      "objetivo.txt": "Revisar las pistas públicas del sitio:\ncurl http://10.10.10.7/robots.txt"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "objetivo.txt   robots.txt   index.html\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/robots.txt",
+          "curl 10.10.10.7/robots.txt",
+          "wget http://10.10.10.7/robots.txt",
+          "curl http://10.10.10.7/robots",
+          "curl -s http://10.10.10.7/robots.txt"
+        ],
+        "salida": "User-agent: *\nDisallow: /gestion-interna/\n# nota del agente: no indexar el panel privado\nEncontraste una ruta oculta: /gestion-interna/\n>>> La bandera es la palabra: robots",
+        "objetivo": 1,
+        "pista": "Entra al directorio /robots.txt:  curl (dirección atacada)/robots.txt"
+      }
+    ],
+    "pista_final": "El archivo que acabas de leer se llama así. La bandera es: robots",
+    "flag": "robots",
+    "acepta": [
+      "robots",
+      "robots.txt"
+    ],
+    "monstruo": {
+      "nombre": "Rastreador Fantasma",
+      "color": "#a855f7",
+      "mensaje": "¡Leíste robots.txt y descubriste la ruta oculta /gestion-interna/!"
+    },
+    "xp": 60,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Entra al directorio /robots.txt del sitio con curl",
+      "3) Escribe la bandera:  robots"
+    ],
+    "aprendizajes": [
+      "Qué es la búsqueda pasiva (OSINT).",
+      "Leer robots.txt con curl.",
+      "Encontrar rutas ocultas sin atacar."
+    ],
+    "capacidad": "recolectar información pública de un sitio antes de atacarlo."
+  }
+}

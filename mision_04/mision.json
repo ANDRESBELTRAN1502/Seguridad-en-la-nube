@@ -1,0 +1,262 @@
+{
+  "orden": 4,
+  "titulo": "El mensaje en las cabeceras",
+  "sector": "Sector 04 · Bóveda de Cabeceras",
+  "tema": "Análisis de cabeceras HTTP y Base64",
+  "laboratorio": "Laboratorios SQLMAP y Base de datos DVWA",
+  "icono": "🧾",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Reconocer cómo proteger las contraseñas almacenadas.",
+  "colores": {
+    "piso_a": "#3b3214",
+    "piso_b": "#332b11"
+  },
+  "dificultad": {
+    "estrellas": 2,
+    "vida_enemigo": 2,
+    "dano": 16,
+    "tiempo": 40,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 760,
+    "dano_guardian": 24
+  },
+  "xp": {
+    "por_golpe": 18,
+    "final": 110,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás el ANÁLISIS HTTP.",
+      "Aprenderás a leer las CABECERAS de una respuesta web con curl -I y a decodificar datos ocultos en Base64.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "CABECERAS HTTP: toda respuesta web trae cabeceras con información del servidor. A veces esconden datos.",
+    "Ver SOLO las cabeceras:  curl -I http://10.10.10.7/   (busca una cabecera X-... con un valor raro).",
+    "Si el valor parece Base64, decodifícalo:  echo YmFzZTY0 | base64 -d"
+  ],
+  "terminales": [
+    {
+      "titulo": "Informe de impacto",
+      "texto": "La herramienta automatizada enumeró bases de datos, tablas y usuarios en pocos minutos dentro del laboratorio."
+    },
+    {
+      "titulo": "Recomendación de hashing",
+      "texto": "Guardar las contraseñas con bcrypt o Argon2 y un salt único por usuario."
+    },
+    {
+      "titulo": "Riesgo de reutilización",
+      "texto": "Si alguien usa la misma contraseña en varios servicios, una sola filtración los abre todos."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Volcador",
+      "color": "#ef4444",
+      "sprite": "volcador",
+      "frase": "Ya tengo tu tabla de usuarios."
+    },
+    {
+      "nombre": "Hash Débil",
+      "color": "#eab308",
+      "sprite": "hash_debil",
+      "frase": "Tu hash es más débil que yo."
+    },
+    {
+      "nombre": "Tabla Expuesta",
+      "color": "#f97316",
+      "sprite": "tabla_expuesta",
+      "frase": "Una contraseña repetida abre todas las puertas."
+    },
+    {
+      "nombre": "Reutilizador",
+      "color": "#a855f7",
+      "sprite": "reutilizador",
+      "frase": "Ya tengo tu tabla de usuarios."
+    },
+    {
+      "nombre": "Movimiento Lateral",
+      "color": "#ec4899",
+      "sprite": "movimiento_lateral",
+      "frase": "Tu hash es más débil que yo."
+    },
+    {
+      "nombre": "Contraseña Repetida",
+      "color": "#22d3ee",
+      "sprite": "contrasena_repetida",
+      "frase": "Una contraseña repetida abre todas las puertas."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué son las cabeceras HTTP?",
+      "opciones": [
+        "Datos extra que el servidor envía con cada respuesta",
+        "El logo de la página",
+        "La contraseña del admin"
+      ],
+      "correcta": 0,
+      "explicacion": "Las cabeceras llevan metadatos de la respuesta (servidor, tipo, etc.)."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué comando muestra SOLO las cabeceras?",
+      "opciones": [
+        "curl -I http://10.10.10.7/",
+        "cat cabeceras",
+        "ls -l"
+      ],
+      "correcta": 0,
+      "explicacion": "curl -I pide únicamente las cabeceras."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué es Base64?",
+      "opciones": [
+        "Una forma de codificar datos como texto",
+        "Un virus",
+        "Un puerto"
+      ],
+      "correcta": 0,
+      "explicacion": "Base64 representa datos binarios como texto ASCII."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Qué comando decodifica Base64?",
+      "opciones": [
+        "base64 -d",
+        "unzip",
+        "sudo"
+      ],
+      "correcta": 0,
+      "explicacion": "base64 -d decodifica el texto."
+    }
+  ],
+  "final": {
+    "pregunta": "Encontraste 'YmFzZTY0' en una cabecera. ¿Cómo lo lees?",
+    "opciones": [
+      "echo YmFzZTY0 | base64 -d",
+      "lo borro",
+      "reinicio el PC"
+    ],
+    "correcta": 0,
+    "explicacion": "Se decodifica con base64 -d.",
+    "defensa": "No enviar información sensible en cabeceras ni confiar en que Base64 'oculta' algo (no cifra).",
+    "flag": "cabecera"
+  },
+  "flag": "cabecera",
+  "mapa": [
+    "#####################################",
+    "#N.N.N.NI#P....I.1#P....1..#N.N.N.N.#",
+    "#...k.......DPDD..#.D..DD......k....#",
+    "#.N.k.........E3..#...2........k....#",
+    "#kkkkkkk.#......E..E..D....#kkkkkkk.#",
+    "#...k..2.#.DD3DD.....D..D.E#E.Dk....#",
+    "#RS.k..U.#........#........#R.....U.#",
+    "#........#......P.#....I.P.#........#",
+    "##############################..#####",
+    "###################RMM.MMRR#P......T#",
+    "###################...X....#.D...D..#",
+    "###################........#........#",
+    "###################...GK...L........#",
+    "###################........L..D.DD..#",
+    "###################R.....R.#........#",
+    "###################.ggggg..#.4.E..P.#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Análisis HTTP + Base64",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el sitio http://10.10.10.7. El servidor esconde un dato en sus CABECERAS HTTP. Paso 1: mira solo las cabeceras con curl -I. Paso 2: verás una cabecera con un valor raro en Base64; decodifícalo.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Ver las cabeceras HTTP del servidor con curl -I",
+      "Decodificar el valor en Base64 que aparece"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Cabeceras",
+        "h": "Mira solo las cabeceras HTTP del servidor con curl -I."
+      },
+      {
+        "t": "Paso 3 · Decodificar",
+        "h": "El valor sospechoso está en Base64: decodifícalo con base64 -d."
+      }
+    ],
+    "fs": {
+      "nota.txt": "Mira las cabeceras:  curl -I http://10.10.10.7/\nLuego decodifica el valor raro con base64 -d"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "nota.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "curl -i http://10.10.10.7/",
+          "curl -i 10.10.10.7",
+          "curl --head http://10.10.10.7/",
+          "curl -i http://10.10.10.7"
+        ],
+        "salida": "HTTP/1.1 200 OK\nServer: Apache\nX-Powered-By: CyberAgent/1.0\nX-Agente-Flag: YmFzZTY0\nContent-Type: text/html\nDecodifica el valor:  echo YmFzZTY0 | base64 -d",
+        "objetivo": 1,
+        "pista": "Ver solo las cabeceras:  curl -I (dirección atacada)/"
+      },
+      {
+        "match": [
+          "echo ymfzzty0 | base64 -d",
+          "base64 -d",
+          "echo 'ymfzzty0' | base64 -d",
+          "echo ymfzzty0= | base64 -d",
+          "echo ymfzzty0 | base64 --decode"
+        ],
+        "salida": "base64\n>>> La bandera es la palabra: base64",
+        "objetivo": 2,
+        "pista": "Decodifica el valor:  echo YmFzZTY0 | base64 -d"
+      }
+    ],
+    "pista_final": "El valor venía codificado en... La bandera es: base64",
+    "flag": "base64",
+    "acepta": [
+      "base64"
+    ],
+    "monstruo": {
+      "nombre": "Cifra Enmascarada",
+      "color": "#eab308",
+      "mensaje": "¡Analizaste las cabeceras HTTP y decodificaste el Base64!"
+    },
+    "xp": 70,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Mira las cabeceras del sitio con curl -I",
+      "3) Decodifica el valor en Base64 con base64 -d",
+      "4) Escribe la bandera:  base64"
+    ],
+    "aprendizajes": [
+      "Analizar cabeceras HTTP con curl -I.",
+      "Reconocer datos en Base64.",
+      "Decodificar con base64 -d."
+    ],
+    "capacidad": "analizar las cabeceras HTTP y decodificar datos ocultos."
+  }
+}

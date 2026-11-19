@@ -1,0 +1,315 @@
+{
+  "orden": 10,
+  "titulo": "El núcleo del contenedor",
+  "sector": "Sector 10 · Torre de la Dirección",
+  "tema": "Linux, Docker y escalada de privilegios",
+  "laboratorio": "Todos los laboratorios — entorno aislado 192.168.56.0/24",
+  "icono": "🐳",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Aplicar los principios del hacking ético: autorización, alcance y reporte responsable.",
+  "colores": {
+    "piso_a": "#2f1a40",
+    "piso_b": "#281636"
+  },
+  "dificultad": {
+    "estrellas": 5,
+    "vida_enemigo": 3,
+    "dano": 30,
+    "tiempo": 18,
+    "persigue": true,
+    "radio": 5,
+    "velocidad_ms": 450,
+    "dano_guardian": 45
+  },
+  "xp": {
+    "por_golpe": 30,
+    "final": 140,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Ing. Esp. Fabián Gutiérrez",
+    "color": "#f59e0b",
+    "sprite": "profesor_fabian",
+    "historia": [
+      "Soy el Ing. Esp. Fabián Gutiérrez, su docente. Han llegado al último nivel, agentes.",
+      "Aquí verás LINUX y DOCKER: aprenderás a revisar permisos con sudo -l, leer archivos protegidos y encontrar secretos en las variables de un contenedor.",
+      "Demuestra todo lo aprendido en el semestre. ¡Este es el reto final!",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "ESCALADA EN LINUX: tras entrar, revisa qué permisos especiales tienes. 'sudo -l' lista lo que puedes hacer como root.",
+    "Si puedes usar cat como root, lee archivos protegidos:  sudo cat /opt/respaldo/flag.txt",
+    "En un contenedor Docker, los secretos suelen estar en variables de entorno:  env  (busca FLAG=...)."
+  ],
+  "terminales": [
+    {
+      "titulo": "Red del laboratorio",
+      "texto": "Todas las prácticas se hicieron en la red aislada 192.168.56.0/24 con máquinas propias."
+    },
+    {
+      "titulo": "Código del agente",
+      "texto": "Autorización por escrito, alcance definido, no dañar y no guardar datos de terceros."
+    },
+    {
+      "titulo": "Divulgación responsable",
+      "texto": "Si ves algo fuera de tu alcance, avisas al responsable por un canal oficial y no lo pruebas."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Tentación Ilegal",
+      "color": "#ef4444",
+      "sprite": "tentacion_ilegal",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Fuera de Alcance",
+      "color": "#f97316",
+      "sprite": "fuera_de_alcance",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Divulgador Imprudente",
+      "color": "#a855f7",
+      "sprite": "divulgador_imprudente",
+      "frase": "Publícalo y serás famoso."
+    },
+    {
+      "nombre": "Sin Autorización",
+      "color": "#ec4899",
+      "sprite": "sin_autorizacion",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Curioso Peligroso",
+      "color": "#eab308",
+      "sprite": "curioso_peligroso",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Ego Hacker",
+      "color": "#22d3ee",
+      "sprite": "ego_hacker",
+      "frase": "Publícalo y serás famoso."
+    },
+    {
+      "nombre": "Atajo Prohibido",
+      "color": "#64748b",
+      "sprite": "atajo_prohibido",
+      "frase": "Solo prueba un poquito, nadie se enterará."
+    },
+    {
+      "nombre": "Último Firewall",
+      "color": "#dc2626",
+      "sprite": "ultimo_firewall",
+      "frase": "¿Permiso? ¿Para qué?"
+    },
+    {
+      "nombre": "Atajo Oscuro",
+      "color": "#a3e635",
+      "sprite": "atajo_oscuro",
+      "frase": "Publícalo y serás famoso."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué muestra 'sudo -l'?",
+      "opciones": [
+        "Qué puedes ejecutar como root",
+        "La hora del sistema",
+        "El wifi"
+      ],
+      "correcta": 0,
+      "explicacion": "sudo -l lista los permisos que tienes como superusuario."
+    },
+    {
+      "id": "r2",
+      "pregunta": "Si puedes usar cat como root, ¿cómo lees un archivo protegido?",
+      "opciones": [
+        "sudo cat /opt/respaldo/flag.txt",
+        "rm flag.txt",
+        "ping flag"
+      ],
+      "correcta": 0,
+      "explicacion": "Aprovechas el permiso sudo sobre cat."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Dónde guardan secretos muchos contenedores Docker?",
+      "opciones": [
+        "En variables de entorno",
+        "En el teclado",
+        "En la pantalla"
+      ],
+      "correcta": 0,
+      "explicacion": "Las variables de entorno suelen contener claves y flags."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Qué comando muestra las variables de entorno?",
+      "opciones": [
+        "env",
+        "color",
+        "mute"
+      ],
+      "correcta": 0,
+      "explicacion": "env (o printenv) lista las variables del entorno."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Qué es la escalada de privilegios?",
+      "opciones": [
+        "Pasar de usuario normal a más permisos",
+        "Subir el volumen",
+        "Cambiar el fondo"
+      ],
+      "correcta": 0,
+      "explicacion": "Es obtener más permisos de los que te corresponden."
+    }
+  ],
+  "final": {
+    "pregunta": "Reto final: ¿cómo ves la variable con la bandera del contenedor?",
+    "opciones": [
+      "env",
+      "sudo reboot",
+      "ping docker"
+    ],
+    "correcta": 0,
+    "explicacion": "env revela las variables del contenedor, incluida la bandera.",
+    "defensa": "No guardar secretos en variables de entorno, limitar sudo y endurecer el contenedor.",
+    "flag": "docker"
+  },
+  "flag": "docker",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM.I#N.NIN.N.#P...R...#N.N.N.NE#",
+    "#.D...3..#P.Ek....#....DD..#D..k....#",
+    "#.D.DTD..#...k....#.N...T.E#...kP..P#",
+    "#..........Ekkkk...........#kkkkkkk.#",
+    "#............k.2.....D..D4.....k....#",
+    "#TS....T.#R..k.DU.#......3........U.#",
+    "#.....D..#.....P..#......P.#........#",
+    "###############################..####",
+    "#C.....U.#.MMMMM.R#N.N.N.N.#P....E..#",
+    "#.R.N.R..#........#...kD......D.....#",
+    "#........#.D.D.D..#..Rk.............#",
+    "#.R...R......1...P#kkkkkkk.#...1N..T#",
+    "#.RD..R........E......k....#.DD.DD..#",
+    "#.2...P.3#TP..........k.TU.#.....1..#",
+    "#.....E..#.....2..#.E......#.T..3.P.#",
+    "##..#################################",
+    "#P...I...#RMM.MMR.###################",
+    "#....DD..#...X.P..###################",
+    "#D.......L........###################",
+    "#..EP....L...GK...###################",
+    "#.DD.DD..#........###################",
+    "#.T......#RP.P..R.###################",
+    "#......P.#.ggggg..###################",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Linux y Docker (privilegios)",
+    "host": "objetivo",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el contenedor (ya estás dentro por SSH). Entraste por SSH a un contenedor. Hay que escalar y encontrar el secreto final en 3 pasos. Paso 1: mira qué puedes hacer como root (sudo -l). Paso 2: lee el respaldo protegido con ese permiso. Paso 3: revisa las variables del contenedor Docker.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Ver tus permisos con sudo -l",
+      "Leer el respaldo protegido con sudo cat",
+      "Ver las variables del contenedor con env"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Permisos",
+        "h": "Revisa qué puedes ejecutar como root con sudo -l."
+      },
+      {
+        "t": "Paso 3 · Leer",
+        "h": "Lee el respaldo protegido con sudo cat."
+      },
+      {
+        "t": "Paso 4 · Contenedor",
+        "h": "Mira las variables del contenedor Docker con env."
+      }
+    ],
+    "fs": {
+      "leeme.txt": "Pasos:\n1) sudo -l\n2) sudo cat /opt/respaldo/flag.txt\n3) env"
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "leeme.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "sudo -l",
+          "whoami"
+        ],
+        "salida": "El usuario agente puede ejecutar: (root) NOPASSWD: /bin/cat\nUsa ese permiso:  sudo cat /opt/respaldo/flag.txt",
+        "objetivo": 1,
+        "pista": "Mira tus permisos root:  sudo -l"
+      },
+      {
+        "match": [
+          "sudo cat /opt/respaldo/flag.txt",
+          "cat /opt/respaldo/flag.txt",
+          "sudo /bin/cat /opt/respaldo/flag.txt"
+        ],
+        "salida": "Respaldo leído correctamente.\nAhora mira las variables del contenedor:  env",
+        "objetivo": 2,
+        "pista": "Lee el respaldo protegido:  sudo cat /opt/respaldo/flag.txt"
+      },
+      {
+        "match": [
+          "env",
+          "env | grep flag",
+          "env | grep -i flag",
+          "printenv"
+        ],
+        "salida": "PATH=/usr/bin\nHOSTNAME=objetivo-ctf\nFLAG=contenedor\n>>> La bandera es la palabra: contenedor",
+        "objetivo": 3,
+        "pista": "Mira las variables del contenedor:  env"
+      }
+    ],
+    "pista_final": "La bandera estaba en la variable del... Docker. La bandera es: contenedor",
+    "flag": "contenedor",
+    "acepta": [
+      "contenedor",
+      "docker",
+      "container"
+    ],
+    "monstruo": {
+      "nombre": "Núcleo del Contenedor",
+      "color": "#e879f9",
+      "mensaje": "¡Combinaste Linux y Docker: sudo, el respaldo y las variables del contenedor!"
+    },
+    "xp": 110,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Mira tus permisos de root con  sudo -l",
+      "3) Lee el archivo protegido /opt/respaldo/flag.txt con sudo cat",
+      "4) Mira las variables del contenedor con  env",
+      "5) Escribe la bandera:  contenedor"
+    ],
+    "aprendizajes": [
+      "Enumerar permisos sudo en Linux.",
+      "Leer archivos protegidos por una mala configuración.",
+      "Inspeccionar variables de un contenedor Docker."
+    ],
+    "capacidad": "enumerar un sistema Linux y un contenedor Docker para encontrar secretos."
+  }
+}

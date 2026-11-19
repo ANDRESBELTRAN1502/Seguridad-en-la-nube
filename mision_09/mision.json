@@ -1,0 +1,281 @@
+{
+  "orden": 9,
+  "titulo": "El espejo del navegador",
+  "sector": "Sector 09 · Galería de Espejos",
+  "tema": "Cross-Site Scripting (XSS reflejado)",
+  "laboratorio": "Laboratorio Carga de archivos y ejecución — DVWA bajo y medio",
+  "icono": "🪞",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Identificar las medidas correctas para una carga segura de archivos.",
+  "colores": {
+    "piso_a": "#3d2610",
+    "piso_b": "#34200d"
+  },
+  "dificultad": {
+    "estrellas": 5,
+    "vida_enemigo": 3,
+    "dano": 27,
+    "tiempo": 21,
+    "persigue": true,
+    "radio": 5,
+    "velocidad_ms": 500,
+    "dano_guardian": 40
+  },
+  "xp": {
+    "por_golpe": 28,
+    "final": 140,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "En este nivel verás el XSS (Cross-Site Scripting).",
+      "Aprenderás cómo, si una web devuelve tu texto sin filtrarlo, puedes inyectar una etiqueta <script> para ejecutar código.",
+      "Recuerda cómo jugar: muévete con las FLECHAS o WASD y choca con los enemigos para combatir; cada acierto les quita vida y suelta una PISTA (un comando con ejemplo).",
+      "Ayudas: 💊 Parche (tecla 3) te cura y ⚡ Turbo (tecla 4) te acelera. La TERMINAL (💻) está a mi lado: resuélvela paso a paso para pasar de nivel."
+    ]
+  },
+  "pistas": [
+    "XSS REFLEJADO: si una web devuelve tu texto en la página sin filtrarlo, puedes inyectar código.",
+    "Prueba el buscador con texto normal:  curl http://10.10.10.7/buscar?q=hola",
+    "Inyecta una etiqueta de script:  curl http://10.10.10.7/buscar?q=<script>alert(1)</script>"
+  ],
+  "terminales": [
+    {
+      "titulo": "Nivel bajo",
+      "texto": "El servidor aceptaba cualquier archivo: confianza ciega."
+    },
+    {
+      "titulo": "Nivel medio",
+      "texto": "Solo revisaba el nombre y el tipo que mandaba el navegador, y esos datos se pueden cambiar en el camino."
+    },
+    {
+      "titulo": "Aduana segura",
+      "texto": "Lista blanca, revisar el contenido real, renombrar y guardar sin permisos de ejecución."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Archivo Disfrazado",
+      "color": "#f97316",
+      "sprite": "archivo_disfrazado",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Extensión Mentirosa",
+      "color": "#ef4444",
+      "sprite": "extension_mentirosa",
+      "frase": "Tu filtro solo lee etiquetas."
+    },
+    {
+      "nombre": "MIME Falso",
+      "color": "#a855f7",
+      "sprite": "mime_falso",
+      "frase": "Déjame entrar a la carpeta de cargas."
+    },
+    {
+      "nombre": "Shell Oculta",
+      "color": "#64748b",
+      "sprite": "shell_oculta",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Carga Ciega",
+      "color": "#eab308",
+      "sprite": "carga_ciega",
+      "frase": "Tu filtro solo lee etiquetas."
+    },
+    {
+      "nombre": "Imagen Troyana",
+      "color": "#ec4899",
+      "sprite": "imagen_troyana",
+      "frase": "Déjame entrar a la carpeta de cargas."
+    },
+    {
+      "nombre": "Cargador Infinito",
+      "color": "#22d3ee",
+      "sprite": "cargador_infinito",
+      "frase": "Soy una imagen inocente… o no."
+    },
+    {
+      "nombre": "Doble Extensión",
+      "color": "#a3e635",
+      "sprite": "doble_extension",
+      "frase": "Tu filtro solo lee etiquetas."
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Qué es un XSS reflejado?",
+      "opciones": [
+        "Inyectar código que la web devuelve sin filtrar",
+        "Un escaneo de puertos",
+        "Una cookie firmada"
+      ],
+      "correcta": 0,
+      "explicacion": "La web refleja tu entrada y ejecuta el script inyectado."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué etiqueta se inyecta típicamente?",
+      "opciones": [
+        "<script>",
+        "<tabla>",
+        "<puerto>"
+      ],
+      "correcta": 0,
+      "explicacion": "<script> permite ejecutar JavaScript en el navegador de la víctima."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Por qué ocurre el XSS?",
+      "opciones": [
+        "Porque no se filtra ni escapa la entrada del usuario",
+        "Porque el servidor es lento",
+        "Porque hay muchas imágenes"
+      ],
+      "correcta": 0,
+      "explicacion": "Reflejar la entrada sin escaparla permite inyectar código."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿Cómo se previene el XSS?",
+      "opciones": [
+        "Escapando/validando la salida y con CSP",
+        "Subiendo el brillo",
+        "Borrando cookies"
+      ],
+      "correcta": 0,
+      "explicacion": "Escapar la salida y usar Content-Security-Policy mitiga el XSS."
+    }
+  ],
+  "final": {
+    "pregunta": "El buscador refleja tu texto. ¿Qué inyectas para lograr XSS?",
+    "opciones": [
+      "<script>alert(1)</script>",
+      "una imagen",
+      "un ping"
+    ],
+    "correcta": 0,
+    "explicacion": "Una etiqueta <script> ejecuta código en el navegador.",
+    "defensa": "Escapar siempre la salida, validar la entrada y aplicar una CSP estricta.",
+    "flag": "xss"
+  },
+  "flag": "xss",
+  "mapa": [
+    "#####################################",
+    "#C.....U.#C....NUE#U.1...U.#P.......#",
+    "#.R......#.....R....2.......E.DND...#",
+    "#.R.P.N..#3R...N.....2H.............#",
+    "#.N...N..#.R1..R..#......E.#.P......#",
+    "#..D..N...........#..g.g...#.DD.D...#",
+    "#.S..........E....#U.P...C.#........#",
+    "#..I.P...#...P.T..#D......D#..D...P.#",
+    "###############################..####",
+    "#P....E..#U..RE.U.#.MMMMM..#C.P...C.#",
+    "#.DD...4......31..#.......R#........#",
+    "#.D..........H....#.D.D.D..#...H.T.D#",
+    "#.....N..#...R.....3.....E...E......#",
+    "#.DD.DD..#..g.g...............g.g...#",
+    "#........#U.....U.#TP...2T.#C.....U.#",
+    "#...T..PI#...T....#....IP..#3.......#",
+    "#####LL##############################",
+    "#RMM...R.############################",
+    "#...X....############################",
+    "#........############################",
+    "#.N.GK...############################",
+    "#.....D..############################",
+    "#R.....R.############################",
+    "#.gggggN.############################",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "XSS reflejado",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: el buscador de http://10.10.10.7. El buscador del sitio DEVUELVE en la página lo que escribas, sin filtrarlo. Eso permite inyectar código. Paso 1: prueba una búsqueda normal y mira cómo refleja tu texto. Paso 2: inyecta una etiqueta <script>.",
+    "objetivos": [
+      "Explorar: mira qué archivos hay con ls",
+      "Probar el buscador con un texto normal",
+      "Inyectar una etiqueta <script> (XSS)"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Explorar",
+        "h": "Mira qué archivos hay en el objetivo con ls (y léelos con cat <archivo>)."
+      },
+      {
+        "t": "Paso 2 · Probar",
+        "h": "Prueba el buscador y mira cómo refleja tu texto."
+      },
+      {
+        "t": "Paso 3 · Inyectar",
+        "h": "Inyecta una etiqueta <script> para ejecutar código."
+      }
+    ],
+    "fs": {
+      "nota.txt": "El buscador refleja tu texto sin filtrar.\nPrueba:  curl http://10.10.10.7/buscar?q=hola\nLuego inyecta un <script>."
+    },
+    "comandos": [
+      {
+        "match": [
+          "ls",
+          "ls -la",
+          "dir"
+        ],
+        "salida": "nota.txt\n(Para leer un archivo usa:  cat <archivo>)",
+        "objetivo": 0,
+        "pista": "Primero explora los archivos:  ls"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/buscar?q=hola",
+          "curl 'http://10.10.10.7/buscar?q=hola'",
+          "curl http://10.10.10.7/buscar?q=test",
+          "curl http://10.10.10.7/buscar?q=prueba"
+        ],
+        "salida": "No se encontro: hola\n(El buscador refleja tu texto SIN filtrar. Inyecta un <script>.)",
+        "objetivo": 1,
+        "pista": "Prueba el buscador:  curl (dirección atacada)/buscar?q=hola"
+      },
+      {
+        "match": [
+          "curl http://10.10.10.7/buscar?q=<script>alert(1)</script>",
+          "curl 'http://10.10.10.7/buscar?q=<script>alert(1)</script>'",
+          "curl http://10.10.10.7/buscar?q=<script>alert('xss')</script>"
+        ],
+        "salida": "El administrador abrió tu mensaje y el <script> se ejecutó.\n>>> La bandera es la palabra: script",
+        "objetivo": 2,
+        "pista": "Inyecta el script:  curl (dirección atacada)/buscar?q=<script>alert(1)</script>"
+      }
+    ],
+    "pista_final": "Inyectaste una etiqueta... La bandera es: script",
+    "flag": "script",
+    "acepta": [
+      "script",
+      "xss"
+    ],
+    "monstruo": {
+      "nombre": "Eco Maligno",
+      "color": "#22d3ee",
+      "mensaje": "¡Inyectaste un <script> y lograste el XSS en el navegador!"
+    },
+    "xp": 100,
+    "pasos": [
+      "1) Explora los archivos: escribe  ls",
+      "2) Prueba el buscador con curl (?q=hola) y mira cómo refleja tu texto",
+      "3) Ataca inyectando una etiqueta <script> en el buscador",
+      "4) Escribe la bandera:  script"
+    ],
+    "aprendizajes": [
+      "Qué es el XSS reflejado.",
+      "Por qué no reflejar la entrada sin filtrar.",
+      "Inyectar una etiqueta <script>."
+    ],
+    "capacidad": "detectar y aprovechar una vulnerabilidad XSS."
+  }
+}

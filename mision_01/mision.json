@@ -1,0 +1,242 @@
+{
+  "orden": 1,
+  "titulo": "La torre de los puertos",
+  "sector": "Sector 01 · Torre de Reconocimiento",
+  "tema": "Reconocimiento y escaneo de puertos con Nmap",
+  "laboratorio": "Laboratorio SQL Injection — Mutillidae, nivel bajo",
+  "icono": "🛰️",
+  "autor": "Andrés Felipe Beltrán Barrera",
+  "objetivo": "Comprender por qué concatenar la entrada del usuario dentro de una consulta SQL es peligroso.",
+  "colores": {
+    "piso_a": "#123b25",
+    "piso_b": "#0f3320"
+  },
+  "dificultad": {
+    "estrellas": 1,
+    "vida_enemigo": 1,
+    "dano": 10,
+    "tiempo": 0,
+    "persigue": false,
+    "radio": 0,
+    "velocidad_ms": 950,
+    "dano_guardian": 15
+  },
+  "xp": {
+    "por_golpe": 12,
+    "final": 100,
+    "terminal": 5
+  },
+  "guardian": {
+    "nombre": "Profesora Ada",
+    "color": "#c084fc",
+    "sprite": "profesora_ada",
+    "historia": [
+      "¡Bienvenido a CyberAgent Academy, cadete! Soy la Profesora Ada.",
+      "Antes de empezar, te explico la pantalla para que no te pierdas, cadete:",
+      "• OBJETIVOS: arriba verás tu misión. Muévete con las FLECHAS o WASD.",
+      "• ENEMIGOS: al chocar con uno empieza un COMBATE de preguntas; cada acierto le quita vida y suelta una PISTA (un comando con ejemplo).",
+      "• AYUDAS (abajo): 🛡 Escudo y 🔍 Escáner se usan en combate; 💊 Parche (tecla 3) cura; ⚡ Turbo (tecla 4) te acelera.",
+      "• TERMINAL (💻): la consola está a mi lado. Es la ÚLTIMA prueba: escribes comandos reales y, al resolverla, pasas de nivel.",
+      "• A la derecha de la terminal tienes las PISTAS: qué hacer en cada paso. Si te atascas, pulsa «Dame una pista».",
+      "En este nivel verás el RECONOCIMIENTO: el primer paso de todo hacking ético.",
+      "Aprenderás a usar nmap para descubrir qué PUERTOS están abiertos en un objetivo y qué VERSIONES de servicios corren en ellos."
+    ]
+  },
+  "pistas": [
+    "RECONOCIMIENTO: antes de atacar hay que saber qué corre en el objetivo. La herramienta es nmap (Network Mapper).",
+    "Ver los PUERTOS activos de una IP:  nmap 10.10.10.7   → lista los puertos abiertos (ej. 22 SSH, 80 HTTP, 8080).",
+    "Ver las VERSIONES de los servicios:  nmap -sV 10.10.10.7   → dice el programa y versión de cada puerto (ej. OpenSSH en el 22)."
+  ],
+  "terminales": [
+    {
+      "titulo": "Registro del laboratorio",
+      "texto": "Entorno: Mutillidae en una máquina virtual aislada. El agente creó su propio usuario de prueba antes de analizar el login."
+    },
+    {
+      "titulo": "Nota de Burp Suite",
+      "texto": "La petición de login viajaba por POST. Con el proxy se vio que el campo username llegaba sin filtros a la consulta."
+    }
+  ],
+  "enemigos": [
+    {
+      "nombre": "Bot Fuerza Bruta",
+      "color": "#ef4444",
+      "sprite": "bot_fuerza_bruta",
+      "frase": "¡Tu login no resistirá mi consulta!"
+    },
+    {
+      "nombre": "Inyector Novato",
+      "color": "#f97316",
+      "sprite": "inyector_novato",
+      "frase": "¿Parametrizar? Eso es para cobardes."
+    },
+    {
+      "nombre": "Script Kiddie",
+      "color": "#eab308",
+      "sprite": "script_kiddie",
+      "frase": "Ningún cadete me detiene."
+    },
+    {
+      "nombre": "Contraseña Débil",
+      "color": "#22d3ee",
+      "sprite": "contrasena_debil",
+      "frase": "¡Tu login no resistirá mi consulta!"
+    }
+  ],
+  "retos": [
+    {
+      "id": "r1",
+      "pregunta": "¿Para qué sirve nmap?",
+      "opciones": [
+        "Para borrar archivos",
+        "Para escanear puertos y servicios de un objetivo",
+        "Para enviar correos"
+      ],
+      "correcta": 1,
+      "explicacion": "Nmap (Network Mapper) escanea redes e identifica puertos y servicios."
+    },
+    {
+      "id": "r2",
+      "pregunta": "¿Qué comando muestra los puertos abiertos de una IP?",
+      "opciones": [
+        "nmap 10.10.10.7",
+        "rm -rf 10.10.10.7",
+        "ping -c 1 10.10.10.7"
+      ],
+      "correcta": 0,
+      "explicacion": "Un escaneo normal con nmap lista los puertos abiertos."
+    },
+    {
+      "id": "r3",
+      "pregunta": "¿Qué opción de nmap detecta la VERSIÓN de los servicios?",
+      "opciones": [
+        "-sV",
+        "-rm",
+        "-xx"
+      ],
+      "correcta": 0,
+      "explicacion": "nmap -sV identifica el programa y versión de cada puerto."
+    },
+    {
+      "id": "r4",
+      "pregunta": "¿En qué puerto suele estar el servicio SSH?",
+      "opciones": [
+        "22",
+        "443",
+        "3306"
+      ],
+      "correcta": 0,
+      "explicacion": "SSH usa por defecto el puerto 22."
+    },
+    {
+      "id": "r5",
+      "pregunta": "¿Por qué se hace reconocimiento ANTES de atacar?",
+      "opciones": [
+        "Para saber qué servicios existen y por dónde entrar",
+        "Para hacer más lento el objetivo",
+        "No sirve de nada"
+      ],
+      "correcta": 0,
+      "explicacion": "Sin reconocer, atacas a ciegas; nmap te da el mapa del objetivo."
+    }
+  ],
+  "final": {
+    "pregunta": "Como guardián, demuéstralo: ¿qué comando de nmap usarías para ver puertos Y versiones del objetivo 10.10.10.7?",
+    "opciones": [
+      "nmap -sV 10.10.10.7",
+      "cat 10.10.10.7",
+      "sudo reboot"
+    ],
+    "correcta": 0,
+    "explicacion": "nmap -sV combina el escaneo de puertos con la detección de versiones.",
+    "defensa": "Cerrar puertos que no se usan, mantener servicios actualizados y filtrar con un firewall.",
+    "flag": "nmap"
+  },
+  "flag": "nmap",
+  "mapa": [
+    "#####################################",
+    "#.MMMMM..#U.....U.#N.N.N.N.#RMM.MMR.#",
+    "#........#............kE...#...X....#",
+    "#.D.D.D...E..H........k....#........#",
+    "#.................#kkkkkkk.#...GK...#",
+    "#........#..g.g...#...E....L........#",
+    "#TS1...T.#U...2.C.#R..k..3.L......R.#",
+    "#........#..E...I.#....I...#.ggggg..#",
+    "#####################################"
+  ],
+  "consola": {
+    "categoria": "Reconocimiento con Nmap",
+    "host": "kali",
+    "user": "agente",
+    "ip": "10.10.10.7",
+    "escenario": "🎯 Objetivo a atacar: la IP 10.10.10.7. Solo conoces la IP del objetivo: 10.10.10.7. Antes de atacar hay que RECONOCER. Paso 1: averigua qué PUERTOS están activos en esa dirección. Paso 2: mira qué VERSIONES de servicios corren en ellos. La herramienta para todo esto es nmap.",
+    "objetivos": [
+      "Ver qué puertos están activos en 10.10.10.7",
+      "Ver las versiones de los servicios de esa dirección"
+    ],
+    "ayuda": [
+      {
+        "t": "Paso 1 · Puertos",
+        "h": "Averigua qué puertos están activos en la IP 10.10.10.7 con nmap (escaneo normal)."
+      },
+      {
+        "t": "Paso 2 · Versiones",
+        "h": "Mira qué versión de servicio corre en cada puerto con nmap y la opción de versión (-sV)."
+      }
+    ],
+    "fs": {
+      "notas.txt": "Solo tengo la IP 10.10.10.7.\nPaso 1 ver puertos:  nmap 10.10.10.7\nPaso 2 ver versiones: nmap -sV 10.10.10.7"
+    },
+    "comandos": [
+      {
+        "match": [
+          "nmap 10.10.10.7",
+          "nmap -p- 10.10.10.7",
+          "nmap -ss 10.10.10.7",
+          "nmap --top-ports 10 10.10.10.7",
+          "nmap -sp 10.10.10.7"
+        ],
+        "salida": "Starting Nmap...\nPORT     STATE SERVICE\n22/tcp   open  ssh\n80/tcp   open  http\n8080/tcp open  http\nNmap done. ¡3 puertos activos! Ahora mira sus versiones con: nmap -sV 10.10.10.7",
+        "objetivo": 0,
+        "pista": "Ver puertos activos de la IP:  nmap (dirección atacada)"
+      },
+      {
+        "match": [
+          "nmap -sv 10.10.10.7",
+          "nmap -a 10.10.10.7",
+          "nmap -sv -p- 10.10.10.7",
+          "nmap -sv -p22 10.10.10.7",
+          "nmap -sc -sv 10.10.10.7"
+        ],
+        "salida": "PORT     STATE SERVICE VERSION\n22/tcp   open  ssh     OpenSSH 8.9p1\n80/tcp   open  http    Apache 2.4.52\n8080/tcp open  http    Werkzeug (portal)\nServicio SSH confirmado en el puerto 22.\n>>> La bandera es la palabra: puerto22",
+        "objetivo": 1,
+        "pista": "Ver versiones de los servicios:  nmap -sV (dirección atacada)"
+      }
+    ],
+    "pista_final": "La bandera es una sola palabra: el servicio clave estaba en el puerto 22 (SSH). Escribe: puerto22",
+    "flag": "puerto22",
+    "acepta": [
+      "puerto22",
+      "puerto 22",
+      "22",
+      "ssh"
+    ],
+    "monstruo": {
+      "nombre": "Escáner Oscuro",
+      "color": "#ef4444",
+      "mensaje": "¡Usaste nmap, descubriste los puertos 22/80/8080 y sus versiones!"
+    },
+    "xp": 60,
+    "pasos": [
+      "1) Escanea los puertos del objetivo con nmap",
+      "2) Mira las versiones de los servicios (opción -sV)",
+      "3) Escribe la bandera:  puerto22"
+    ],
+    "aprendizajes": [
+      "Qué es el reconocimiento y por qué es el primer paso.",
+      "Escanear puertos con nmap.",
+      "Detectar versiones de servicios con nmap -sV."
+    ],
+    "capacidad": "escanear un objetivo e identificar sus puertos y las versiones de sus servicios."
+  }
+}
